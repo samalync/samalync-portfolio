@@ -19,4 +19,7 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    __APP_NAME__: JSON.stringify("samalync-portfolio"),
+  },
 }));
