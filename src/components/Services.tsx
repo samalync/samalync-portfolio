@@ -7,26 +7,26 @@ const Services: React.FC = () => {
     {
       icon: Smartphone,
       title: "Mobile App Development",
-      description: "Software Solutions for Enterprises",
-      details: "Cross-platform mobile applications built with cutting-edge technologies.",
+      description: "Cross-Platform Excellence",
+      details: "We build fast, scalable mobile apps using modern frameworks to bring your ideas to life.",
     },
     {
       icon: Globe,
       title: "Website Development",
-      description: "Specialized Development Teams",
-      details: "Responsive, scalable web applications tailored to your business needs.",
+      description: "Responsive Web Solutions",
+      details: "Custom websites designed for performance, flexibility, and seamless user experiences.",
     },
     {
       icon: Cpu,
       title: "Backend & APIs",
-      description: "Agility Management",
-      details: "Backend development, API development, and robust API development services.",
+      description: "Powerful System Core",
+      details: "Secure, scalable backend systems and API integrations that keep your apps running smoothly.",
     },
     {
       icon: Palette,
       title: "Graphic Design", 
-      description: "Integration and Solutions",
-      details: "Graphic design, logo design, and branding services.",
+      description: "Creative Visual Identity",
+      details: "Logos, branding, and UI designs that define your brand and elevate your digital presence.",
     },
   ];
 

@@ -1,26 +1,29 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Phone, Mail, User } from "lucide-react";
+import { Phone, Mail, User, Linkedin } from "lucide-react";
 
 const About: React.FC = () => {
   const teamMembers = [
     {
       name: "Yassin AbuArki",
-      role: "Co-Founder, CEO & Mobile Developer",
-      summary: "Yassin is a mobile developer focused on turning user needs into smooth, practical, and enjoyable app experiences. As CEO, he leads product vision and development to deliver high-quality applications that users love.",
-      avatar: "/image copy 2.png"
+      role: "Co-Founder, Team Lead & Mobile Developer",
+      summary: "Yassin is a mobile developer passionate about transforming user needs into smooth, practical, and engaging app experiences. As a Team Lead, he guides the development team, shaping product vision and ensuring the delivery of high-quality software across platforms.",
+      avatar: "/image copy 2.png",
+      linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/"
     },
     {
       name: "Mazin Magdi",
-      role: "Co-Founder, Web Developer & Graphic Designer",
-      summary: "Mazin designs intuitive user interfaces and engaging visual experiences. He leads the design process from concept to delivery, ensuring products are innovative, user-friendly, and visually consistent.",
-      avatar: "/image copy 3.png"
+      role: "Co-Founder, Product Designer & Web Developer",
+      summary: "Mazin designs intuitive user interfaces and engaging visual experiences. As a product designer he leads the design process from concept to delivery, ensuring products are innovative, user-friendly, and visually consistent.",
+      avatar: "/image copy 3.png",
+      linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw"
     },
     {
       name: "Ishimwe Isaac",
       role: "Co-Founder & Backend Developer",
-      summary: "Isaac builds and maintains robust backend systems and databases. He ensures every solution is stable, secure, and scalable, forming a strong foundation for the team’s products.",
-      avatar: "/image copy 4.png"
+      summary: "Isaac builds and maintains robust backend systems and databases. He ensures every solution is stable, secure, and scalable, forming a strong foundation for the team's products.",
+      avatar: "/image copy 4.png",
+      linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a"
     }
   ];
 
@@ -59,9 +62,14 @@ const About: React.FC = () => {
                       {member.avatar}
                     </div>
                   )}
-                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                    <User className="h-4 w-4 text-white" />
-                  </div>
+                  <a 
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+                  >
+                    <Linkedin className="h-4 w-4 text-white" />
+                  </a>
                 </div>
 
                 {/* Info */}

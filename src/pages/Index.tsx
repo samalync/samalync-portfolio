@@ -27,7 +27,7 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
       <TechBackground />
       <Header onGetOfferClick={scrollToContact} />
-      <section className="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-8 text-center">
+      <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-8 text-center">
         {/* Tech Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
           {/* Tech Grid Pattern */}
@@ -75,12 +75,11 @@ const Index = () => {
         <div className="relative z-10 max-w-5xl mx-auto px-4">
           <TextType
             text={[
-              "Welcome to SAMALYNC.",
-              "Software Solutions.",
-              "Mobile App Development.",
-              "We build apps, websites.",
-              "And designs that help..",
-              "Your business grow.",
+              "Welcome to Samalync.",
+              "We develop innovative software solutions",
+              "and mobile applications",
+              "with modern design",
+              "that help your business grow.",
             ]}
             typingSpeed={70}
             pauseDuration={1400}
@@ -90,7 +89,7 @@ const Index = () => {
             textColors={["#ffffff"]}
           />
           <p className="mt-6 text-lg md:text-xl text-white/90 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-lg">
-          At Samalync, your vision becomes powerful digital reality.
+            At Samalync, your vision becomes powerful digital reality.
           </p>
           
           {/* Start Your Project Button */}

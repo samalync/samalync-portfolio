@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Mail, Phone, MapPin, Clock } from "lucide-react";
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from '@/config/emailjs';
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +21,9 @@ const Contact: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    // Map 'title' back to 'subject' for form state
+    const fieldName = name === 'title' ? 'subject' : name;
+    setFormData(prev => ({ ...prev, [fieldName]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,20 +53,49 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('Starting email send process...');
+      console.log('EmailJS Config:', EMAILJS_CONFIG);
+      
+      // Initialize EmailJS
+      emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+      console.log('EmailJS initialized');
+      
+      // Use sendForm method which is more reliable
+      console.log('Sending email using sendForm...');
+      const result = await emailjs.sendForm(
+        EMAILJS_CONFIG.SERVICE_ID, 
+        EMAILJS_CONFIG.TEMPLATE_ID, 
+        formRef.current!,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+      
+      console.log('Email sent successfully:', result);
       
       toast({
-        title: "Success!",
+        title: "Message Sent!",
         description: "Your message has been sent successfully. We'll get back to you soon!",
       });
       
       // Reset form
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
+      console.error('EmailJS Error:', error);
+      console.error('Error details:', {
+        serviceId: EMAILJS_CONFIG.SERVICE_ID,
+        templateId: EMAILJS_CONFIG.TEMPLATE_ID,
+        publicKey: EMAILJS_CONFIG.PUBLIC_KEY,
+        formData: formData
+      });
+      
+      // Show more specific error message
+      let errorMessage = "Failed to send message. Please try again or contact us directly.";
+      if (error instanceof Error) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -119,7 +153,13 @@ const Contact: React.FC = () => {
                       </p>
                     </div>
                     
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                      {/* Hidden inputs for EmailJS template variables */}
+                      <input type="hidden" name="name" value={formData.name} />
+                      <input type="hidden" name="email" value={formData.email} />
+                      <input type="hidden" name="title" value={formData.subject} />
+                      <input type="hidden" name="message" value={formData.message} />
+                      
                       <div className="grid md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <label htmlFor="name" className="text-sm font-medium text-foreground">
@@ -158,7 +198,7 @@ const Contact: React.FC = () => {
                         </label>
                         <Input
                           id="subject"
-                          name="subject"
+                          name="title"
                           value={formData.subject}
                           onChange={handleInputChange}
                           placeholder="Project inquiry, partnership, etc."

@@ -1,31 +1,75 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, X, Github, ExternalLink as ExternalLinkIcon } from "lucide-react";
+import { X } from "lucide-react";
 
 const Portfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const projects = [
+    {
+      title: "AI Voice Healthcare Assistant",
+      type: "Healthcare AI Platform",
+      description: "AI-powered healthcare platform that provides medical consultation in Kinyarwanda and English. Patients can describe symptoms via voice or text, receive AI medical guidance, and get connected to appropriate doctors through automated SMS notifications.",
+      tech: ["Flask", "Python", "Groq API", "Firebase", "Google Translate API", "Pindo.io APIs", "HTML", "CSS", "JavaScript"],
+      image: "/AI Voice File/AI Voice.png",
+      demoUrl: "https://ai-healthcare-assistant-demo.com",
+      githubUrl: "https://github.com/samalync/ai-voice-healthcare",
+      features: [
+        "Multilingual Support (Kinyarwanda & English)",
+        "AI Medical Analysis",
+        "Smart Doctor Routing",
+        "Voice Processing",
+        "Translation Services",
+        "Data Logging",
+        "13 Medical Specialties",
+        "Text & Voice Input"
+      ]
+    },
+    {
+      title: "eHub Surveys",
+      type: "Location-Based Survey Platform",
+      description: "Developed for Zain Telecom Saudi Arabia, eHUB Surveys is a modern application designed for retail stores to collect and analyze customer feedback through customized surveys. It enables store owners to create interactive questionnaires with ease, helping them measure customer satisfaction, understand needs, and improve service quality. With its simple interface and accurate analytics, eHUB Surveys provides a powerful tool to enhance customer experience and support data-driven decision-making.",
+      tech: ["Flutter", "Dart"],
+      image: "/Ehub image profile.jpeg",
+      demoUrl: "https://ehub-surveys-demo.com",
+      githubUrl: "https://github.com/samalync/ehub-surveys",
+      features: [
+        "Store-Based Access: Users can select a store via search or interactive map",
+        "Location Verification: Surveys are only accessible when the user is inside the store's geofenced area",
+        "Auto-End on Exit: Surveys automatically close if the user leaves the store",
+        "Rich Media Responses: Support for attaching photos, videos, or documents depending on question type",
+        "Dynamic Surveys: Flexible survey formats tailored for each retail branch"
+      ]
+    },
+    {
+      title: "Smart Attendance System",
+      type: "Facial Recognition Platform",
+      description: "Smart Attendance System is a comprehensive facial recognition-based attendance platform built with Next.js (frontend) and Django REST Framework (backend). It automates attendance tracking using face recognition, ensuring accuracy, security, and reducing manual errors. The system supports real-time recognition, dashboards for students and administrators, and flexible reporting.",
+      tech: ["Next.js", "Django REST Framework", "Python", "OpenCV", "SQLite", "Tailwind CSS"],
+      image: "/Smart attendance logo.jpg",
+      demoUrl: "https://smart-attendance-demo.com",
+      githubUrl: "https://github.com/samalync/smart-attendance",
+      features: [
+        "Real-time face recognition for attendance marking",
+        "Student enrollment with face data",
+        "Attendance tracking with timestamps",
+        "Student & Admin dashboards with statistics",
+        "Data export (CSV, JSON)",
+        "Responsive web design (desktop and mobile)",
+        "API-first architecture with RESTful endpoints",
+        "Secure storage using face encodings only (not images)"
+      ]
+    },
     {
       title: "Movieex",
       type: "Online Store",
       description: "Movieex is an online store specializing in selling movies and TV series, offering a wide range of classic and contemporary titles in high quality. It allows customers to easily browse and purchase their favorite content, with secure payment options and reliable delivery service. With its simple interface and convenient design, Movieex provides a seamless shopping experience for movie and TV fans.",
-      tech: ["Flutter", "App Store", "Google Play"],
+      tech: ["Flutter", "Dart"],
       image: "/image.png",
       demoUrl: "https://movieex-demo.com",
       githubUrl: "https://github.com/samalync/movieex",
       features: ["User Authentication", "Payment Integration", "Search & Filter", "Reviews & Ratings"]
-    },
-    {
-      title: "Gangzol",
-      type: "Online Clothing Store", 
-      description: "Gangzol is an online clothing store specializing in high-quality, affordable fashion. It offers customers in Sudan a seamless online shopping experience with secure payment options and reliable delivery. With its user-friendly design and easy-to-use interface, Gangzol helps users explore the latest fashion trends and purchase products with ease.",
-      tech: ["Flutter", "App Store", "Google Play"],
-      image: "/public/image copy.png",
-      demoUrl: "https://gangzol-demo.com",
-      githubUrl: "https://github.com/samalync/gangzol",
-      features: ["Product Catalog", "Shopping Cart", "Order Tracking", "Size Guide"]
     }
   ];
 
@@ -35,6 +79,14 @@ const Portfolio: React.FC = () => {
 
   const closeModal = () => {
     setSelectedProject(null);
+  };
+
+  const closeImageModal = () => {
+    setSelectedImage(null);
+  };
+
+  const handleImageClick = (imageSrc: string) => {
+    setSelectedImage(imageSrc);
   };
 
   return (
@@ -49,14 +101,15 @@ const Portfolio: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="flex gap-6 overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
           {projects.map((project, index) => (
             <Card 
               key={index} 
-              className="group overflow-hidden card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl"
+              className="group overflow-hidden card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer flex-shrink-0 w-80"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
               }}
+              onClick={() => handleViewProject(project)}
             >
               {/* Project Image */}
               <div className="relative h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
@@ -96,14 +149,6 @@ const Portfolio: React.FC = () => {
                   ))}
                 </div>
 
-                <Button 
-                  variant="outline" 
-                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 transform group-hover:scale-105 rounded-xl"
-                  onClick={() => handleViewProject(project)}
-                >
-                  View Details
-                  <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-                </Button>
               </CardContent>
             </Card>
           ))}
@@ -116,9 +161,15 @@ const Portfolio: React.FC = () => {
 
       {/* Project Details Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={closeModal}
+        >
+          <div 
+            className="bg-background rounded-2xl max-w-6xl w-full max-h-[95vh] overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-6 overflow-y-auto flex-1">
               {/* Modal Header */}
               <div className="flex justify-between items-start mb-6">
                 <div>
@@ -138,8 +189,15 @@ const Portfolio: React.FC = () => {
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  className="w-full h-64 object-cover rounded-lg"
+                  className="w-3/4 h-80 object-cover rounded-lg mx-auto"
                 />
+              </div>
+
+              {/* Project Disclaimer */}
+              <div className="mb-6 p-4 bg-muted/50 rounded-lg border-l-4 border-primary/20">
+                <p className="text-sm text-muted-foreground italic">
+                  "This project was completed by one of our team members before the founding of Samalync, and it now forms part of our collective experience"
+                </p>
               </div>
 
               {/* Project Description */}
@@ -176,25 +234,208 @@ const Portfolio: React.FC = () => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={() => window.open(selectedProject.demoUrl, '_blank')}
-                  className="flex-1"
-                >
-                  <ExternalLinkIcon className="mr-2 h-4 w-4" />
-                  View Live Demo
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => window.open(selectedProject.githubUrl, '_blank')}
-                  className="flex-1"
-                >
-                  <Github className="mr-2 h-4 w-4" />
-                  View Source Code
-                </Button>
-              </div>
+              {/* Screenshots - Only for Smart Attendance System */}
+              {selectedProject.title === "Smart Attendance System" && (
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <img
+                      src="/Attendance system screenshots/Screenshot 2025-10-12 192515.png"
+                      alt="Smart Attendance Screenshot 1"
+                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 192515.png")}
+                    />
+                    <img
+                      src="/Attendance system screenshots/Screenshot 2025-10-12 192724.png"
+                      alt="Smart Attendance Screenshot 2"
+                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 192724.png")}
+                    />
+                    <img
+                      src="/Attendance system screenshots/Screenshot 2025-10-12 193105.png"
+                      alt="Smart Attendance Screenshot 3"
+                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 193105.png")}
+                    />
+                    <img
+                      src="/Attendance system screenshots/Screenshot 2025-10-12 193428.png"
+                      alt="Smart Attendance Screenshot 4"
+                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 193428.png")}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Role and Outcome - Only for Movieex */}
+              {selectedProject.title === "Movieex" && (
+                <div className="mb-6 space-y-4">
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-3">Role</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Mobile Developer – responsible for UI design integration, feature implementation, and app performance optimization.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-3">Outcome</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Delivered a smooth, engaging entertainment experience that simplified content access and boosted user satisfaction.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <img
+                        src="/Screenshots/1.png"
+                        alt="Movieex Screenshot 1"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/Screenshots/1.png")}
+                      />
+                      <img
+                        src="/Screenshots/2.png"
+                        alt="Movieex Screenshot 2"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/Screenshots/2.png")}
+                      />
+                      <img
+                        src="/Screenshots/3.png"
+                        alt="Movieex Screenshot 3"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/Screenshots/3.png")}
+                      />
+                      <img
+                        src="/Screenshots/4.png"
+                        alt="Movieex Screenshot 4"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/Screenshots/4.png")}
+                      />
+                      <img
+                        src="/Screenshots/5.png"
+                        alt="Movieex Screenshot 5"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/Screenshots/5.png")}
+                      />
+                      <img
+                        src="/Screenshots/6.png"
+                        alt="Movieex Screenshot 6"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/Screenshots/6.png")}
+                      />
+                      <img
+                        src="/Screenshots/7.png"
+                        alt="Movieex Screenshot 7"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/Screenshots/7.png")}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Special Section - Only for AI Voice Healthcare Assistant */}
+              {selectedProject.title === "AI Voice Healthcare Assistant" && (
+                <div className="mb-6 space-y-4">
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-3">Problem Solved</h4>
+                    <ul className="text-muted-foreground leading-relaxed space-y-1">
+                      <li>• Language barriers in healthcare</li>
+                      <li>• Limited access to medical specialists</li>
+                      <li>• Lack of preliminary medical guidance</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-3">Outcome</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Created an accessible telemedicine platform that bridges language barriers, improves medical consultation response times, and enables better healthcare delivery across Rwanda.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <img
+                        src="/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png"
+                        alt="AI Voice Healthcare Assistant Screenshot 1"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png")}
+                      />
+                      <img
+                        src="/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"
+                        alt="AI Voice Healthcare Assistant Screenshot 2"
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png")}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Role and Outcome - Only for eHub Surveys */}
+              {selectedProject.title === "eHub Surveys" && (
+                <div className="mb-6 space-y-4">
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-3">Role</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Mobile Developer – implemented geolocation features, survey logic, and multimedia submission functionalities.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-3">Outcome</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Delivered a reliable and intelligent survey platform that improved data accuracy and enhanced the feedback collection process for retail businesses.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                    <div className="flex flex-col md:flex-row gap-4 justify-start items-center">
+                      {/* Screenshot Image */}
+                      <img
+                        src="/ehub screenshot.jpeg"
+                        alt="eHub Screenshot"
+                        className="w-72 md:w-80 lg:w-80 h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick("/ehub screenshot.jpeg")}
+                      />
+                      
+                      {/* Video */}
+                      <video
+                        src="/ehub video.MP4"
+                        controls
+                        className="w-72 md:w-70 lg:w-80 h-auto rounded-lg shadow-lg object-cover"
+                        poster="/ehub screenshot.jpeg"
+                        style={{ aspectRatio: '9/16' }}
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              )}
+
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+          onClick={closeImageModal}
+        >
+          <div 
+            className="relative max-w-7xl max-h-[95vh] w-full h-full flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={closeImageModal}
+              className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-2"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <img
+              src={selectedImage}
+              alt="Expanded view"
+              className="max-w-full max-h-full object-contain rounded-lg"
+            />
           </div>
         </div>
       )}

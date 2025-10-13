@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   // Use root base on Vercel/Netlify, else use repo subpath for GitHub Pages
-  base: process.env.VERCEL || process.env.NETLIFY ? "/" : "/samalync-portfolio/",
+  base: process.env.NODE_ENV === 'development' ? "/" : (process.env.VERCEL || process.env.NETLIFY ? "/" : "/samalync-portfolio/"),
   server: {
     host: "::",
     port: 8080,
