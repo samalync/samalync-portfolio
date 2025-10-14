@@ -53,23 +53,16 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      console.log('Starting email send process...');
-      console.log('EmailJS Config:', EMAILJS_CONFIG);
-      
       // Initialize EmailJS
       emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-      console.log('EmailJS initialized');
       
       // Use sendForm method which is more reliable
-      console.log('Sending email using sendForm...');
-      const result = await emailjs.sendForm(
+      await emailjs.sendForm(
         EMAILJS_CONFIG.SERVICE_ID, 
         EMAILJS_CONFIG.TEMPLATE_ID, 
         formRef.current!,
         EMAILJS_CONFIG.PUBLIC_KEY
       );
-      
-      console.log('Email sent successfully:', result);
       
       toast({
         title: "Message Sent!",
@@ -79,23 +72,12 @@ const Contact: React.FC = () => {
       // Reset form
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      console.error('EmailJS Error:', error);
-      console.error('Error details:', {
-        serviceId: EMAILJS_CONFIG.SERVICE_ID,
-        templateId: EMAILJS_CONFIG.TEMPLATE_ID,
-        publicKey: EMAILJS_CONFIG.PUBLIC_KEY,
-        formData: formData
-      });
-      
-      // Show more specific error message
-      let errorMessage = "Failed to send message. Please try again or contact us directly.";
-      if (error instanceof Error) {
-        errorMessage = `Error: ${error.message}`;
-      }
+      // Minimal error logging without exposing sensitive details
+      console.error('Failed to send message');
       
       toast({
         title: "Error",
-        description: errorMessage,
+        description: "Failed to send message. Please try again or contact us directly.",
         variant: "destructive",
       });
     } finally {
