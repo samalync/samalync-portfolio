@@ -1,6 +1,6 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
-import { Github, Linkedin, ArrowUp } from "lucide-react";
+import { Github, Linkedin, ArrowUp, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer: React.FC = () => {
@@ -32,6 +32,7 @@ const Footer: React.FC = () => {
 
   const socialLinks = [
     { icon: Linkedin, href: "https://rw.linkedin.com/company/samalync-ltd", label: "Company LinkedIn" },
+    { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61582611531157", label: "Company Facebook" },
   ];
 
   const teamMembers = [
