@@ -43,7 +43,7 @@ const About: React.FC = () => {
   const renderMemberCard = (member: typeof teamMembers[0], index: number) => (
     <Card 
       key={index}
-      className="group card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden flex-shrink-0 w-80"
+      className="group card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden w-full"
       style={{
         animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
       }}
@@ -106,8 +106,8 @@ const About: React.FC = () => {
           </div>
         </div>
 
-        {/* Desktop: Horizontal Scroll (All Members) */}
-        <div className="hidden md:flex gap-6 overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
+        {/* Desktop: Grid Layout (3 columns) */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {teamMembers.map((member, index) => renderMemberCard(member, index))}
         </div>
 
