@@ -38,7 +38,8 @@ const Footer: React.FC = () => {
   const teamMembers = [
     { name: "Yassin Arki", role: "Co-Founder, Team Lead & Mobile Developer", linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
     { name: "Mazin Magdi", role: "Co-Founder, Product Designer & Web Developer", linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw" },
-    { name: "Ishimwe Isaac", role: "Co-Founder & Backend Developer", linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a" }
+    { name: "Ishimwe Isaac", role: "Co-Founder & Backend Developer", linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a" },
+    { name: "Mohamed Babiker", role: "Full-Stack Developer", linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/" }
   ];
 
   return (

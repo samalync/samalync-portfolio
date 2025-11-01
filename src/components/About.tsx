@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Phone, Mail, User, Linkedin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Linkedin, ChevronDown, ChevronUp } from "lucide-react";
 
 const About: React.FC = () => {
+  const [showMoreMembers, setShowMoreMembers] = useState(false);
+  
   const teamMembers = [
     {
       name: "Yassin AbuArki",
@@ -24,8 +27,69 @@ const About: React.FC = () => {
       summary: "Isaac builds and maintains robust backend systems and databases. He ensures every solution is stable, secure, and scalable, forming a strong foundation for the team's products.",
       avatar: "/image copy 4.png",
       linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a"
+    },
+    {
+      name: "Mohamed Babiker",
+      role: "Full-Stack Developer",
+      summary: "Mohamed builds responsive web and mobile applications using React, React Native, and Node.js. Skilled in TypeScript, PostgreSQL, and scalable API design, he ensures every product is efficient, secure, and production-ready.",
+      avatar: "/mohamed-babiker.jpg",
+      linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/"
     }
   ];
+
+  const firstThreeMembers = teamMembers.slice(0, 3);
+  const remainingMembers = teamMembers.slice(3);
+
+  const renderMemberCard = (member: typeof teamMembers[0], index: number) => (
+    <Card 
+      key={index}
+      className="group card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden flex-shrink-0 w-80"
+      style={{
+        animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
+      }}
+    >
+      <CardContent className="p-6 text-center space-y-6">
+        {/* Avatar or Photo */}
+        <div className="relative mx-auto flex items-center justify-center">
+          {member.avatar.startsWith("/") ? (
+            <img
+              src={member.avatar}
+              alt={member.name}
+              className="w-32 h-32 rounded-full object-cover border-2 border-primary group-hover:scale-105 transition-transform duration-300"
+            />
+          ) : (
+            <div className="w-32 h-32 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform duration-300">
+              {member.avatar}
+            </div>
+          )}
+          <a 
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+          >
+            <Linkedin className="h-4 w-4 text-white" />
+          </a>
+        </div>
+
+        {/* Info */}
+        <div className="space-y-3">
+          <div>
+            <h3 className="text-xl font-semibold text-foreground">
+              {member.name}
+            </h3>
+            <p className="text-accent font-medium">
+              {member.role}
+            </p>
+          </div>
+          
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {member.summary}
+          </p>
+        </div>
+      </CardContent>
+    </Card>
+  );
 
   return (
     <section id="about" className="py-20 bg-muted/30">
@@ -42,54 +106,144 @@ const About: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <Card 
-              key={index}
-              className="group card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden"
-            >
-              <CardContent className="p-6 text-center space-y-6">
-                {/* Avatar or Photo */}
-                <div className="relative mx-auto flex items-center justify-center">
-                  {member.avatar.startsWith("/") ? (
-                    <img
-                      src={member.avatar}
-                      alt={member.name}
-                      className="w-32 h-32 rounded-full object-cover border-2 border-primary group-hover:scale-105 transition-transform duration-300"
-                    />
-                  ) : (
-                    <div className="w-32 h-32 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform duration-300">
-                      {member.avatar}
-                    </div>
-                  )}
-                  <a 
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
-                  >
-                    <Linkedin className="h-4 w-4 text-white" />
-                  </a>
-                </div>
+        {/* Desktop: Horizontal Scroll (All Members) */}
+        <div className="hidden md:flex gap-6 overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
+          {teamMembers.map((member, index) => renderMemberCard(member, index))}
+        </div>
 
-                {/* Info */}
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="text-xl font-semibold text-foreground">
-                      {member.name}
-                    </h3>
-                    <p className="text-accent font-medium">
-                      {member.role}
+        {/* Mobile: First 3 Members - Vertical Layout */}
+        <div className="md:hidden flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
+            {firstThreeMembers.map((member, index) => (
+              <Card 
+                key={index}
+                className="group card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden w-full"
+                style={{
+                  animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
+                }}
+              >
+                <CardContent className="p-6 text-center space-y-6">
+                  {/* Avatar or Photo */}
+                  <div className="relative mx-auto flex items-center justify-center">
+                    {member.avatar.startsWith("/") ? (
+                      <img
+                        src={member.avatar}
+                        alt={member.name}
+                        className="w-32 h-32 rounded-full object-cover border-2 border-primary group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-32 h-32 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform duration-300">
+                        {member.avatar}
+                      </div>
+                    )}
+                    <a 
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+                    >
+                      <Linkedin className="h-4 w-4 text-white" />
+                    </a>
+                  </div>
+
+                  {/* Info */}
+                  <div className="space-y-3">
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground">
+                        {member.name}
+                      </h3>
+                      <p className="text-accent font-medium">
+                        {member.role}
+                      </p>
+                    </div>
+                    
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {member.summary}
                     </p>
                   </div>
-                  
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {member.summary}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* View More Members Button (Mobile Only) */}
+          {remainingMembers.length > 0 && (
+            <div className="flex justify-center mt-4">
+              <Button
+                onClick={() => setShowMoreMembers(!showMoreMembers)}
+                variant="outline"
+                className="bg-primary/10 hover:bg-primary/20 text-primary border-primary/20"
+              >
+                {showMoreMembers ? (
+                  <>
+                    <ChevronUp className="h-4 w-4 mr-2" />
+                    View Less Members
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4 mr-2" />
+                    View More Members
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
+
+          {/* Remaining Members (Mobile - Shown when button clicked) */}
+          {showMoreMembers && remainingMembers.length > 0 && (
+            <div className="flex flex-col gap-6 mt-6">
+              {remainingMembers.map((member, index) => (
+                <Card 
+                  key={index + 3}
+                  className="group card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden w-full"
+                  style={{
+                    animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
+                  }}
+                >
+                  <CardContent className="p-6 text-center space-y-6">
+                    {/* Avatar or Photo */}
+                    <div className="relative mx-auto flex items-center justify-center">
+                      {member.avatar.startsWith("/") ? (
+                        <img
+                          src={member.avatar}
+                          alt={member.name}
+                          className="w-32 h-32 rounded-full object-cover border-2 border-primary group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-32 h-32 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform duration-300">
+                          {member.avatar}
+                        </div>
+                      )}
+                      <a 
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+                      >
+                        <Linkedin className="h-4 w-4 text-white" />
+                      </a>
+                    </div>
+
+                    {/* Info */}
+                    <div className="space-y-3">
+                      <div>
+                        <h3 className="text-xl font-semibold text-foreground">
+                          {member.name}
+                        </h3>
+                        <p className="text-accent font-medium">
+                          {member.role}
+                        </p>
+                      </div>
+                      
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {member.summary}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Company Stats */}
