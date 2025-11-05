@@ -36,10 +36,10 @@ const Footer: React.FC = () => {
   ];
 
   const teamMembers = [
-    { name: "Yassin Arki", role: "Co-Founder, Team Lead & Mobile Developer", linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
-    { name: "Mazin Magdi", role: "Co-Founder, Product Designer & Web Developer", linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw" },
-    { name: "Ishimwe Isaac", role: "Co-Founder & Backend Developer", linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a" },
-    { name: "Mohamed Babiker", role: "Full-Stack Developer", linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/" }
+    { name: "Yassin Arki", role: "Chief Executive Officer (CEO)", isCoFounder: true, linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
+    { name: "Mazin Magdi", role: "Chief Growth Officer (CGO)", isCoFounder: true, linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw" },
+    { name: "Ishimwe Isaac", role: "Chief Financial Officer (CFO)", isCoFounder: true, linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a" },
+    { name: "Mohamed Babiker", role: "Full-Stack Developer", isCoFounder: false, linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/" }
   ];
 
   return (
@@ -109,7 +109,12 @@ const Footer: React.FC = () => {
               {teamMembers.map((member, index) => (
                 <div key={index} className="space-y-1">
                   <div className="text-background font-medium text-sm">{member.name}</div>
-                  <div className="text-background/70 text-xs">{member.role}</div>
+                  <div className="text-background/70 text-xs space-y-0.5">
+                    <div>{member.role}</div>
+                    {member.isCoFounder && (
+                      <div>& Co-Founder</div>
+                    )}
+                  </div>
                   <a
                     href={member.linkedin}
                     target="_blank"

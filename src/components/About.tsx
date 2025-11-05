@@ -6,29 +6,33 @@ const About: React.FC = () => {
   const teamMembers = [
     {
       name: "Yassin AbuArki",
-      role: "Co-Founder, Team Lead & Mobile Developer",
-      summary: "Yassin is a mobile developer passionate about transforming user needs into smooth, practical, and engaging app experiences. As a Team Lead, he guides the development team, shaping product vision and ensuring the delivery of high-quality software across platforms.",
+      role: "Chief Executive Officer (CEO)",
+      isCoFounder: true,
+      summary: "Yassin combines technical expertise in Flutter and React Native with executive leadership. As CEO, he drives strategic vision, oversees operations, and leads growth. Technical skills: mobile development, cross-platform. Executive skills: strategic planning, team leadership, stakeholder management.",
       avatar: "/image copy 2.png",
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/"
     },
     {
       name: "Mazin Magdi",
-      role: "Co-Founder, Product Designer & Web Developer",
-      summary: "Mazin designs intuitive user interfaces and engaging visual experiences. As a product designer he leads the design process from concept to delivery, ensuring products are innovative, user-friendly, and visually consistent.",
+      role: "Chief Growth Officer (CGO)",
+      isCoFounder: true,
+      summary: "Mazin drives business growth through strategic design and innovation. As CGO, he leads market expansion and customer acquisition. Technical skills: UI/UX design, web development. Executive skills: growth strategy, market analysis, competitive positioning.",
       avatar: "/image copy 3.png",
       linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw"
     },
     {
       name: "Ishimwe Isaac",
-      role: "Co-Founder & Backend Developer",
-      summary: "Isaac builds and maintains robust backend systems and databases. He ensures every solution is stable, secure, and scalable, forming a strong foundation for the team's products.",
+      role: "Chief Financial Officer (CFO)",
+      isCoFounder: true,
+      summary: "Isaac combines backend expertise with financial acumen. As CFO, he manages financial planning, budgeting, and resource allocation. Technical skills: backend development, database architecture, API design. Executive skills: financial forecasting, risk management, investment strategy.",
       avatar: "/image copy 4.png",
       linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a"
     },
     {
       name: "Mohamed Babiker",
       role: "Full-Stack Developer",
-      summary: "Mohamed builds responsive web and mobile applications using React, React Native, and Node.js. Skilled in TypeScript, PostgreSQL, and scalable API design, he ensures every product is efficient, secure, and production-ready.",
+      isCoFounder: false,
+      summary: "Mohamed is a versatile full-stack developer specializing in React, React Native, Node.js, TypeScript, and PostgreSQL. He builds scalable applications with expertise in RESTful API design, database optimization, and cloud deployment.",
       avatar: "/mohamed-babiker.jpg",
       linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/"
     }
@@ -72,9 +76,16 @@ const About: React.FC = () => {
             <h3 className="text-xl font-semibold text-foreground">
               {member.name}
             </h3>
-            <p className="text-accent font-medium">
-              {member.role}
-            </p>
+            <div className="space-y-1">
+              <p className="text-accent font-medium">
+                {member.role}
+              </p>
+              {member.isCoFounder && (
+                <p className="text-accent font-medium">
+                  & Co-Founder
+                </p>
+              )}
+            </div>
           </div>
           
           <p className="text-sm text-muted-foreground leading-relaxed">
