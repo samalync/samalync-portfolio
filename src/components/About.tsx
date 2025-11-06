@@ -25,7 +25,7 @@ const About: React.FC = () => {
       role: "Chief Financial Officer (CFO)",
       isCoFounder: true,
       summary: "Isaac combines backend expertise with financial acumen. As CFO, he manages financial planning, budgeting, and resource allocation. Technical skills: backend development, database architecture, API design. Executive skills: financial forecasting, risk management, investment strategy.",
-      avatar: "/image copy 4.png",
+      avatar: "/ishimwe-isaac.jpg",
       linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a"
     },
     {
@@ -35,6 +35,22 @@ const About: React.FC = () => {
       summary: "Mohamed is a versatile full-stack developer specializing in React, React Native, Node.js, TypeScript, and PostgreSQL. He builds scalable applications with expertise in RESTful API design, database optimization, and cloud deployment.",
       avatar: "/mohamed-babiker.jpg",
       linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/"
+    },
+    {
+      name: "Nancy Kwizera Teta",
+      role: "Backend and AI/ML Developer",
+      isCoFounder: false,
+      summary: "Nancy is a highly skilled backend and AI/ML developer specializing in Flask, Node.js, Python, TypeScript, JavaScript, and database management. She develops intelligent, data-driven systems with strong expertise in API design, machine learning integration, and scalable backend architecture.",
+      avatar: "/nancy-kwizera-teta.jpg",
+      linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/"
+    },
+    {
+      name: "Muhammed Salah",
+      role: "Frontend & Mobile Developer",
+      isCoFounder: false,
+      summary: "Muhammed is a dynamic frontend and mobile developer who brings digital experiences to life across web and mobile platforms. With expertise in React, HTML, CSS, and JavaScript for web development, combined with Flutter and Dart for cross-platform mobile applications, he creates seamless, responsive, and user-friendly interfaces that engage users and drive business success.",
+      avatar: "/muhammed-salah.jpg",
+      linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a"
     }
   ];
 
@@ -60,14 +76,16 @@ const About: React.FC = () => {
               {member.avatar}
             </div>
           )}
-          <a 
-            href={member.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
-          >
-            <Linkedin className="h-4 w-4 text-white" />
-          </a>
+          {member.linkedin && (
+            <a 
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+            >
+              <Linkedin className="h-4 w-4 text-white" />
+            </a>
+          )}
         </div>
 
         {/* Info */}
@@ -111,8 +129,8 @@ const About: React.FC = () => {
           </div>
         </div>
 
-        {/* Desktop: Grid Layout (3 columns) */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Desktop: Grid Layout (responsive columns) */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {teamMembers.map((member, index) => renderMemberCard(member, index))}
         </div>
 
