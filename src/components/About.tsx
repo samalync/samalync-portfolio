@@ -30,9 +30,9 @@ const About: React.FC = () => {
     },
     {
       name: "Mohamed Babiker",
-      role: "Full-Stack Developer",
+      role: "Senior Full-Stack Developer",
       isCoFounder: false,
-      summary: "Mohamed is a versatile full-stack developer specializing in React, React Native, Node.js, TypeScript, and PostgreSQL. He builds scalable applications with expertise in RESTful API design, database optimization, and cloud deployment.",
+      summary: "Mohamed is an accomplished full-stack developer specializing in React, React Native, Node.js, TypeScript, and PostgreSQL. He builds scalable applications with expertise in RESTful API design, microservices architecture, database optimization, and cloud infrastructure (AWS, Vercel, Docker). Mohamed transforms complex business requirements into elegant, maintainable code.",
       avatar: "/mohamed-babiker.jpg",
       linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/"
     },
@@ -51,6 +51,22 @@ const About: React.FC = () => {
       summary: "Muhammed is a dynamic frontend and mobile developer who brings digital experiences to life across web and mobile platforms. With expertise in React, HTML, CSS, and JavaScript for web development, combined with Flutter and Dart for cross-platform mobile applications, he creates seamless, responsive, and user-friendly interfaces that engage users and drive business success.",
       avatar: "/muhammed-salah.jpg",
       linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a"
+    },
+    {
+      name: "Kibongo Simon Peter",
+      role: "Full-Stack Developer & UI/UX Designer",
+      isCoFounder: false,
+      summary: "Kibongo specializes in crafting digital experiences that are both functional and aesthetically pleasing. With a strong foundation in UI/UX design and expertise in web development, he builds high-performance websites and mobile applications that are scalable and reliable. Technical skills: UI/UX Design (Figma, Adobe Photoshop, Adobe Illustrator), Web Development (React.js, Node.js, Express.js, Flask, TypeScript, MongoDB, MySQL, PostgreSQL), Mobile Development (React Native).",
+      avatar: "/kibongo-simon-peter.webp",
+      linkedin: "https://www.linkedin.com/in/kibongo/"
+    },
+    {
+      name: "Ishimwe Pacific",
+      role: "Frontend Developer & Graphic Designer",
+      isCoFounder: false,
+      summary: "Ishimwe Pacific is a creative frontend developer and graphic designer who combines technical expertise with artistic vision. He specializes in building modern, responsive web applications using React, Tailwind CSS, HTML, CSS, and JavaScript. With strong proficiency in Figma for UI/UX design and graphic design, he creates visually appealing interfaces that are both beautiful and functional. His skills bridge the gap between design and development, ensuring pixel-perfect implementations.",
+      avatar: "/ishimwe-paccy.jpg",
+      linkedin: "https://www.linkedin.com/in/ishimwe-pacific/"
     }
   ];
 
