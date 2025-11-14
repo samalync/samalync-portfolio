@@ -6,7 +6,7 @@ const About: React.FC = () => {
   const companyMembers = [
     {
       name: "Yassin AbuArki",
-      role: "Chief Executive Officer (CEO)",
+      role: "Chief Executive Officer (CEO) & Project Manager",
       isCoFounder: true,
       summary: "Yassin combines technical expertise in Flutter and React Native with executive leadership. As CEO, he drives strategic vision, oversees operations, and leads growth. Technical skills: mobile development, cross-platform. Executive skills: strategic planning, company leadership, stakeholder management.",
       avatar: "/image copy 2.png",
@@ -22,7 +22,7 @@ const About: React.FC = () => {
     },
     {
       name: "Ishimwe Isaac",
-      role: "Chief Financial Officer (CFO)",
+      role: "Chief Financial Officer (CFO) & Product Manager",
       isCoFounder: true,
       summary: "Isaac combines backend expertise with financial acumen. As CFO, he manages financial planning, budgeting, and resource allocation. Technical skills: backend development, database architecture, API design. Executive skills: financial forecasting, risk management, investment strategy.",
       avatar: "/ishimwe-isaac.jpg",
@@ -54,7 +54,7 @@ const About: React.FC = () => {
     },
     {
       name: "Kibongo Simon Peter",
-      role: "Full-Stack Developer & UI/UX Designer",
+      role: "Senior Full-Stack Developer & UI/UX Designer",
       isCoFounder: false,
       summary: "Kibongo specializes in crafting digital experiences that are both functional and aesthetically pleasing. With a strong foundation in UI/UX design and expertise in web development, he builds high-performance websites and mobile applications that are scalable and reliable. Technical skills: UI/UX Design (Figma, Adobe Photoshop, Adobe Illustrator), Web Development (React.js, Node.js, Express.js, Flask, TypeScript, MongoDB, MySQL, PostgreSQL), Mobile Development (React Native).",
       avatar: "/kibongo-simon-peter.webp",
@@ -111,13 +111,26 @@ const About: React.FC = () => {
               {member.name}
             </h3>
             <div className="space-y-1">
-              <p className="text-accent font-medium">
-                {member.role}
-              </p>
-              {member.isCoFounder && (
-                <p className="text-accent font-medium">
-                  & Co-Founder
-                </p>
+              {member.role.includes("&") ? (
+                <>
+                  <p className="text-accent font-medium">
+                    {member.role.split("&")[0].trim()}
+                  </p>
+                  <p className="text-accent font-medium">
+                    & {member.role.split("&")[1].trim()}{member.isCoFounder ? " & Co-Founder" : ""}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-accent font-medium">
+                    {member.role}
+                  </p>
+                  {member.isCoFounder && (
+                    <p className="text-accent font-medium">
+                      & Co-Founder
+                    </p>
+                  )}
+                </>
               )}
             </div>
           </div>
