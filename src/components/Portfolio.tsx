@@ -196,7 +196,7 @@ const Portfolio: React.FC = () => {
               {/* Project Disclaimer */}
               <div className="mb-6 p-4 bg-muted/50 rounded-lg border-l-4 border-primary/20">
                 <p className="text-sm text-muted-foreground italic">
-                  "This project was completed by one of our team members before the founding of Samalync, and it now forms part of our collective experience"
+                  "This project was completed by one of our company members before the founding of Samalync, and it now forms part of our collective experience"
                 </p>
               </div>
 

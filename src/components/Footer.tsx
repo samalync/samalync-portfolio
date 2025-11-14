@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
     { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61582611531157", label: "Company Facebook" },
   ];
 
-  const teamMembers = [
+  const companyMembers = [
     { name: "Yassin Arki", role: "Chief Executive Officer (CEO)", isCoFounder: true, linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
     { name: "Mazin Magdi", role: "Chief Growth Officer (CGO)", isCoFounder: true, linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw" },
     { name: "Ishimwe Isaac", role: "Chief Financial Officer (CFO)", isCoFounder: true, linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a" },
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-background">SAMALYNC</h3>
               <p className="text-background/80 leading-relaxed max-w-md">
-                We are an experienced team specializing in developing mobile 
+                We are an experienced company specializing in developing mobile 
                 applications, websites, and smart system solutions. We believe in 
                 innovation and deliver technological solutions that help our clients grow 
                 and achieve their goals efficiently and flexibly.
@@ -102,11 +102,11 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Team Members */}
+          {/* Company Members */}
           <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-background">Our Team</h4>
+            <h4 className="text-lg font-semibold text-background">Our Company</h4>
             <div className="space-y-4">
-              {teamMembers.map((member, index) => (
+              {companyMembers.map((member, index) => (
                 <div key={index} className="space-y-1">
                   <div className="text-background font-medium text-sm">{member.name}</div>
                   <div className="text-background/70 text-xs space-y-0.5">

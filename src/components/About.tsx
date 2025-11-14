@@ -3,12 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Linkedin } from "lucide-react";
 
 const About: React.FC = () => {
-  const teamMembers = [
+  const companyMembers = [
     {
       name: "Yassin AbuArki",
       role: "Chief Executive Officer (CEO)",
       isCoFounder: true,
-      summary: "Yassin combines technical expertise in Flutter and React Native with executive leadership. As CEO, he drives strategic vision, oversees operations, and leads growth. Technical skills: mobile development, cross-platform. Executive skills: strategic planning, team leadership, stakeholder management.",
+      summary: "Yassin combines technical expertise in Flutter and React Native with executive leadership. As CEO, he drives strategic vision, oversees operations, and leads growth. Technical skills: mobile development, cross-platform. Executive skills: strategic planning, company leadership, stakeholder management.",
       avatar: "/image copy 2.png",
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/"
     },
@@ -70,7 +70,7 @@ const About: React.FC = () => {
     }
   ];
 
-  const renderMemberCard = (member: typeof teamMembers[0], index: number) => (
+  const renderMemberCard = (member: typeof companyMembers[0], index: number) => (
     <Card 
       key={index}
       className="group card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden w-full"
@@ -139,7 +139,7 @@ const About: React.FC = () => {
           </h2>
           <div className="max-w-4xl mx-auto space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We are a team of creative developers specializing in mobile, web, Graphic Design. 
+              We are a company of creative developers specializing in mobile, web, Graphic Design. 
               We aim to provide reliable solutions to help our clients succeed.
             </p>
           </div>
@@ -147,12 +147,12 @@ const About: React.FC = () => {
 
         {/* Desktop: Grid Layout (responsive columns) */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {teamMembers.map((member, index) => renderMemberCard(member, index))}
+          {companyMembers.map((member, index) => renderMemberCard(member, index))}
         </div>
 
         {/* Mobile: All Members - Vertical Layout */}
         <div className="md:hidden flex flex-col gap-6">
-          {teamMembers.map((member, index) => renderMemberCard(member, index))}
+          {companyMembers.map((member, index) => renderMemberCard(member, index))}
         </div>
 
         {/* Company Stats */}
