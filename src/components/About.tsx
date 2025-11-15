@@ -37,6 +37,14 @@ const About: React.FC = () => {
       linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/"
     },
     {
+      name: "Kibongo Simon Peter",
+      role: "Senior Full-Stack Developer & UI/UX Designer",
+      isCoFounder: false,
+      summary: "Kibongo specializes in crafting digital experiences that are both functional and aesthetically pleasing. With expertise in UI/UX design and full-stack development, he builds high-performance websites and mobile applications that are scalable and reliable. Technical skills: UI/UX design, web development, mobile development.",
+      avatar: "/kibongo-simon-peter.webp",
+      linkedin: "https://www.linkedin.com/in/kibongo/"
+    },
+    {
       name: "Nancy Kwizera Teta",
       role: "Backend and AI/ML Developer",
       isCoFounder: false,
@@ -46,27 +54,27 @@ const About: React.FC = () => {
     },
     {
       name: "Muhammed Salah",
-      role: "Frontend & Mobile Developer",
+      role: "React Frontend Developer & Mobile Developer",
       isCoFounder: false,
       summary: "Muhammed is a dynamic frontend and mobile developer who brings digital experiences to life across web and mobile platforms. With expertise in React, HTML, CSS, and JavaScript for web development, combined with Flutter and Dart for cross-platform mobile applications, he creates seamless, responsive, and user-friendly interfaces that engage users and drive business success.",
       avatar: "/muhammed-salah.jpg",
       linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a"
     },
     {
-      name: "Kibongo Simon Peter",
-      role: "Senior Full-Stack Developer & UI/UX Designer",
-      isCoFounder: false,
-      summary: "Kibongo specializes in crafting digital experiences that are both functional and aesthetically pleasing. With a strong foundation in UI/UX design and expertise in web development, he builds high-performance websites and mobile applications that are scalable and reliable. Technical skills: UI/UX Design (Figma, Adobe Photoshop, Adobe Illustrator), Web Development (React.js, Node.js, Express.js, Flask, TypeScript, MongoDB, MySQL, PostgreSQL), Mobile Development (React Native).",
-      avatar: "/kibongo-simon-peter.webp",
-      linkedin: "https://www.linkedin.com/in/kibongo/"
-    },
-    {
       name: "Ishimwe Pacific",
-      role: "Frontend Developer & Graphic Designer",
+      role: "React Frontend Developer & Graphic Designer",
       isCoFounder: false,
-      summary: "Ishimwe Pacific is a creative frontend developer and graphic designer who combines technical expertise with artistic vision. He specializes in building modern, responsive web applications using React, Tailwind CSS, HTML, CSS, and JavaScript. With strong proficiency in Figma for UI/UX design and graphic design, he creates visually appealing interfaces that are both beautiful and functional. His skills bridge the gap between design and development, ensuring pixel-perfect implementations.",
+      summary: "Ishimwe Pacific is a creative frontend developer and graphic designer who combines technical expertise with artistic vision. He builds modern, responsive applications and creates visually appealing interfaces that are both beautiful and functional. His skills bridge the gap between design and development, ensuring pixel-perfect implementations.",
       avatar: "/ishimwe-paccy.jpg",
       linkedin: "https://www.linkedin.com/in/ishimwe-pacific/"
+    },
+    {
+      name: "Hirwa Shingiro Bertrand",
+      role: "Finances Controller",
+      isCoFounder: false,
+      summary: "Bertrand manages the company's financial operations, accounting, and financial reporting. As Controller, he ensures accurate financial records, compliance with accounting standards, and provides critical financial insights to support strategic decision-making. Skills: financial management, accounting, financial analysis, budgeting, compliance.",
+      avatar: "/hirwa-shingiro-bertrand.png",
+      linkedin: ""
     }
   ];
 
@@ -85,19 +93,25 @@ const About: React.FC = () => {
             <img
               src={member.avatar}
               alt={member.name}
-              className="w-32 h-32 rounded-full object-cover border-2 border-primary group-hover:scale-105 transition-transform duration-300"
+              className={`w-32 h-32 rounded-full border-2 border-primary group-hover:scale-105 transition-transform duration-300 ${
+                member.name === "Hirwa Shingiro Bertrand" 
+                  ? "object-cover" 
+                  : "object-cover"
+              }`}
+              style={member.name === "Hirwa Shingiro Bertrand" ? { objectPosition: "center 60%" } : undefined}
             />
           ) : (
             <div className="w-32 h-32 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform duration-300">
               {member.avatar}
             </div>
           )}
-          {member.linkedin && (
+          {(member.linkedin || member.name === "Hirwa Shingiro Bertrand") && (
             <a 
-              href={member.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={member.linkedin || "#"}
+              target={member.linkedin ? "_blank" : undefined}
+              rel={member.linkedin ? "noopener noreferrer" : undefined}
               className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+              onClick={!member.linkedin ? (e) => e.preventDefault() : undefined}
             >
               <Linkedin className="h-4 w-4 text-white" />
             </a>
@@ -113,10 +127,10 @@ const About: React.FC = () => {
             <div className="space-y-1">
               {member.role.includes("&") ? (
                 <>
-                  <p className="text-accent font-medium">
+                  <p className="text-accent font-medium whitespace-nowrap">
                     {member.role.split("&")[0].trim()}
                   </p>
-                  <p className="text-accent font-medium">
+                  <p className="text-accent font-medium whitespace-nowrap">
                     & {member.role.split("&")[1].trim()}{member.isCoFounder ? " & Co-Founder" : ""}
                   </p>
                 </>
@@ -128,7 +142,7 @@ const About: React.FC = () => {
                   {member.isCoFounder && (
                     <p className="text-accent font-medium">
                       & Co-Founder
-                    </p>
+                  </p>
                   )}
                 </>
               )}
@@ -152,8 +166,7 @@ const About: React.FC = () => {
           </h2>
           <div className="max-w-4xl mx-auto space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We are a company of creative developers specializing in mobile, web, Graphic Design. 
-              We aim to provide reliable solutions to help our clients succeed.
+              We are a software company delivering innovative mobile, web, and design solutions, backed by experienced leadership and a talented team.
             </p>
           </div>
         </div>

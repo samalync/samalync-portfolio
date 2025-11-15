@@ -52,10 +52,7 @@ const Footer: React.FC = () => {
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-background">SAMALYNC</h3>
               <p className="text-background/80 leading-relaxed max-w-md">
-                We are an experienced company specializing in developing mobile 
-                applications, websites, and smart system solutions. We believe in 
-                innovation and deliver technological solutions that help our clients grow 
-                and achieve their goals efficiently and flexibly.
+                We are a software company specializing in mobile applications, websites, and smart system solutions. Driven by innovation, we deliver technology solutions that help our clients grow and achieve their goals efficiently and flexibly.
               </p>
             </div>
             
