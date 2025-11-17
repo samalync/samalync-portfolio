@@ -78,6 +78,21 @@ const About: React.FC = () => {
     }
   ];
 
+  const formatRoleText = (member: typeof companyMembers[0]) => {
+    const roleParts = member.role.includes("&")
+      ? member.role.split("&").map((part) => part.trim()).filter(Boolean)
+      : [member.role.trim()];
+
+    const baseRole = roleParts.join(", ");
+    const hasCoFounderInRole = /co-?founder/i.test(baseRole);
+
+    if (member.isCoFounder && !hasCoFounderInRole) {
+      return `${baseRole} & Co-Founder`;
+    }
+
+    return baseRole;
+  };
+
   const renderMemberCard = (member: typeof companyMembers[0], index: number) => (
     <Card 
       key={index}
@@ -125,27 +140,9 @@ const About: React.FC = () => {
               {member.name}
             </h3>
             <div className="space-y-1">
-              {member.role.includes("&") ? (
-                <>
-                  <p className="text-accent font-medium whitespace-nowrap">
-                    {member.role.split("&")[0].trim()}
-                  </p>
-                  <p className="text-accent font-medium whitespace-nowrap">
-                    & {member.role.split("&")[1].trim()}{member.isCoFounder ? " & Co-Founder" : ""}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="text-accent font-medium">
-                    {member.role}
-                  </p>
-                  {member.isCoFounder && (
-                    <p className="text-accent font-medium">
-                      & Co-Founder
-                  </p>
-                  )}
-                </>
-              )}
+              <p className="text-accent font-medium">
+                {formatRoleText(member)}
+              </p>
             </div>
           </div>
           
