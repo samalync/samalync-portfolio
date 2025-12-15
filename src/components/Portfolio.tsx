@@ -43,25 +43,6 @@ const Portfolio: React.FC = () => {
       ]
     },
     {
-      title: "Smart Attendance System",
-      type: "Facial Recognition Platform",
-      description: "Smart Attendance System is a comprehensive facial recognition-based attendance platform built with Next.js (frontend) and Django REST Framework (backend). It automates attendance tracking using face recognition, ensuring accuracy, security, and reducing manual errors. The system supports real-time recognition, dashboards for students and administrators, and flexible reporting.",
-      tech: ["Next.js", "Django REST Framework", "Python", "OpenCV", "SQLite", "Tailwind CSS"],
-      image: "/Smart attendance logo.jpg",
-      demoUrl: "https://smart-attendance-demo.com",
-      githubUrl: "https://github.com/samalync/smart-attendance",
-      features: [
-        "Real-time face recognition for attendance marking",
-        "Student enrollment with face data",
-        "Attendance tracking with timestamps",
-        "Student & Admin dashboards with statistics",
-        "Data export (CSV, JSON)",
-        "Responsive web design (desktop and mobile)",
-        "API-first architecture with RESTful endpoints",
-        "Secure storage using face encodings only (not images)"
-      ]
-    },
-    {
       title: "Movieex",
       type: "Online Store",
       description: "Movieex is an online store specializing in selling movies and TV series, offering a wide range of classic and contemporary titles in high quality. It allows customers to easily browse and purchase their favorite content, with secure payment options and reliable delivery service. With its simple interface and convenient design, Movieex provides a seamless shopping experience for movie and TV fans.",
@@ -101,11 +82,11 @@ const Portfolio: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex gap-6 overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
+        <div className="flex justify-center gap-6 overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
           {projects.map((project, index) => (
             <Card 
               key={index} 
-              className="group overflow-hidden card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer flex-shrink-0 w-80"
+              className="group overflow-hidden card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer flex-shrink-0 w-96"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
               }}
@@ -234,38 +215,6 @@ const Portfolio: React.FC = () => {
                 </div>
               </div>
 
-              {/* Screenshots - Only for Smart Attendance System */}
-              {selectedProject.title === "Smart Attendance System" && (
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <img
-                      src="/Attendance system screenshots/Screenshot 2025-10-12 192515.png"
-                      alt="Smart Attendance Screenshot 1"
-                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 192515.png")}
-                    />
-                    <img
-                      src="/Attendance system screenshots/Screenshot 2025-10-12 192724.png"
-                      alt="Smart Attendance Screenshot 2"
-                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 192724.png")}
-                    />
-                    <img
-                      src="/Attendance system screenshots/Screenshot 2025-10-12 193105.png"
-                      alt="Smart Attendance Screenshot 3"
-                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 193105.png")}
-                    />
-                    <img
-                      src="/Attendance system screenshots/Screenshot 2025-10-12 193428.png"
-                      alt="Smart Attendance Screenshot 4"
-                      className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => handleImageClick("/Attendance system screenshots/Screenshot 2025-10-12 193428.png")}
-                    />
-                  </div>
-                </div>
-              )}
 
               {/* Role and Outcome - Only for Movieex */}
               {selectedProject.title === "Movieex" && (

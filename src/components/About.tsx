@@ -6,92 +6,65 @@ const About: React.FC = () => {
   const companyMembers = [
     {
       name: "Yassin AbuArki",
-      role: "Chief Executive Officer (CEO) & Project Manager",
+      role: "Chief Executive Officer (CEO) & Co-Founder",
       isCoFounder: true,
-      summary: "Yassin combines technical expertise in Flutter and React Native with executive leadership. As CEO, he drives strategic vision, oversees operations, and leads growth. Technical skills: mobile development, cross-platform. Executive skills: strategic planning, company leadership, stakeholder management.",
+      summary: "Yassin combines hands-on technical expertise in Flutter and React Native with executive leadership. As CEO, he defines Samalync’s strategic direction, oversees operations, and leads business growth while ensuring delivery excellence across projects. Technical expertise: Mobile and cross-platform development (Flutter, React Native). Leadership strengths: Strategic planning, project oversight, company leadership, and stakeholder management.",
       avatar: "/image copy 2.png",
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/"
     },
     {
       name: "Mazin Magdi",
-      role: "Chief Growth Officer (CGO)",
+      role: `Chief Growth & Innovation Officer, Co-Founder`,
       isCoFounder: true,
-      summary: "Mazin drives business growth through strategic design and innovation. As CGO, he leads market expansion and customer acquisition. Technical skills: UI/UX design, web development. Executive skills: growth strategy, market analysis, competitive positioning.",
+      summary: "Mazin leads Samalync’s growth & innovation services. He is responsible for market expansion, customer acquisition, and the development of AI-driven solutions. Technical skills: AI/ML, Graphic design, web development. Executive skills: growth strategy, market expansion, product innovation, competitive positioning.",
       avatar: "/image copy 3.png",
       linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw"
     },
     {
-      name: "Ishimwe Isaac",
-      role: "Chief Financial Officer (CFO) & Product Manager",
-      isCoFounder: true,
-      summary: "Isaac combines backend expertise with financial acumen. As CFO, he manages financial planning, budgeting, and resource allocation. Technical skills: backend development, database architecture, API design. Executive skills: financial forecasting, risk management, investment strategy.",
-      avatar: "/ishimwe-isaac.jpg",
-      linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a"
-    },
-    {
       name: "Mohamed Babiker",
-      role: "Senior Full-Stack Developer",
+      role: "Senior Full-Stack Engineering",
       isCoFounder: false,
-      summary: "Mohamed is an accomplished full-stack developer specializing in React, React Native, Node.js, TypeScript, and PostgreSQL. He builds scalable applications with expertise in RESTful API design, microservices architecture, database optimization, and cloud infrastructure (AWS, Vercel, Docker). Mohamed transforms complex business requirements into elegant, maintainable code.",
+      summary: "Mohamed is a senior full-stack engineering contributor with strong experience in React, React Native, Node.js, TypeScript, and PostgreSQL. He has contributed to scalable web and mobile solutions, supporting RESTful API design, microservices architecture, database optimization, and cloud infrastructure including AWS, Vercel, and Docker. Mohamed brings clarity and structure to complex technical requirements through clean, maintainable code.",
       avatar: "/mohamed-babiker.jpg",
       linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/"
     },
     {
-      name: "Kibongo Simon Peter",
-      role: "Senior Full-Stack Developer & UI/UX Designer",
-      isCoFounder: false,
-      summary: "Kibongo specializes in crafting digital experiences that are both functional and aesthetically pleasing. With expertise in UI/UX design and full-stack development, he builds high-performance websites and mobile applications that are scalable and reliable. Technical skills: UI/UX design, web development, mobile development.",
-      avatar: "/kibongo-simon-peter.webp",
-      linkedin: "https://www.linkedin.com/in/kibongo/"
-    },
-    {
-      name: "Nancy Kwizera Teta",
-      role: "Backend and AI/ML Developer",
-      isCoFounder: false,
-      summary: "Nancy is a highly skilled backend and AI/ML developer specializing in Flask, Node.js, Python, TypeScript, JavaScript, and database management. She develops intelligent, data-driven systems with strong expertise in API design, machine learning integration, and scalable backend architecture.",
-      avatar: "/nancy-kwizera-teta.jpg",
-      linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/"
-    },
-    {
       name: "Muhammed Salah",
-      role: "React Frontend Developer & Mobile Developer",
+      role: "Frontend, Mobile Development",
       isCoFounder: false,
-      summary: "Muhammed is a dynamic frontend and mobile developer who brings digital experiences to life across web and mobile platforms. With expertise in React, HTML, CSS, and JavaScript for web development, combined with Flutter and Dart for cross-platform mobile applications, he creates seamless, responsive, and user-friendly interfaces that engage users and drive business success.",
+      summary: "Muhammed is a frontend and mobile development contributor focused on building responsive and user-friendly digital experiences. He has contributed to web applications using React, HTML, CSS, and JavaScript, as well as cross-platform mobile solutions using Flutter and Dart. His work emphasizes usability, performance, and clean interface design across platforms.",
       avatar: "/muhammed-salah.jpg",
       linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a"
     },
     {
       name: "Ishimwe Pacific",
-      role: "React Frontend Developer & Graphic Designer",
+      role: "Frontend Development & Graphic Design",
       isCoFounder: false,
-      summary: "Ishimwe Pacific is a creative frontend developer and graphic designer who combines technical expertise with artistic vision. He builds modern, responsive applications and creates visually appealing interfaces that are both beautiful and functional. His skills bridge the gap between design and development, ensuring pixel-perfect implementations.",
+      summary: "Ishimwe Pacific is a frontend development and design contributor who blends technical execution with visual creativity. He has contributed to modern, responsive interfaces and design systems, helping bridge the gap between design and development. His work focuses on delivering visually consistent, functional, and well-structured user experiences.",
       avatar: "/ishimwe-paccy.jpg",
       linkedin: "https://www.linkedin.com/in/ishimwe-pacific/"
     },
     {
-      name: "Hirwa Shingiro Bertrand",
-      role: "Finances Controller",
+      name: "Nancy Kwizera Teta",
+      role: "Backend & AI/ML Engineering",
       isCoFounder: false,
-      summary: "Bertrand manages the company's financial operations, accounting, and financial reporting. As Controller, he ensures accurate financial records, compliance with accounting standards, and provides critical financial insights to support strategic decision-making. Skills: financial management, accounting, financial analysis, budgeting, compliance.",
-      avatar: "/hirwa-shingiro-bertrand.png",
-      linkedin: ""
-    }
+      summary: "Nancy is a backend and AI/ML engineering contributor with experience in Flask, Node.js, Python, TypeScript, JavaScript, and database systems. She has contributed to backend APIs and data-driven components, supporting machine learning integration and scalable backend architectures within project-based collaborations.",
+      avatar: "/nancy-kwizera-teta.jpg",
+      linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/"
+    },
+   
   ];
 
   const formatRoleText = (member: typeof companyMembers[0]) => {
-    const roleParts = member.role.includes("&")
-      ? member.role.split("&").map((part) => part.trim()).filter(Boolean)
-      : [member.role.trim()];
+  const hasCoFounderInRole = /co-?founder/i.test(member.role);
 
-    const baseRole = roleParts.join(", ");
-    const hasCoFounderInRole = /co-?founder/i.test(baseRole);
+  if (member.isCoFounder && !hasCoFounderInRole) {
+    return `${member.role} & Co-Founder`;
+  }
 
-    if (member.isCoFounder && !hasCoFounderInRole) {
-      return `${baseRole} & Co-Founder`;
-    }
+  return member.role;
+};
 
-    return baseRole;
-  };
 
   const renderMemberCard = (member: typeof companyMembers[0], index: number) => (
     <Card 
@@ -163,7 +136,7 @@ const About: React.FC = () => {
           </h2>
           <div className="max-w-4xl mx-auto space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We are a software company delivering innovative mobile, web, and design solutions, backed by experienced leadership and a talented team.
+              We are a software company delivering innovative mobile, web, and design solutions, backed by experienced leadership and a network of skilled independent contributors and collaborators.
             </p>
           </div>
         </div>

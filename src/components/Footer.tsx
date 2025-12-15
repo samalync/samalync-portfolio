@@ -37,9 +37,7 @@ const Footer: React.FC = () => {
 
   const companyMembers = [
     { name: "Yassin Arki", role: "Chief Executive Officer (CEO)", isCoFounder: true, linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
-    { name: "Mazin Magdi", role: "Chief Growth Officer (CGO)", isCoFounder: true, linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw" },
-    { name: "Ishimwe Isaac", role: "Chief Financial Officer (CFO)", isCoFounder: true, linkedin: "https://rw.linkedin.com/in/ishimwe-isaac-6062b421a" },
-    { name: "Mohamed Babiker", role: "Full-Stack Developer", isCoFounder: false, linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/" }
+    { name: "Mazin Magdi", role: "Chief Growth & Innovation Officer, Co-Founder", isCoFounder: true, linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw" },
   ];
 
   return (
