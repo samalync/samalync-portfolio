@@ -9,11 +9,18 @@ import Footer from "@/components/Footer";
 import TextType from "@/components/TextType";
 
 const Index = () => {
+  const [selectedServiceSubject, setSelectedServiceSubject] = React.useState<string>("");
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleServiceClick = (serviceTitle: string) => {
+    setSelectedServiceSubject(serviceTitle);
+    scrollToContact();
   };
 
   React.useEffect(() => {
@@ -103,10 +110,10 @@ const Index = () => {
           </div>
         </div>
       </section>
-      <Services />
+      <Services onServiceClick={handleServiceClick} />
       <Portfolio />
       <About />
-      <Contact />
+      <Contact initialSubject={selectedServiceSubject} />
       <Footer />
     </div>
   );

@@ -1,32 +1,33 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Smartphone, Globe, Cpu, Palette } from "lucide-react";
+import { Cpu, Palette, Megaphone } from "lucide-react";
 
-const Services: React.FC = () => {
+type ServicesProps = {
+  onServiceClick?: (serviceTitle: string) => void;
+};
+
+const Services: React.FC<ServicesProps> = ({ onServiceClick }) => {
   const services = [
     {
-      icon: Smartphone,
-      title: "Mobile App Development",
-      description: "Cross-Platform Excellence",
-      details: "We build fast, scalable mobile apps using modern frameworks to bring your ideas to life.",
-    },
-    {
-      icon: Globe,
-      title: "Website Development",
-      description: "Responsive Web Solutions",
-      details: "Custom websites designed for performance, flexibility, and seamless user experiences.",
-    },
-    {
       icon: Cpu,
-      title: "Backend & APIs",
-      description: "Powerful System Core",
-      details: "Secure, scalable backend systems and API integrations that keep your apps running smoothly.",
+      title: "Software Solutions",
+      description: "End-to-End Digital Systems",
+      details:
+        "We design and build complete software solutions — from high-performance mobile and web applications to secure, scalable backend systems and APIs. Our focus is delivering reliable, future-ready products that grow with your business.",
+    },
+    {
+      icon: Megaphone,
+      title: "Marketing & Brand Strategy",
+      description: "Growth-Driven Market Presence",
+      details:
+        "In collaboration with Khartoum Interfilem, we provide strategic marketing and branding services that help products reach the right audience, strengthen brand identity, and drive measurable growth across digital channels.",
     },
     {
       icon: Palette,
-      title: "Graphic Design", 
-      description: "Creative Visual Identity",
-      details: "Logos, branding, and UI designs that define your brand and elevate your digital presence.",
+      title: "Graphic Design",
+      description: "Distinct Visual Identity",
+      details:
+        "We craft logos, brand systems, and UI designs that communicate your brand’s personality, ensure visual consistency, and elevate your presence across digital platforms.",
     },
   ];
 
@@ -42,11 +43,12 @@ const Services: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           {services.map((service, index) => (
-            <Card 
-              key={index} 
-              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border-0 bg-card/80 backdrop-blur-sm"
+            <Card
+              key={index}
+              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border-0 bg-card/80 backdrop-blur-sm cursor-pointer w-full sm:w-[320px] md:w-[360px]"
+              onClick={() => onServiceClick?.(service.title)}
             >
               <CardContent className="p-8 text-center space-y-6">
                 <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

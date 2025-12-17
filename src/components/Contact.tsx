@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,16 +8,27 @@ import { Send, Mail, Phone, MapPin, Clock } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '@/config/emailjs';
 
-const Contact: React.FC = () => {
+type ContactProps = {
+  initialSubject?: string;
+};
+
+const Contact: React.FC<ContactProps> = ({ initialSubject = "" }) => {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    subject: initialSubject || "",
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Update subject when a service is selected
+  useEffect(() => {
+    if (initialSubject) {
+      setFormData(prev => ({ ...prev, subject: initialSubject }));
+    }
+  }, [initialSubject]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
