@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Services from "@/components/Services";
 import Portfolio from "@/components/Portfolio";
 import About from "@/components/About";
+import Partnerships from "@/components/Partnerships";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import TextType from "@/components/TextType";
@@ -113,6 +114,7 @@ const Index = () => {
       <Services onServiceClick={handleServiceClick} />
       <Portfolio />
       <About />
+      <Partnerships />
       <Contact initialSubject={selectedServiceSubject} />
       <Footer />
     </div>

@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-background">SAMALYNC</h3>
+              <h3 className="text-2xl font-bold text-background">SAMALYNC SOLUTIONS LTD</h3>
               <p className="text-background/80 leading-relaxed max-w-md">
                 We are a software company specializing in mobile applications, websites, and smart system solutions. Driven by innovation, we deliver technology solutions that help our clients grow and achieve their goals efficiently and flexibly.
               </p>

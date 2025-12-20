@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Cpu, Palette, Megaphone } from "lucide-react";
+import { Cpu, Palette, Megaphone, Bot } from "lucide-react";
 
 type ServicesProps = {
   onServiceClick?: (serviceTitle: string) => void;
@@ -16,18 +16,25 @@ const Services: React.FC<ServicesProps> = ({ onServiceClick }) => {
         "We design and build complete software solutions — from high-performance mobile and web applications to secure, scalable backend systems and APIs. Our focus is delivering reliable, future-ready products that grow with your business.",
     },
     {
+      icon: Bot,
+      title: "AI & Automation",
+      description: "Intelligent Workflow Solutions",
+      details:
+        "We integrate artificial intelligence and automation into your business processes to increase efficiency, reduce manual effort, and unlock new insights. From chatbots to data processing pipelines, we build smart solutions for modern challenges.",
+    },
+    {
+      icon: Palette,
+      title: "Graphic Design", 
+      description: "Distinct Visual Identity",
+      details:
+        "We craft logos, brand systems, and UI designs that communicate your brand’s personality, ensure visual consistency, and elevate your presence across digital platforms.",
+    },
+    {
       icon: Megaphone,
       title: "Marketing & Brand Strategy",
       description: "Growth-Driven Market Presence",
       details:
         "In collaboration with Khartoum Interfilem, we provide strategic marketing and branding services that help products reach the right audience, strengthen brand identity, and drive measurable growth across digital channels.",
-    },
-    {
-      icon: Palette,
-      title: "Graphic Design",
-      description: "Distinct Visual Identity",
-      details:
-        "We craft logos, brand systems, and UI designs that communicate your brand’s personality, ensure visual consistency, and elevate your presence across digital platforms.",
     },
   ];
 
@@ -43,11 +50,11 @@ const Services: React.FC<ServicesProps> = ({ onServiceClick }) => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <Card
-              key={index}
-              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border-0 bg-card/80 backdrop-blur-sm cursor-pointer w-full sm:w-[320px] md:w-[360px]"
+            <Card 
+              key={index} 
+              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border-0 bg-card/80 backdrop-blur-sm cursor-pointer w-full"
               onClick={() => onServiceClick?.(service.title)}
             >
               <CardContent className="p-8 text-center space-y-6">

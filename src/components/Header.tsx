@@ -32,6 +32,7 @@ const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
     { label: "Services", id: "services" },
     { label: "Projects", id: "portfolio" },
     { label: "About", id: "about" },
+    { label: "Partnerships", id: "partnerships" },
     { label: "Contact", id: "contact" },
   ];
 
