@@ -117,3 +117,4 @@ const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
 };
 
 export default Header;
+

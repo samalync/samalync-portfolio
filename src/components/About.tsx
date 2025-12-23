@@ -52,6 +52,15 @@ const About: React.FC = () => {
       avatar: "/nancy-kwizera-teta.jpg",
       linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/"
     },
+    {
+        name: "Ahmed Abdelhakeem",
+      role: "UI/UX Design Intern",
+      isCoFounder: false,
+      summary: "Ahmed is a UI/UX Design intern contributing to user research, prototyping, and crafting intuitive interfaces that improve user experience.",
+      avatar: "/ahmed-hakeem.png",
+      linkedin: "https://www.linkedin.com/in/ahmed-abdelhakim-mohamed-2b71073a2/",
+      behance: "https://www.behance.net/ahmedhakeem18/"
+    },
    
   ];
 
@@ -93,16 +102,30 @@ const About: React.FC = () => {
               {member.avatar}
             </div>
           )}
-          {(member.linkedin || member.name === "Hirwa Shingiro Bertrand") && (
-            <a 
-              href={member.linkedin || "#"}
-              target={member.linkedin ? "_blank" : undefined}
-              rel={member.linkedin ? "noopener noreferrer" : undefined}
-              className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
-              onClick={!member.linkedin ? (e) => e.preventDefault() : undefined}
-            >
-              <Linkedin className="h-4 w-4 text-white" />
-            </a>
+          {(member.linkedin || member.behance || member.name === "Hirwa Shingiro Bertrand") && (
+            <div className="absolute -bottom-2 -right-2 flex items-center space-x-2">
+              {member.linkedin && (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+                >
+                  <Linkedin className="h-4 w-4 text-white" />
+                </a>
+              )}
+
+              {member.behance && member.name === "Ahmed Abdelhakeem" && (
+                <a
+                  href={member.behance}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-[#1769FF] rounded-full flex items-center justify-center hover:opacity-90 transition-opacity duration-200"
+                >
+                  <span className="text-white text-sm font-semibold">B</span>
+                </a>
+              )}
+            </div>
           )}
         </div>
 
