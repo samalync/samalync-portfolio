@@ -15,3 +15,8 @@
 .text-type__cursor--hidden {
   display: none;
 }
+
+.text-type__content.bigger-text {
+  font-size: 14rem !important;
+  font-weight: 1200 !important;
+}

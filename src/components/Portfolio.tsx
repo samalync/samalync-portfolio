@@ -71,25 +71,25 @@ const Portfolio: React.FC = () => {
   };
 
   return (
-    <section id="portfolio" className="py-20">
+    <section id="portfolio" className="py-20 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+        <div className="text-center space-y-6 mb-20">
+          <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-200/20 backdrop-blur-sm">
+            <span className="text-sm font-medium text-purple-600 tracking-wide">OUR WORK</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight mb-4 pb-2">
             Projects
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
             Explore our portfolio of successful projects that showcase our expertise in mobile development, web applications, and graphic design.
           </p>
         </div>
 
         <div className="flex justify-center gap-6 overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
           {projects.map((project, index) => (
-            <Card 
-              key={index} 
-              className="group overflow-hidden card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer flex-shrink-0 w-96"
-              style={{
-                animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
-              }}
+            <Card
+              key={index}
+              className="group overflow-hidden bg-slate-100 border border-slate-300 card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer flex-shrink-0 w-96"
               onClick={() => handleViewProject(project)}
             >
               {/* Project Image */}

@@ -19,16 +19,26 @@ const Partnerships: React.FC = () => {
       details:
         "Sudan Mart is a fast and reliable delivery service for goods and food. We collaborate to build smooth ordering experiences, real-time updates, and scalable delivery operations.",
     },
+    {
+      name: "Khartoum Interfilm",
+      description: "Marketing agency",
+      coverImage: "/k.png",
+      details:
+        "Khartoum Interfilm is a creative marketing agency focused on storytelling, brand strategy, and creative campaigns across digital platforms. We partner to deliver standout marketing and visual experiences.",
+    },
   ];
 
   return (
-    <section id="partnerships" className="py-20">
+    <section id="partnerships" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+        <div className="text-center space-y-6 mb-20">
+          <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full border border-green-200/20 backdrop-blur-sm">
+            <span className="text-sm font-medium text-green-600 tracking-wide">OUR PARTNERS</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight">
             Partnerships
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 leading-relaxed font-light max-w-3xl mx-auto">
             We collaborate with innovative companies to deliver exceptional digital solutions and expand our reach across diverse markets.
           </p>
         </div>
@@ -37,12 +47,12 @@ const Partnerships: React.FC = () => {
           {partners.map((partner, index) => (
             <Card
               key={index}
-              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border-0 bg-card/80 backdrop-blur-sm w-full sm:w-[320px] md:w-[400px]"
+              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border border-gray-200 bg-gray-100 w-full sm:w-[320px] md:w-[400px]"
             >
               {/* Card header area (kept consistent so cards align) */}
               {partner.coverImage ? (
                 <div className="p-4">
-                  <div className={`w-full h-44 overflow-hidden rounded-xl ${index === 1 ? 'p-4 flex items-center justify-center bg-white' : ''}`}>
+                  <div className={`w-full h-44 overflow-hidden rounded-xl ${index === 1 ? 'p-4 flex items-center justify-center bg-transparent' : index === 0 ? 'p-4' : ''}`}>
                     <img
                       src={partner.coverImage}
                       alt={`${partner.name} cover`}
@@ -92,3 +102,5 @@ const Partnerships: React.FC = () => {
 };
 
 export default Partnerships;
+
+
