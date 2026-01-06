@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Linkedin, X } from "lucide-react";
+import { Linkedin, X, ExternalLink } from "lucide-react";
 
 const About: React.FC = () => {
   const [selectedMember, setSelectedMember] = useState<typeof companyMembers[0] | null>(null);
@@ -39,20 +39,21 @@ const About: React.FC = () => {
       linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a"
     },
     {
-      name: "Ishimwe Pacific",
-      role: "Frontend Development & Graphic Design",
-      isCoFounder: false,
-      summary: "Ishimwe Pacific is a frontend development and design contributor who blends technical execution with visual creativity. He has contributed to modern, responsive interfaces and design systems, helping bridge the gap between design and development. His work focuses on delivering visually consistent, functional, and well-structured user experiences.",
-      avatar: "/ishimwe-paccy.jpg",
-      linkedin: "https://www.linkedin.com/in/ishimwe-pacific/"
-    },
-    {
       name: "Nancy Kwizera Teta",
       role: "Backend & AI/ML Engineering",
       isCoFounder: false,
       summary: "Nancy is a backend and AI/ML engineering contributor with experience in Flask, Node.js, Python, TypeScript, JavaScript, and database systems. She has contributed to backend APIs and data-driven components, supporting machine learning integration and scalable backend architectures within project-based collaborations.",
       avatar: "/nancy-kwizera-teta.jpg",
       linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/"
+    },
+    {
+      name: "Ghufran Osama",
+      role: "Graphic Design",
+      isCoFounder: false,
+      summary: "Ghufran is a talented graphic designer who specializes in creating visually compelling designs for branding, marketing materials, and digital experiences. With a keen eye for aesthetics and a passion for visual storytelling, Ghufra brings creativity and precision to every project, ensuring that our visual communications effectively represent the Samalync brand and engage our audience.",
+      avatar: "/ghufran.png",
+      linkedin: "",
+      behance: ""
     },
     {
         name: "Ahmed Abdelhakeem",
@@ -63,7 +64,6 @@ const About: React.FC = () => {
       linkedin: "https://www.linkedin.com/in/ahmed-abdelhakim-mohamed-2b71073a2/",
       behance: "https://www.behance.net/ahmedhakeem18/"
     },
-   
   ];
 
   const formatRoleText = (member: typeof companyMembers[0]) => {
@@ -92,15 +92,15 @@ const About: React.FC = () => {
             <img
               src={member.avatar}
               alt={member.name}
-              className={`w-32 h-32 rounded-full border-2 border-primary group-hover:scale-105 transition-transform duration-300 ${
-                member.name === "Hirwa Shingiro Bertrand" 
-                  ? "object-cover" 
+              className={`w-36 h-36 rounded-full border-2 border-primary group-hover:scale-105 transition-transform duration-300 ${
+                member.name === "Hirwa Shingiro Bertrand"
+                  ? "object-cover"
                   : "object-cover"
               }`}
               style={member.name === "Hirwa Shingiro Bertrand" ? { objectPosition: "center 60%" } : undefined}
             />
           ) : (
-            <div className="w-32 h-32 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform duration-300">
+            <div className="w-36 h-36 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-2xl font-bold group-hover:scale-105 transition-transform duration-300">
               {member.avatar}
             </div>
           )}
@@ -180,6 +180,7 @@ const About: React.FC = () => {
               style={{
                 animation: `fadeInUp 0.8s ease-out ${index * 0.1}s both`
               }}
+              onClick={() => setSelectedMember(member)}
             >
               {/* Gradient overlay */}
               <div className={`absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-blue-500/5 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
@@ -195,7 +196,7 @@ const About: React.FC = () => {
                     <img
                       src={member.avatar}
                       alt={member.name}
-                      className={`w-28 h-28 rounded-full border-4 border-white shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-500 ${
+                      className={`w-36 h-36 rounded-full border-4 border-white shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-500 ${
                         member.name === "Hirwa Shingiro Bertrand"
                           ? "object-cover"
                           : "object-cover"
@@ -203,7 +204,7 @@ const About: React.FC = () => {
                       style={member.name === "Hirwa Shingiro Bertrand" ? { objectPosition: "center 60%" } : undefined}
                     />
                   ) : (
-                    <div className="w-28 h-28 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition-transform duration-500 shadow-lg group-hover:shadow-xl">
+                    <div className="w-36 h-36 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition-transform duration-500 shadow-lg group-hover:shadow-xl">
                       {member.avatar}
                     </div>
                   )}
@@ -282,6 +283,54 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Team Member Detail Modal */}
+      {selectedMember && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-[2px] flex items-center justify-center z-[100] p-4 animate-fadeIn"
+          onClick={() => setSelectedMember(null)}
+        >
+          <div
+            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-blue-200 relative animate-scaleIn z-[101]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedMember(null)}
+              className="absolute top-6 right-6 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200 shadow-md"
+            >
+              <X className="h-6 w-6 text-gray-600" />
+            </button>
+            <div className="flex flex-col items-center text-center p-10 space-y-6">
+              {selectedMember.avatar.startsWith("/") ? (
+                <img
+                  src={selectedMember.avatar}
+                  alt={selectedMember.name}
+                  className="w-48 h-48 rounded-full border-4 border-blue-400 shadow-2xl object-cover mb-2 transition-transform duration-300 hover:scale-105"
+                />
+              ) : (
+                <div className="w-48 h-48 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-5xl font-extrabold shadow-2xl mb-2">
+                  {selectedMember.avatar}
+                </div>
+              )}
+              <h2 className="text-3xl font-extrabold text-blue-900 drop-shadow-lg">{selectedMember.name}</h2>
+              <p className="text-lg text-blue-700 font-semibold mb-2">{formatRoleText(selectedMember)}</p>
+              <p className="text-gray-700 text-base leading-relaxed mb-4">{selectedMember.summary}</p>
+              <div className="flex space-x-4 justify-center mt-2">
+                {selectedMember.linkedin && (
+                  <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-all duration-300 shadow-lg">
+                    <Linkedin className="h-6 w-6 text-white" />
+                  </a>
+                )}
+                {selectedMember.behance && (
+                  <a href={selectedMember.behance} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#1769FF] rounded-full flex items-center justify-center hover:opacity-90 transition-all duration-300 shadow-lg">
+                    <span className="text-white text-lg font-semibold">B</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

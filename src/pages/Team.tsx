@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 
 const Team: React.FC = () => {
   const [selectedMember, setSelectedMember] = useState<typeof companyMembers[0] | null>(null);
+  const [enlargedPhoto, setEnlargedPhoto] = useState<string | null>(null);
 
   const companyMembers = [
     {
@@ -41,20 +42,21 @@ const Team: React.FC = () => {
       linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a"
     },
     {
-      name: "Ishimwe Pacific",
-      role: "Frontend Development & Graphic Design",
-      isCoFounder: false,
-      summary: "Ishimwe Pacific is a frontend development and design contributor who blends technical execution with visual creativity. He has contributed to modern, responsive interfaces and design systems, helping bridge the gap between design and development. His work focuses on delivering visually consistent, functional, and well-structured user experiences.",
-      avatar: "/ishimwe-paccy.jpg",
-      linkedin: "https://www.linkedin.com/in/ishimwe-pacific/"
-    },
-    {
       name: "Nancy Kwizera Teta",
       role: "Backend & AI/ML Engineering",
       isCoFounder: false,
       summary: "Nancy is a backend and AI/ML engineering contributor with experience in Flask, Node.js, Python, TypeScript, JavaScript, and database systems. She has contributed to backend APIs and data-driven components, supporting machine learning integration and scalable backend architectures within project-based collaborations.",
       avatar: "/nancy-kwizera-teta.jpg",
       linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/"
+    },
+    {
+      name: "Ghufran Osama",
+      role: "Graphic Design",
+      isCoFounder: false,
+      summary: "Ghufran is a talented graphic designer who specializes in creating visually compelling designs for branding, marketing materials, and digital experiences. With a keen eye for aesthetics and a passion for visual storytelling, Ghufra brings creativity and precision to every project, ensuring that our visual communications effectively represent the Samalync brand and engage our audience.",
+      avatar: "/ghufran.png",
+      linkedin: "",
+      behance: ""
     },
     {
       name: "Ahmed Abdelhakeem",
@@ -64,15 +66,6 @@ const Team: React.FC = () => {
       avatar: "/ahmed-hakeem.png",
       linkedin: "https://www.linkedin.com/in/ahmed-abdelhakim-mohamed-2b71073a2/",
       behance: "https://www.behance.net/ahmedhakeem18/"
-    },
-    {
-      name: "Ghufran Osama",
-      role: "Graphic Design",
-      isCoFounder: false,
-      summary: "Ghufran is a talented graphic designer who specializes in creating visually compelling designs for branding, marketing materials, and digital experiences. With a keen eye for aesthetics and a passion for visual storytelling, Ghufra brings creativity and precision to every project, ensuring that our visual communications effectively represent the Samalync brand and engage our audience.",
-      avatar: "Go",
-      linkedin: "",
-      behance: ""
     },
   ];
 
@@ -135,7 +128,7 @@ const Team: React.FC = () => {
                       <img
                         src={member.avatar}
                         alt={member.name}
-                        className={`w-28 h-28 rounded-full border-4 border-white shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-500 ${
+                        className={`w-36 h-36 rounded-full border-4 border-white shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-500 ${
                           member.name === "Hirwa Shingiro Bertrand"
                             ? "object-cover"
                             : "object-cover"
@@ -143,7 +136,7 @@ const Team: React.FC = () => {
                         style={member.name === "Hirwa Shingiro Bertrand" ? { objectPosition: "center 60%" } : undefined}
                       />
                     ) : (
-                      <div className="w-28 h-28 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition-transform duration-500 shadow-lg group-hover:shadow-xl">
+                      <div className="w-36 h-36 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition-transform duration-500 shadow-lg group-hover:shadow-xl">
                         {member.avatar}
                       </div>
                     )}
@@ -231,11 +224,11 @@ const Team: React.FC = () => {
       {/* Team Member Detail Modal */}
       {selectedMember && (
         <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-[2px] flex items-center justify-center z-50 p-4 animate-fadeIn"
+          className="fixed inset-0 bg-black/80 backdrop-blur-[2px] flex items-center justify-center z-[100] p-4 animate-fadeIn"
           onClick={() => setSelectedMember(null)}
         >
           <div
-            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-blue-200 relative animate-scaleIn"
+            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-blue-200 relative animate-scaleIn z-[101]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -246,13 +239,21 @@ const Team: React.FC = () => {
             </button>
             <div className="flex flex-col items-center text-center p-10 space-y-6">
               {selectedMember.avatar.startsWith("/") ? (
-                <img
-                  src={selectedMember.avatar}
-                  alt={selectedMember.name}
-                  className="w-40 h-40 rounded-full border-4 border-blue-400 shadow-2xl object-cover mb-2"
-                />
+                <div
+                  className="relative group cursor-pointer"
+                  onClick={() => setEnlargedPhoto(selectedMember.avatar)}
+                >
+                  <img
+                    src={selectedMember.avatar}
+                    alt={selectedMember.name}
+                    className="w-48 h-48 rounded-full border-4 border-blue-400 shadow-2xl object-cover mb-2 transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-cyan-400/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-blue-600 font-semibold text-sm bg-white/90 px-3 py-1 rounded-full">Click to enlarge</span>
+                  </div>
+                </div>
               ) : (
-                <div className="w-40 h-40 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-5xl font-extrabold shadow-2xl mb-2">
+                <div className="w-48 h-48 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-5xl font-extrabold shadow-2xl mb-2">
                   {selectedMember.avatar}
                 </div>
               )}
@@ -272,6 +273,29 @@ const Team: React.FC = () => {
                 )}
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Enlarged Photo Modal */}
+      {enlargedPhoto && (
+        <div
+          className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-[200] p-4 animate-fadeIn"
+          onClick={() => setEnlargedPhoto(null)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] w-full z-[201]">
+            <button
+              onClick={() => setEnlargedPhoto(null)}
+              className="absolute -top-12 right-0 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors duration-200 backdrop-blur-sm"
+            >
+              <X className="h-6 w-6 text-white" />
+            </button>
+            <img
+              src={enlargedPhoto}
+              alt="Enlarged photo"
+              className="w-full h-full object-contain rounded-2xl shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
           </div>
         </div>
       )}
