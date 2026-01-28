@@ -26,6 +26,13 @@ const Partnerships: React.FC = () => {
       details:
         "Khartoum Interfilm is a creative marketing agency focused on storytelling, brand strategy, and creative campaigns across digital platforms. We partner to deliver standout marketing and visual experiences.",
     },
+    {
+      name: "Ozone Restaurant & Cafe",
+      description: "Restaurant and dining establishment",
+      coverImage: "/ozone.png",
+      details:
+        "Ozone Restaurant & Cafe offers exceptional dining experiences with diverse culinary options. We collaborate to enhance their digital presence and streamline their operations through innovative technology solutions.",
+    },
   ];
 
   return (
@@ -43,7 +50,7 @@ const Partnerships: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex justify-center gap-6 lg:gap-8 flex-wrap xl:flex-nowrap">
           {partners.map((partner, index) => (
             <Card
               key={index}
@@ -52,11 +59,11 @@ const Partnerships: React.FC = () => {
               {/* Card header area (kept consistent so cards align) */}
               {partner.coverImage ? (
                 <div className="p-4">
-                  <div className={`w-full h-44 overflow-hidden rounded-xl ${index === 1 ? 'p-4 flex items-center justify-center bg-transparent' : index === 0 ? 'p-4' : ''}`}>
+                  <div className={`w-full h-44 overflow-hidden rounded-xl ${(index === 0 || index === 1 || index === 3) ? 'p-4 flex items-center justify-center bg-transparent' : ''}`}>
                     <img
                       src={partner.coverImage}
                       alt={`${partner.name} cover`}
-                      className={index === 1 ? 'max-h-full max-w-full object-contain' : 'h-full w-full object-cover'}
+                      className={(index === 0 || index === 1 || index === 3) ? 'max-h-full max-w-full object-contain' : 'h-full w-full object-cover'}
                       loading="lazy"
                     />
                   </div>
@@ -102,5 +109,3 @@ const Partnerships: React.FC = () => {
 };
 
 export default Partnerships;
-
-

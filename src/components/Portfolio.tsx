@@ -8,6 +8,63 @@ const Portfolio: React.FC = () => {
 
   const projects = [
     {
+      title: "Viewesta",
+      type: "African Streaming Platform",
+      description: "Viewesta is a cutting-edge streaming platform designed specifically for African audiences, offering a diverse range of content including movies, TV shows, documentaries, and original African productions. The platform features adaptive streaming technology, multi-language subtitles, offline viewing capabilities, and personalized content recommendations. Built to serve the unique needs of African viewers, Viewesta provides high-quality entertainment with affordable pricing.",
+      tech: ["React", "Node.js", "MongoDB", "AWS S3", "FFmpeg", "Stripe"],
+      image: "/viewesta-logo.png",
+      demoUrl: "https://viewesta-demo.com",
+      githubUrl: "https://github.com/samalync/viewesta",
+      features: [
+        "Adaptive Streaming Technology",
+        "Multi-language Subtitles",
+        "Offline Viewing",
+        "Personalized Recommendations",
+        "African Content Focus",
+        "Mobile-First Design",
+        "Secure Payment Processing",
+        "High-quality Video Playback"
+      ]
+    },
+    {
+      title: "Sudan Mart",
+      type: "On-demand Delivery & Last-mile Logistics",
+      description: "Sudan Mart is a comprehensive on-demand delivery and last-mile logistics platform that connects customers with local businesses for instant delivery services. The platform offers real-time tracking, multiple payment options, and integrates with local vendors across Sudan. With advanced route optimization and driver management systems, Sudan Mart ensures fast, reliable delivery services while supporting local economies.",
+      tech: ["React Native", "Node.js", "PostgreSQL", "Google Maps API", "Stripe", "Socket.io"],
+      image: "/sudan-mart.png",
+      demoUrl: "https://sudan-mart-demo.com",
+      githubUrl: "https://github.com/samalync/sudan-mart",
+      features: [
+        "Real-time Order Tracking",
+        "Route Optimization",
+        "Driver Management System",
+        "Multiple Payment Options",
+        "Local Vendor Integration",
+        "Instant Delivery Services",
+        "Customer Ratings & Reviews",
+        "Mobile App Interface"
+      ]
+    },
+    {
+      title: "Ozone Restaurant & Cafe",
+      type: "Restaurant Website & Digital Menu",
+      description: "A modern, responsive website for Ozone Restaurant & Cafe featuring an interactive digital menu, online reservations, and seamless customer experience. The platform showcases the restaurant's diverse culinary offerings, ambiance, and services while providing customers with easy access to menus, location details, and reservation capabilities.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB"],
+      image: "/ozone.png",
+      demoUrl: "https://ozone-restaurant-demo.com",
+      githubUrl: "https://github.com/samalync/ozone-restaurant",
+      features: [
+        "Interactive Digital Menu",
+        "Online Reservation System",
+        "Mobile-Responsive Design",
+        "Photo Gallery",
+        "Location & Contact Information",
+        "Social Media Integration",
+        "Customer Reviews & Ratings",
+        "Multi-language Support"
+      ]
+    },
+    {
       title: "AI Voice Healthcare Assistant",
       type: "Healthcare AI Platform",
       description: "AI-powered healthcare platform that provides medical consultation in Kinyarwanda and English. Patients can describe symptoms via voice or text, receive AI medical guidance, and get connected to appropriate doctors through automated SMS notifications.",
@@ -51,44 +108,6 @@ const Portfolio: React.FC = () => {
       demoUrl: "https://movieex-demo.com",
       githubUrl: "https://github.com/samalync/movieex",
       features: ["User Authentication", "Payment Integration", "Search & Filter", "Reviews & Ratings"]
-    },
-    {
-      title: "Viewesta",
-      type: "African Streaming Platform",
-      description: "Viewesta is a cutting-edge streaming platform designed specifically for African audiences, offering a diverse range of content including movies, TV shows, documentaries, and original African productions. The platform features adaptive streaming technology, multi-language subtitles, offline viewing capabilities, and personalized content recommendations. Built to serve the unique needs of African viewers, Viewesta provides high-quality entertainment with affordable pricing.",
-      tech: ["React", "Node.js", "MongoDB", "AWS S3", "FFmpeg", "Stripe"],
-      image: "/viewesta-logo.png",
-      demoUrl: "https://viewesta-demo.com",
-      githubUrl: "https://github.com/samalync/viewesta",
-      features: [
-        "Adaptive Streaming Technology",
-        "Multi-language Subtitles",
-        "Offline Viewing",
-        "Personalized Recommendations",
-        "African Content Focus",
-        "Mobile-First Design",
-        "Secure Payment Processing",
-        "High-quality Video Playback"
-      ]
-    },
-    {
-      title: "Sudan Mart",
-      type: "On-demand Delivery & Last-mile Logistics",
-      description: "Sudan Mart is a comprehensive on-demand delivery and last-mile logistics platform that connects customers with local businesses for instant delivery services. The platform offers real-time tracking, multiple payment options, and integrates with local vendors across Sudan. With advanced route optimization and driver management systems, Sudan Mart ensures fast, reliable delivery services while supporting local economies.",
-      tech: ["React Native", "Node.js", "PostgreSQL", "Google Maps API", "Stripe", "Socket.io"],
-      image: "/sudan-mart.png",
-      demoUrl: "https://sudan-mart-demo.com",
-      githubUrl: "https://github.com/samalync/sudan-mart",
-      features: [
-        "Real-time Order Tracking",
-        "Route Optimization",
-        "Driver Management System",
-        "Multiple Payment Options",
-        "Local Vendor Integration",
-        "Instant Delivery Services",
-        "Customer Ratings & Reviews",
-        "Mobile App Interface"
-      ]
     }
   ];
 
@@ -135,7 +154,7 @@ const Portfolio: React.FC = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+                  className={`absolute inset-0 w-full h-full ${project.title === "Ozone Restaurant & Cafe" ? "object-contain" : "object-cover"} opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110`}
                 />
                 {/* Removed icon */}
                 <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
@@ -208,7 +227,7 @@ const Portfolio: React.FC = () => {
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  className="w-3/4 h-80 object-cover rounded-lg mx-auto"
+                  className={`w-3/4 h-80 ${selectedProject.title === "Ozone Restaurant & Cafe" ? "object-contain" : "object-cover"} rounded-lg mx-auto`}
                 />
               </div>
 
