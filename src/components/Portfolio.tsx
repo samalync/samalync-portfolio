@@ -1,12 +1,34 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const Portfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [currentScreenshots, setCurrentScreenshots] = useState<string[]>([]);
 
   const projects = [
+    {
+      title: "Ozone Restaurant & Cafe",
+      type: "Restaurant Website & Digital Menu",
+      description: "A modern, responsive website for Ozone Restaurant & Cafe featuring an interactive digital menu, online reservations, and seamless customer experience. The platform showcases the restaurant's diverse culinary offerings, ambiance, and services while providing customers with easy access to menus, location details, and reservation capabilities.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB"],
+      image: "/ozone.png",
+      demoUrl: "https://ozone-restaurant-demo.com",
+      githubUrl: "https://github.com/samalync/ozone-restaurant",
+      screenshots: ["/ozone/1.png", "/ozone/2.png", "/ozone/3.png", "/ozone/4.png", "/ozone/5.png", "/ozone/6.png", "/ozone/7.png", "/ozone/8.png", "/ozone/9.png", "/ozone/10.png"],
+      features: [
+        "Interactive Digital Menu",
+        "Online Reservation System",
+        "Mobile-Responsive Design",
+        "Photo Gallery",
+        "Location & Contact Information",
+        "Social Media Integration",
+        "Customer Reviews & Ratings",
+        "Multi-language Support"
+      ]
+    },
     {
       title: "Viewesta",
       type: "African Streaming Platform",
@@ -15,6 +37,10 @@ const Portfolio: React.FC = () => {
       image: "/viewesta-logo.png",
       demoUrl: "https://viewesta-demo.com",
       githubUrl: "https://github.com/samalync/viewesta",
+      screenshots: [
+        "/viewesta-mobile/1.png", "/viewesta-mobile/2.png", "/viewesta-mobile/3.png", "/viewesta-mobile/4.png", "/viewesta-mobile/5.png", "/viewesta-mobile/6.png", "/viewesta-mobile/7.png", "/viewesta-mobile/8.png", "/viewesta-mobile/9.png", "/viewesta-mobile/10.png", "/viewesta-mobile/11.png", "/viewesta-mobile/12.png",
+        "/viewesta-admin-dashboard/1.png", "/viewesta-admin-dashboard/2.png", "/viewesta-admin-dashboard/3.png", "/viewesta-admin-dashboard/4.png", "/viewesta-admin-dashboard/5.png", "/viewesta-admin-dashboard/6.png", "/viewesta-admin-dashboard/7.png"
+      ],
       features: [
         "Adaptive Streaming Technology",
         "Multi-language Subtitles",
@@ -34,6 +60,7 @@ const Portfolio: React.FC = () => {
       image: "/sudan-mart.png",
       demoUrl: "https://sudan-mart-demo.com",
       githubUrl: "https://github.com/samalync/sudan-mart",
+      screenshots: ["/sudan-mart-brand-identity/0.png", "/sudan-mart-brand-identity/1.png", "/sudan-mart-brand-identity/2.png", "/sudan-mart-brand-identity/3.png", "/sudan-mart-brand-identity/4.png", "/sudan-mart-brand-identity/5.png", "/sudan-mart-brand-identity/6.png"],
       features: [
         "Real-time Order Tracking",
         "Route Optimization",
@@ -43,25 +70,6 @@ const Portfolio: React.FC = () => {
         "Instant Delivery Services",
         "Customer Ratings & Reviews",
         "Mobile App Interface"
-      ]
-    },
-    {
-      title: "Ozone Restaurant & Cafe",
-      type: "Restaurant Website & Digital Menu",
-      description: "A modern, responsive website for Ozone Restaurant & Cafe featuring an interactive digital menu, online reservations, and seamless customer experience. The platform showcases the restaurant's diverse culinary offerings, ambiance, and services while providing customers with easy access to menus, location details, and reservation capabilities.",
-      tech: ["React", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB"],
-      image: "/ozone.png",
-      demoUrl: "https://ozone-restaurant-demo.com",
-      githubUrl: "https://github.com/samalync/ozone-restaurant",
-      features: [
-        "Interactive Digital Menu",
-        "Online Reservation System",
-        "Mobile-Responsive Design",
-        "Photo Gallery",
-        "Location & Contact Information",
-        "Social Media Integration",
-        "Customer Reviews & Ratings",
-        "Multi-language Support"
       ]
     },
     {
@@ -121,10 +129,35 @@ const Portfolio: React.FC = () => {
 
   const closeImageModal = () => {
     setSelectedImage(null);
+    setCurrentScreenshots([]);
+    setCurrentImageIndex(0);
   };
 
-  const handleImageClick = (imageSrc: string) => {
+  const handleImageClick = (imageSrc: string, screenshots?: string[]) => {
     setSelectedImage(imageSrc);
+    if (screenshots && screenshots.length > 0) {
+      setCurrentScreenshots(screenshots);
+      setCurrentImageIndex(screenshots.indexOf(imageSrc));
+    } else {
+      setCurrentScreenshots([imageSrc]);
+      setCurrentImageIndex(0);
+    }
+  };
+
+  const goToPreviousImage = () => {
+    if (currentScreenshots.length > 0) {
+      const newIndex = currentImageIndex > 0 ? currentImageIndex - 1 : currentScreenshots.length - 1;
+      setCurrentImageIndex(newIndex);
+      setSelectedImage(currentScreenshots[newIndex]);
+    }
+  };
+
+  const goToNextImage = () => {
+    if (currentScreenshots.length > 0) {
+      const newIndex = currentImageIndex < currentScreenshots.length - 1 ? currentImageIndex + 1 : 0;
+      setCurrentImageIndex(newIndex);
+      setSelectedImage(currentScreenshots[newIndex]);
+    }
   };
 
   return (
@@ -142,11 +175,11 @@ const Portfolio: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex justify-center gap-6 overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
+        <div className="flex flex-col md:flex-row justify-center gap-6 md:overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="group overflow-hidden bg-slate-100 border border-slate-300 card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer flex-shrink-0 w-96"
+              className="group overflow-hidden bg-slate-100 border border-slate-300 card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer md:flex-shrink-0 w-full md:w-96"
               onClick={() => handleViewProject(project)}
             >
               {/* Project Image */}
@@ -295,43 +328,43 @@ const Portfolio: React.FC = () => {
                         src="/Screenshots/1.png"
                         alt="Movieex Screenshot 1"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/Screenshots/1.png")}
+                        onClick={() => handleImageClick("/Screenshots/1.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/2.png"
                         alt="Movieex Screenshot 2"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/Screenshots/2.png")}
+                        onClick={() => handleImageClick("/Screenshots/2.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/3.png"
                         alt="Movieex Screenshot 3"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/Screenshots/3.png")}
+                        onClick={() => handleImageClick("/Screenshots/3.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/4.png"
                         alt="Movieex Screenshot 4"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/Screenshots/4.png")}
+                        onClick={() => handleImageClick("/Screenshots/4.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/5.png"
                         alt="Movieex Screenshot 5"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/Screenshots/5.png")}
+                        onClick={() => handleImageClick("/Screenshots/5.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/6.png"
                         alt="Movieex Screenshot 6"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/Screenshots/6.png")}
+                        onClick={() => handleImageClick("/Screenshots/6.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/7.png"
                         alt="Movieex Screenshot 7"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/Screenshots/7.png")}
+                        onClick={() => handleImageClick("/Screenshots/7.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                     </div>
                   </div>
@@ -362,13 +395,13 @@ const Portfolio: React.FC = () => {
                         src="/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png"
                         alt="AI Voice Healthcare Assistant Screenshot 1"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png")}
+                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
                       />
                       <img
                         src="/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"
                         alt="AI Voice Healthcare Assistant Screenshot 2"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png")}
+                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
                       />
                     </div>
                   </div>
@@ -416,6 +449,60 @@ const Portfolio: React.FC = () => {
                 </div>
               )}
 
+              {/* Screenshots for Ozone Restaurant */}
+              {selectedProject.title === "Ozone Restaurant & Cafe" && selectedProject.screenshots && (
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                      <img
+                        key={index}
+                        src={screenshot}
+                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Screenshots for Viewesta */}
+              {selectedProject.title === "Viewesta" && selectedProject.screenshots && (
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                      <img
+                        key={index}
+                        src={screenshot}
+                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Screenshots for Sudan Mart */}
+              {selectedProject.title === "Sudan Mart" && selectedProject.screenshots && (
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                      <img
+                        key={index}
+                        src={screenshot}
+                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
         </div>
@@ -437,6 +524,32 @@ const Portfolio: React.FC = () => {
             >
               <X className="h-6 w-6" />
             </button>
+            
+            {/* Navigation buttons - only show if there are multiple screenshots */}
+            {currentScreenshots.length > 1 && (
+              <>
+                <button
+                  onClick={goToPreviousImage}
+                  className="absolute left-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-3"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="h-8 w-8" />
+                </button>
+                <button
+                  onClick={goToNextImage}
+                  className="absolute right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-3"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="h-8 w-8" />
+                </button>
+                
+                {/* Image counter */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 bg-black/50 text-white px-4 py-2 rounded-full text-sm">
+                  {currentImageIndex + 1} / {currentScreenshots.length}
+                </div>
+              </>
+            )}
+            
             <img
               src={selectedImage}
               alt="Expanded view"
