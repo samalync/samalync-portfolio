@@ -175,7 +175,7 @@ const Portfolio: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center gap-6 md:overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
+        <div className="flex flex-col md:flex-row justify-start gap-6 md:overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
           {projects.map((project, index) => (
             <Card
               key={index}
