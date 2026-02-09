@@ -36,8 +36,7 @@ const Footer: React.FC = () => {
   ];
 
   const companyMembers = [
-    { name: "Yassin Arki", role: "Chief Executive Officer (CEO)", isCoFounder: true, linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
-    { name: "Mazin Magdi", role: "Chief Growth & Innovation Officer, Co-Founder", isCoFounder: true, linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw" },
+    { name: "Yassin Arki", role: "Chief Executive Officer (CEO)", isCoFounder: false, linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
   ];
 
   return (
@@ -130,7 +129,7 @@ const Footer: React.FC = () => {
           {/* Company Members */}
           <div className="space-y-8">
             <h4 className="text-xl font-bold text-white relative">
-              Co-Founders
+              Leadership
               <div className="w-8 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2"></div>
             </h4>
             <div className="space-y-6">
@@ -145,9 +144,6 @@ const Footer: React.FC = () => {
                   <div className="text-white font-semibold text-base">{member.name}</div>
                   <div className="text-gray-300 text-sm space-y-1">
                     <div>{member.role}</div>
-                    {member.isCoFounder && (
-                      <div>& Co-Founder</div>
-                    )}
                   </div>
                   <a
                     href={member.linkedin}

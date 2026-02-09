@@ -8,19 +8,11 @@ const About: React.FC = () => {
   const companyMembers = [
     {
       name: "Yassin AbuArki",
-      role: "Chief Executive Officer (CEO) & Co-Founder",
-      isCoFounder: true,
+      role: "Chief Executive Officer (CEO) & Founder",
+      isCoFounder: false,
       summary: "Yassin combines hands-on technical expertise in Flutter and React Native with executive leadership. As CEO, he defines Samalync’s strategic direction, oversees operations, and leads business growth while ensuring delivery excellence across projects. Technical expertise: Mobile and cross-platform development (Flutter, React Native). Leadership strengths: Strategic planning, project oversight, company leadership, and stakeholder management.",
       avatar: "/image copy 2.png",
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/"
-    },
-    {
-      name: "Mazin Magdi",
-      role: `Chief Growth & Innovation Officer, Co-Founder`,
-      isCoFounder: true,
-      summary: "Mazin leads Samalync’s growth & innovation services. He is responsible for market expansion, customer acquisition, and the development of AI-driven solutions. Technical skills: AI/ML, Graphic design, web development. Executive skills: growth strategy, market expansion, product innovation, competitive positioning.",
-      avatar: "/image copy 3.png",
-      linkedin: "https://www.linkedin.com/in/mazinmagdi/?originalSubdomain=rw"
     },
     {
       name: "Mohamed Babiker",
