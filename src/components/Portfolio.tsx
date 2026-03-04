@@ -2,33 +2,45 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
+type ProjectCategory = "core" | "website" | "brand" | "team";
+
+interface Project {
+  title: string;
+  type: string;
+  description: string;
+  tech: string[];
+  image: string;
+  demoUrl: string;
+  githubUrl: string;
+  screenshots?: string[];
+  features: string[];
+  category: ProjectCategory;
+}
+
+// ─── Section Header ───────────────────────────────────────────────────────────
+const SectionHeader: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
+  <div className="mb-10 mt-6">
+    <div className="flex items-center gap-4 mb-2">
+      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+      <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-cyan-700 bg-clip-text text-transparent whitespace-nowrap px-2">
+        {title}
+      </h3>
+      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+    </div>
+    {subtitle && (
+      <p className="text-center text-sm text-gray-500 mt-1">{subtitle}</p>
+    )}
+  </div>
+);
+
 const Portfolio: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [currentScreenshots, setCurrentScreenshots] = useState<string[]>([]);
 
-  const projects = [
-    {
-      title: "Ozone Restaurant & Cafe",
-      type: "Restaurant Website & Digital Menu",
-      description: "A modern, responsive website for Ozone Restaurant & Cafe featuring an interactive digital menu, online reservations, and seamless customer experience. The platform showcases the restaurant's diverse culinary offerings, ambiance, and services while providing customers with easy access to menus, location details, and reservation capabilities.",
-      tech: ["React", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB"],
-      image: "/ozone.png",
-      demoUrl: "https://ozone-restaurant-demo.com",
-      githubUrl: "https://github.com/samalync/ozone-restaurant",
-      screenshots: ["/ozone/1.png", "/ozone/2.png", "/ozone/3.png", "/ozone/4.png", "/ozone/5.png", "/ozone/6.png", "/ozone/7.png", "/ozone/8.png", "/ozone/9.png", "/ozone/10.png"],
-      features: [
-        "Interactive Digital Menu",
-        "Online Reservation System",
-        "Mobile-Responsive Design",
-        "Photo Gallery",
-        "Location & Contact Information",
-        "Social Media Integration",
-        "Customer Reviews & Ratings",
-        "Multi-language Support"
-      ]
-    },
+  // ─── Core Products ─────────────────────────────────────────────────────────
+  const coreProducts: Project[] = [
     {
       title: "Viewesta",
       type: "African Streaming Platform",
@@ -50,7 +62,8 @@ const Portfolio: React.FC = () => {
         "Mobile-First Design",
         "Secure Payment Processing",
         "High-quality Video Playback"
-      ]
+      ],
+      category: "core"
     },
     {
       title: "Sudan Mart",
@@ -60,7 +73,13 @@ const Portfolio: React.FC = () => {
       image: "/sudan-mart.png",
       demoUrl: "https://sudan-mart-demo.com",
       githubUrl: "https://github.com/samalync/sudan-mart",
-      screenshots: ["/sudan-mart-brand-identity/0.png", "/sudan-mart-brand-identity/1.png", "/sudan-mart-brand-identity/2.png", "/sudan-mart-brand-identity/3.png", "/sudan-mart-brand-identity/4.png", "/sudan-mart-brand-identity/5.png", "/sudan-mart-brand-identity/6.png"],
+      screenshots: [
+        "/sudan-mart-app/1.png", "/sudan-mart-app/2.png", "/sudan-mart-app/3.png",
+        "/sudan-mart-app/4.png", "/sudan-mart-app/5.png", "/sudan-mart-app/6.png",
+        "/sudan-mart-app/7.png", "/sudan-mart-app/8.png", "/sudan-mart-app/9.png",
+        "/sudan-mart-app/10.png", "/sudan-mart-app/11.png", "/sudan-mart-app/12.png",
+        "/sudan-mart-app/13.png", "/sudan-mart-app/14.png", "/sudan-mart-app/15.png"
+      ],
       features: [
         "Real-time Order Tracking",
         "Route Optimization",
@@ -70,8 +89,145 @@ const Portfolio: React.FC = () => {
         "Instant Delivery Services",
         "Customer Ratings & Reviews",
         "Mobile App Interface"
-      ]
+      ],
+      category: "core"
     },
+    {
+      title: "Ozone Restaurant & Cafe",
+      type: "Restaurant Website & Digital Menu",
+      description: "A modern, responsive website for Ozone Restaurant & Cafe featuring an interactive digital menu, online reservations, and seamless customer experience. The platform showcases the restaurant's diverse culinary offerings, ambiance, and services while providing customers with easy access to menus, location details, and reservation capabilities.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB"],
+      image: "/ozone.png",
+      demoUrl: "https://ozone-restaurant-demo.com",
+      githubUrl: "https://github.com/samalync/ozone-restaurant",
+      screenshots: ["/ozone/1.png", "/ozone/2.png", "/ozone/3.png", "/ozone/4.png", "/ozone/5.png", "/ozone/6.png", "/ozone/7.png", "/ozone/8.png", "/ozone/9.png", "/ozone/10.png"],
+      features: [
+        "Interactive Digital Menu",
+        "Online Reservation System",
+        "Mobile-Responsive Design",
+        "Photo Gallery",
+        "Location & Contact Information",
+        "Social Media Integration",
+        "Customer Reviews & Ratings",
+        "Multi-language Support"
+      ],
+      category: "core"
+    },
+  ];
+
+  // ─── Website Solutions ──────────────────────────────────────────────────────
+  const websiteSolutions: Project[] = [
+    {
+      title: "Khartoum Interfilm",
+      type: "Creative Marketing Agency",
+      description: "Khartoum Interfilm is a creative marketing agency built around the power of storytelling, brand strategy, and impactful campaigns across digital platforms. We partnered with them to deliver a standout digital presence — combining bold visual identity, strategic messaging, and an immersive web experience that reflects their creative philosophy.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Node.js"],
+      image: "/k.png",
+      demoUrl: "https://khartoum-interfilm.com",
+      githubUrl: "",
+      screenshots: [
+        "/kharoum-interfilm/1.png", "/kharoum-interfilm/2.png", "/kharoum-interfilm/3.png",
+        "/kharoum-interfilm/4.png", "/kharoum-interfilm/5.png", "/kharoum-interfilm/6.png",
+        "/kharoum-interfilm/7.png"
+      ],
+      features: [
+        "Brand Strategy & Storytelling",
+        "Digital Campaign Management",
+        "Creative Direction",
+        "Social Media Integration",
+        "Responsive Web Design",
+        "Visual Identity System",
+        "Content Management",
+        "Analytics & Reporting"
+      ],
+      category: "website"
+    },
+    {
+      title: "Mondo Wooden Utensils",
+      type: "E-Commerce Store",
+      description: "Mondo is an artisan e-commerce store dedicated to handcrafted wooden kitchen utensils. We designed and built a warm, nature-inspired shopping experience that highlights the craftsmanship behind every product. The platform features a curated product catalogue, smooth checkout flow, and a brand aesthetic rooted in simplicity and quality.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Stripe", "Node.js", "MongoDB"],
+      image: "/mondo.png",
+      demoUrl: "https://mondo-wooden.com",
+      githubUrl: "",
+      screenshots: [
+        "/mondo/1.png", "/mondo/2.png", "/mondo/3.png", "/mondo/4.png",
+        "/mondo/5.png", "/mondo/6.png", "/mondo/7.png"
+      ],
+      features: [
+        "Artisan Product Catalogue",
+        "Secure Checkout & Stripe Payments",
+        "Inventory Management",
+        "Mobile-First Design",
+        "Product Search & Filtering",
+        "Order Tracking",
+        "Customer Reviews",
+        "Nature-Inspired UI"
+      ],
+      category: "website"
+    }
+  ];
+
+  // ─── Brand Identity & Visual Design ────────────────────────────────────────
+  const brandIdentityProjects: Project[] = [
+    {
+      title: "Viewesta Brand Identity",
+      type: "Brand Identity System",
+      description: "Full brand identity system crafted for Viewesta, Africa's emerging streaming platform. The identity was built to be bold, modern, and culturally resonant — covering the logo, colour language, typography, motion principles, and comprehensive brand guidelines that unify the product across mobile, web, and marketing surfaces.",
+      tech: ["Adobe Illustrator", "Adobe Photoshop", "Figma", "After Effects"],
+      image: "/viewesta-branding/1.png",
+      demoUrl: "",
+      githubUrl: "",
+      screenshots: [
+        "/viewesta-branding/1.png", "/viewesta-branding/2.png", "/viewesta-branding/3.png",
+        "/viewesta-branding/4.png", "/viewesta-branding/5.png", "/viewesta-branding/6.png",
+        "/viewesta-branding/7.png"
+      ],
+      features: [
+        "Logo Design & Variations",
+        "Colour Palette System",
+        "Typography Selection",
+        "Motion & Animation Guidelines",
+        "Brand Guidelines Document",
+        "Social Media Kit",
+        "App Icon & Splash Screen",
+        "Marketing Asset Templates"
+      ],
+      category: "brand"
+    },
+    {
+      title: "Sudan Mart Brand Identity",
+      type: "Brand Identity System",
+      description: "Complete brand identity system designed for Sudan Mart — encompassing logo design, colour palette, typography, iconography, and brand guidelines. The identity reflects speed, trust, and local pride, giving the platform a bold and recognisable visual language across all digital and physical touchpoints.",
+      tech: ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
+      image: "/sudan-mart-brand-identity/1.png",
+      demoUrl: "",
+      githubUrl: "",
+      screenshots: [
+        "/sudan-mart-brand-identity/0.png",
+        "/sudan-mart-brand-identity/1.png",
+        "/sudan-mart-brand-identity/2.png",
+        "/sudan-mart-brand-identity/3.png",
+        "/sudan-mart-brand-identity/4.png",
+        "/sudan-mart-brand-identity/5.png",
+        "/sudan-mart-brand-identity/6.png"
+      ],
+      features: [
+        "Logo Design & Variations",
+        "Colour Palette System",
+        "Typography Selection",
+        "Iconography Set",
+        "Brand Guidelines Document",
+        "Social Media Kit",
+        "Packaging Concepts",
+        "Digital Asset Library"
+      ],
+      category: "brand"
+    }
+  ];
+
+  // ─── Projects by Team Members ───────────────────────────────────────────────
+  const teamMemberProjects: Project[] = [
     {
       title: "AI Voice Healthcare Assistant",
       type: "Healthcare AI Platform",
@@ -89,7 +245,8 @@ const Portfolio: React.FC = () => {
         "Data Logging",
         "13 Medical Specialties",
         "Text & Voice Input"
-      ]
+      ],
+      category: "team"
     },
     {
       title: "eHub Surveys",
@@ -105,7 +262,8 @@ const Portfolio: React.FC = () => {
         "Auto-End on Exit: Surveys automatically close if the user leaves the store",
         "Rich Media Responses: Support for attaching photos, videos, or documents depending on question type",
         "Dynamic Surveys: Flexible survey formats tailored for each retail branch"
-      ]
+      ],
+      category: "team"
     },
     {
       title: "Movieex",
@@ -115,11 +273,12 @@ const Portfolio: React.FC = () => {
       image: "/image.png",
       demoUrl: "https://movieex-demo.com",
       githubUrl: "https://github.com/samalync/movieex",
-      features: ["User Authentication", "Payment Integration", "Search & Filter", "Reviews & Ratings"]
+      features: ["User Authentication", "Payment Integration", "Search & Filter", "Reviews & Ratings"],
+      category: "team"
     }
   ];
 
-  const handleViewProject = (project: any) => {
+  const handleViewProject = (project: Project) => {
     setSelectedProject(project);
   };
 
@@ -160,9 +319,65 @@ const Portfolio: React.FC = () => {
     }
   };
 
+  // ─── Shared card renderer ────────────────────────────────────────────────────
+  const renderCards = (items: Project[]) => (
+    <div className="flex flex-wrap justify-center gap-6 pb-4 px-4">
+      {items.map((project, index) => (
+        <Card
+          key={index}
+          className="group overflow-hidden bg-slate-100 border border-slate-300 card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer w-full sm:w-80 md:w-96"
+          onClick={() => handleViewProject(project)}
+        >
+          {/* Project Image */}
+          <div className="relative h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
+            <img
+              src={project.image}
+              alt={project.title}
+              className={`absolute inset-0 w-full h-full ${
+                ["Ozone Restaurant & Cafe", "Khartoum Interfilm", "Mondo Wooden Utensils"].includes(project.title)
+                  ? "object-contain p-4"
+                  : "object-cover"
+              } opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110`}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 right-4">
+              <span className="inline-block px-4 py-2 text-sm font-medium bg-accent/20 text-accent rounded-full">
+                {project.type}
+              </span>
+            </div>
+          </div>
+
+          <CardContent className="p-6 space-y-4">
+            <div className="space-y-2">
+              <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                {project.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+
+            {/* Tech Stack */}
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((tech, techIndex) => (
+                <span
+                  key={techIndex}
+                  className="px-3 py-2 text-xs bg-muted rounded-xl text-muted-foreground"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+
   return (
     <section id="portfolio" className="py-20 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ── Page Header ─────────────────────────────────────────────────── */}
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-200/20 backdrop-blur-sm">
             <span className="text-sm font-medium text-purple-600 tracking-wide">OUR WORK</span>
@@ -175,59 +390,47 @@ const Portfolio: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-start gap-6 md:overflow-x-auto pb-4 max-w-full mx-auto px-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30">
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="group overflow-hidden bg-slate-100 border border-slate-300 card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer md:flex-shrink-0 w-full md:w-96"
-              onClick={() => handleViewProject(project)}
-            >
-              {/* Project Image */}
-              <div className="relative h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className={`absolute inset-0 w-full h-full ${project.title === "Ozone Restaurant & Cafe" ? "object-contain" : "object-cover"} opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110`}
-                />
-                {/* Removed icon */}
-                <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <span className="inline-block px-4 py-2 text-sm font-medium bg-accent/20 text-accent rounded-full">
-                    {project.type}
-                  </span>
-                </div>
-              </div>
+        {/* ── Section 1: Core Products ─────────────────────────────────────── */}
+        <SectionHeader
+          title="Core Products"
+          subtitle="Products built and owned by Samalync"
+        />
+        {renderCards(coreProducts)}
 
-              <CardContent className="p-6 space-y-4">
-                <div className="space-y-2">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
+        {/* ── Section 2: Website Solutions ─────────────────────────────────── */}
+        {websiteSolutions.length > 0 && (
+          <>
+            <SectionHeader
+              title="Website Solutions"
+              subtitle="Business websites and digital experiences delivered for clients"
+            />
+            {renderCards(websiteSolutions)}
+          </>
+        )}
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span 
-                      key={techIndex}
-                      className="px-3 py-2 text-xs bg-muted rounded-xl text-muted-foreground"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+        {/* ── Section 3: Brand Identity & Visual Design ────────────────────── */}
+        {brandIdentityProjects.length > 0 && (
+          <>
+            <SectionHeader
+              title="Brand Identity & Visual Design"
+              subtitle="Logo design, brand systems, and graphic design work"
+            />
+            {renderCards(brandIdentityProjects)}
+          </>
+        )}
 
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {/* ── Section 4: Projects by Team Members ──────────────────────────── */}
+        {teamMemberProjects.length > 0 && (
+          <>
+            <SectionHeader
+              title="Projects by Team Members"
+              subtitle="Work developed by individual team members, showcasing their breadth of experience"
+            />
+            {renderCards(teamMemberProjects)}
+          </>
+        )}
 
-        <div className="text-center mt-12">
-        
-        </div>
+        <div className="text-center mt-12" />
       </div>
 
       {/* Project Details Modal */}
@@ -260,16 +463,22 @@ const Portfolio: React.FC = () => {
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  className={`w-3/4 h-80 ${selectedProject.title === "Ozone Restaurant & Cafe" ? "object-contain" : "object-cover"} rounded-lg mx-auto`}
+                  className={`w-3/4 h-80 ${
+                    ["Ozone Restaurant & Cafe", "Khartoum Interfilm", "Mondo Wooden Utensils"].includes(selectedProject.title)
+                      ? "object-contain"
+                      : "object-cover"
+                  } rounded-lg mx-auto`}
                 />
               </div>
 
-              {/* Project Disclaimer */}
-              <div className="mb-6 p-4 bg-muted/50 rounded-lg border-l-4 border-primary/20">
-                <p className="text-sm text-muted-foreground italic">
-                  "This project was completed by one of our company members before the founding of Samalync, and it now forms part of our collective experience"
-                </p>
-              </div>
+              {/* Project Disclaimer — only shown for team member projects */}
+              {selectedProject.category === "team" && (
+                <div className="mb-6 p-4 bg-muted/50 rounded-lg border-l-4 border-primary/20">
+                  <p className="text-sm text-muted-foreground italic">
+                    "This project was completed by one of our company members before the founding of Samalync, and it now forms part of our collective experience"
+                  </p>
+                </div>
+              )}
 
               {/* Project Description */}
               <div className="mb-6">
@@ -487,6 +696,42 @@ const Portfolio: React.FC = () => {
 
               {/* Screenshots for Sudan Mart */}
               {selectedProject.title === "Sudan Mart" && selectedProject.screenshots && (
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                      <img
+                        key={index}
+                        src={screenshot}
+                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Screenshots for Brand Identity projects */}
+              {selectedProject.category === "brand" && selectedProject.screenshots && (
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-foreground mb-8">Brand Visuals</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                      <img
+                        key={index}
+                        src={screenshot}
+                        alt={`${selectedProject.title} Visual ${index + 1}`}
+                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Screenshots for Website Solutions projects */}
+              {selectedProject.category === "website" && selectedProject.screenshots && (
                 <div className="mb-6">
                   <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
