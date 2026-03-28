@@ -36,7 +36,13 @@ const Footer: React.FC = () => {
   ];
 
   const companyMembers = [
-    { name: "Yassin Arki", role: "Chief Executive Officer (CEO)", isCoFounder: false, linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/" },
+    {
+      name: "Yassi Abuarki",
+      role: "Chief Executive Officer (CEO)",
+      isCoFounder: false,
+      linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/",
+      image: "/me.jpg"
+    },
   ];
 
   return (
@@ -136,11 +142,18 @@ const Footer: React.FC = () => {
               {companyMembers.map((member, index) => (
                 <div
                   key={index}
-                  className="space-y-3 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-500/30 transition-all duration-300 hover:bg-white/10"
+                  className="space-y-3 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-500/30 transition-all duration-300 hover:bg-white/10 flex flex-col items-center"
                   style={{
                     animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                   }}
                 >
+                  {member.image && (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-20 h-20 rounded-full object-cover border-2 border-blue-400 mb-2 shadow-lg"
+                    />
+                  )}
                   <div className="text-white font-semibold text-base">{member.name}</div>
                   <div className="text-gray-300 text-sm space-y-1">
                     <div>{member.role}</div>

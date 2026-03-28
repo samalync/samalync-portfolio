@@ -11,7 +11,7 @@ const About: React.FC = () => {
       role: "Chief Executive Officer (CEO) & Founder",
       isCoFounder: false,
       summary: "Yassin combines hands-on technical expertise in Flutter and React Native with executive leadership. As CEO, he defines Samalync’s strategic direction, oversees operations, and leads business growth while ensuring delivery excellence across projects. Technical expertise: Mobile and cross-platform development (Flutter, React Native). Leadership strengths: Strategic planning, project oversight, company leadership, and stakeholder management.",
-      avatar: "/image copy 2.png",
+      avatar: "/me.jpg",
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/"
     },
     {
