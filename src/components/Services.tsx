@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Cpu, Palette, Megaphone, Bot } from "lucide-react";
 
@@ -6,7 +6,7 @@ type ServicesProps = {
   onServiceClick?: (serviceTitle: string) => void;
 };
 
-const Services: React.FC<ServicesProps> = ({ onServiceClick }) => {
+const Services: React.FC<ServicesProps> = memo(({ onServiceClick }) => {
   const services = [
     {
       icon: Cpu,
@@ -51,7 +51,7 @@ const Services: React.FC<ServicesProps> = ({ onServiceClick }) => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-slate-50 relative overflow-hidden">
+    <section id="services" className="performance-section py-20 bg-slate-50 relative overflow-hidden">
 
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -125,6 +125,8 @@ const Services: React.FC<ServicesProps> = ({ onServiceClick }) => {
       </div>
     </section>
   );
-};
+});
+
+Services.displayName = "Services";
 
 export default Services;

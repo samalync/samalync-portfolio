@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { Separator } from "@/components/ui/separator";
-import { Github, Linkedin, ArrowUp, Facebook } from "lucide-react";
+import { Linkedin, ArrowUp, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const Footer: React.FC = () => {
+const Footer: React.FC = memo(() => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -46,12 +46,12 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-blue-900 to-cyan-900 text-white relative overflow-hidden">
+    <footer className="performance-section bg-gradient-to-br from-gray-900 via-blue-900 to-cyan-900 text-white relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-20 left-20 hidden h-96 w-96 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 blur-3xl lg:block"></div>
+        <div className="absolute bottom-20 right-20 hidden h-80 w-80 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-3xl md:block"></div>
+        <div className="absolute left-1/2 top-1/2 hidden h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-3xl xl:block"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -152,6 +152,8 @@ const Footer: React.FC = () => {
                       src={member.image}
                       alt={member.name}
                       className="w-20 h-20 rounded-full object-cover border-2 border-blue-400 mb-2 shadow-lg"
+                      loading="lazy"
+                      decoding="async"
                     />
                   )}
                   <div className="text-white font-semibold text-base">{member.name}</div>
@@ -202,6 +204,8 @@ const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
+});
+
+Footer.displayName = "Footer";
 
 export default Footer;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -6,36 +6,31 @@ interface HeaderProps {
   onGetOfferClick: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+const navItems = [
+  { label: "Home", id: "hero" },
+  { label: "Services", id: "services" },
+  { label: "Projects", id: "portfolio" },
+  { label: "About", id: "about" },
+  { label: "Partnerships", id: "partnerships" },
+  { label: "Clients", id: "selected-clients" },
+  { label: "Contact", id: "contact" },
+];
+
+const Header: React.FC<HeaderProps> = React.memo(({ onGetOfferClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const navItems = [
-    { label: "Home", id: "hero" },
-    { label: "Services", id: "services" },
-    { label: "Projects", id: "portfolio" },
-    { label: "About", id: "about" },
-    { label: "Partnerships", id: "partnerships" },
-    { label: "Clients", id: "selected-clients" },
-    { label: "Contact", id: "contact" },
-  ];
+  const handleGetOfferClick = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    onGetOfferClick();
+  }, [onGetOfferClick]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -51,7 +46,9 @@ const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
             <img
               src="/Samalync.png" 
               alt="Company Logo" 
-              className="h-32 w-auto" // Increased from h-28 to h-32
+              className="h-32 w-auto"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
 
@@ -71,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
           {/* CTA Button - Desktop */}
           <div className="hidden md:flex">
             <Button 
-              onClick={onGetOfferClick}
+              onClick={handleGetOfferClick}
               className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg"
             >
               Get Offer
@@ -81,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
               className="text-gray-800 hover:text-primary"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -103,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
                 </button>
               ))}
               <Button 
-                onClick={onGetOfferClick}
+                onClick={handleGetOfferClick}
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mt-4"
               >
                 Get Offer
@@ -115,6 +112,8 @@ const Header: React.FC<HeaderProps> = ({ onGetOfferClick }) => {
       </div>
     </header>
   );
-};
+});
+
+Header.displayName = "Header";
 
 export default Header;

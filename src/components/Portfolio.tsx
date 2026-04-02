@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useCallback, useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -17,6 +17,12 @@ interface Project {
   category: ProjectCategory;
 }
 
+const PROJECT_IMAGE_CONTAIN_TITLES = new Set([
+  "Ozone Restaurant & Cafe",
+  "Khartoum Interfilm",
+  "Mondo Wooden Utensils",
+]);
+
 // ─── Section Header ───────────────────────────────────────────────────────────
 const SectionHeader: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
   <div className="mb-10 mt-6">
@@ -33,14 +39,78 @@ const SectionHeader: React.FC<{ title: string; subtitle?: string }> = ({ title, 
   </div>
 );
 
-const Portfolio: React.FC = () => {
+const ProjectGrid = memo(
+  ({
+    items,
+    onSelect,
+  }: {
+    items: Project[];
+    onSelect: (project: Project) => void;
+  }) => (
+    <div className="flex flex-wrap justify-center gap-6 pb-4 px-4">
+      {items.map((project) => (
+        <Card
+          key={project.title}
+          className="group overflow-hidden bg-slate-100 border border-slate-300 card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer w-full sm:w-80 md:w-96"
+          onClick={() => onSelect(project)}
+        >
+          <div className="relative h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
+            <img
+              src={project.image}
+              alt={project.title}
+              className={`absolute inset-0 h-full w-full ${
+                PROJECT_IMAGE_CONTAIN_TITLES.has(project.title)
+                  ? "object-contain p-4"
+                  : "object-cover"
+              } opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110`}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 right-4">
+              <span className="inline-block px-4 py-2 text-sm font-medium bg-accent/20 text-accent rounded-full">
+                {project.type}
+              </span>
+            </div>
+          </div>
+
+          <CardContent className="p-6 space-y-4">
+            <div className="space-y-2">
+              <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                {project.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((tech) => (
+                <span
+                  key={`${project.title}-${tech}`}
+                  className="px-3 py-2 text-xs bg-muted rounded-xl text-muted-foreground"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+);
+
+ProjectGrid.displayName = "ProjectGrid";
+
+const Portfolio = memo(() => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [currentScreenshots, setCurrentScreenshots] = useState<string[]>([]);
 
   // ─── Core Products ─────────────────────────────────────────────────────────
-  const coreProducts: Project[] = [
+  const coreProducts = useMemo<Project[]>(() => [
     {
       title: "Viewesta",
       type: "African Streaming Platform",
@@ -113,10 +183,10 @@ const Portfolio: React.FC = () => {
       ],
       category: "core"
     },
-  ];
+  ], []);
 
   // ─── Website Solutions ──────────────────────────────────────────────────────
-  const websiteSolutions: Project[] = [
+  const websiteSolutions = useMemo<Project[]>(() => [
     {
       title: "Khartoum Interfilm",
       type: "Creative Marketing Agency",
@@ -166,10 +236,10 @@ const Portfolio: React.FC = () => {
       ],
       category: "website"
     }
-  ];
+  ], []);
 
   // ─── Brand Identity & Visual Design ────────────────────────────────────────
-  const brandIdentityProjects: Project[] = [
+  const brandIdentityProjects = useMemo<Project[]>(() => [
     {
       title: "Viewesta Brand Identity",
       type: "Brand Identity System",
@@ -224,10 +294,10 @@ const Portfolio: React.FC = () => {
       ],
       category: "brand"
     }
-  ];
+  ], []);
 
   // ─── Projects by Team Members ───────────────────────────────────────────────
-  const teamMemberProjects: Project[] = [
+  const teamMemberProjects = useMemo<Project[]>(() => [
     {
       title: "AI Voice Healthcare Assistant",
       type: "Healthcare AI Platform",
@@ -276,23 +346,23 @@ const Portfolio: React.FC = () => {
       features: ["User Authentication", "Payment Integration", "Search & Filter", "Reviews & Ratings"],
       category: "team"
     }
-  ];
+  ], []);
 
-  const handleViewProject = (project: Project) => {
+  const handleViewProject = useCallback((project: Project) => {
     setSelectedProject(project);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedProject(null);
-  };
+  }, []);
 
-  const closeImageModal = () => {
+  const closeImageModal = useCallback(() => {
     setSelectedImage(null);
     setCurrentScreenshots([]);
     setCurrentImageIndex(0);
-  };
+  }, []);
 
-  const handleImageClick = (imageSrc: string, screenshots?: string[]) => {
+  const handleImageClick = useCallback((imageSrc: string, screenshots?: string[]) => {
     setSelectedImage(imageSrc);
     if (screenshots && screenshots.length > 0) {
       setCurrentScreenshots(screenshots);
@@ -301,81 +371,26 @@ const Portfolio: React.FC = () => {
       setCurrentScreenshots([imageSrc]);
       setCurrentImageIndex(0);
     }
-  };
+  }, []);
 
-  const goToPreviousImage = () => {
+  const goToPreviousImage = useCallback(() => {
     if (currentScreenshots.length > 0) {
       const newIndex = currentImageIndex > 0 ? currentImageIndex - 1 : currentScreenshots.length - 1;
       setCurrentImageIndex(newIndex);
       setSelectedImage(currentScreenshots[newIndex]);
     }
-  };
+  }, [currentImageIndex, currentScreenshots]);
 
-  const goToNextImage = () => {
+  const goToNextImage = useCallback(() => {
     if (currentScreenshots.length > 0) {
       const newIndex = currentImageIndex < currentScreenshots.length - 1 ? currentImageIndex + 1 : 0;
       setCurrentImageIndex(newIndex);
       setSelectedImage(currentScreenshots[newIndex]);
     }
-  };
-
-  // ─── Shared card renderer ────────────────────────────────────────────────────
-  const renderCards = (items: Project[]) => (
-    <div className="flex flex-wrap justify-center gap-6 pb-4 px-4">
-      {items.map((project, index) => (
-        <Card
-          key={index}
-          className="group overflow-hidden bg-slate-100 border border-slate-300 card-shadow hover:card-shadow-hover transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl cursor-pointer w-full sm:w-80 md:w-96"
-          onClick={() => handleViewProject(project)}
-        >
-          {/* Project Image */}
-          <div className="relative h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
-            <img
-              src={project.image}
-              alt={project.title}
-              className={`absolute inset-0 w-full h-full ${
-                ["Ozone Restaurant & Cafe", "Khartoum Interfilm", "Mondo Wooden Utensils"].includes(project.title)
-                  ? "object-contain p-4"
-                  : "object-cover"
-              } opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110`}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
-            <div className="absolute bottom-4 left-4 right-4">
-              <span className="inline-block px-4 py-2 text-sm font-medium bg-accent/20 text-accent rounded-full">
-                {project.type}
-              </span>
-            </div>
-          </div>
-
-          <CardContent className="p-6 space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                {project.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {project.description}
-              </p>
-            </div>
-
-            {/* Tech Stack */}
-            <div className="flex flex-wrap gap-2">
-              {project.tech.map((tech, techIndex) => (
-                <span
-                  key={techIndex}
-                  className="px-3 py-2 text-xs bg-muted rounded-xl text-muted-foreground"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
+  }, [currentImageIndex, currentScreenshots]);
 
   return (
-    <section id="portfolio" className="py-20 bg-slate-50">
+    <section id="portfolio" className="performance-section py-20 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Page Header ─────────────────────────────────────────────────── */}
         <div className="text-center space-y-6 mb-20">
@@ -395,7 +410,7 @@ const Portfolio: React.FC = () => {
           title="Core Products"
           subtitle="Products built and owned by Samalync"
         />
-        {renderCards(coreProducts)}
+        <ProjectGrid items={coreProducts} onSelect={handleViewProject} />
 
         {/* ── Section 2: Website Solutions ─────────────────────────────────── */}
         {websiteSolutions.length > 0 && (
@@ -404,7 +419,7 @@ const Portfolio: React.FC = () => {
               title="Website Solutions"
               subtitle="Business websites and digital experiences delivered for clients"
             />
-            {renderCards(websiteSolutions)}
+            <ProjectGrid items={websiteSolutions} onSelect={handleViewProject} />
           </>
         )}
 
@@ -415,7 +430,7 @@ const Portfolio: React.FC = () => {
               title="Brand Identity & Visual Design"
               subtitle="Logo design, brand systems, and graphic design work"
             />
-            {renderCards(brandIdentityProjects)}
+            <ProjectGrid items={brandIdentityProjects} onSelect={handleViewProject} />
           </>
         )}
 
@@ -426,7 +441,7 @@ const Portfolio: React.FC = () => {
               title="Projects by Team Members"
               subtitle="Work developed by individual team members, showcasing their breadth of experience"
             />
-            {renderCards(teamMemberProjects)}
+            <ProjectGrid items={teamMemberProjects} onSelect={handleViewProject} />
           </>
         )}
 
@@ -464,10 +479,11 @@ const Portfolio: React.FC = () => {
                   src={selectedProject.image}
                   alt={selectedProject.title}
                   className={`w-3/4 h-80 ${
-                    ["Ozone Restaurant & Cafe", "Khartoum Interfilm", "Mondo Wooden Utensils"].includes(selectedProject.title)
+                    PROJECT_IMAGE_CONTAIN_TITLES.has(selectedProject.title)
                       ? "object-contain"
                       : "object-cover"
                   } rounded-lg mx-auto`}
+                  decoding="async"
                 />
               </div>
 
@@ -537,42 +553,56 @@ const Portfolio: React.FC = () => {
                         src="/Screenshots/1.png"
                         alt="Movieex Screenshot 1"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/Screenshots/1.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/2.png"
                         alt="Movieex Screenshot 2"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/Screenshots/2.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/3.png"
                         alt="Movieex Screenshot 3"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/Screenshots/3.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/4.png"
                         alt="Movieex Screenshot 4"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/Screenshots/4.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/5.png"
                         alt="Movieex Screenshot 5"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/Screenshots/5.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/6.png"
                         alt="Movieex Screenshot 6"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/Screenshots/6.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                       <img
                         src="/Screenshots/7.png"
                         alt="Movieex Screenshot 7"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/Screenshots/7.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
                       />
                     </div>
@@ -604,12 +634,16 @@ const Portfolio: React.FC = () => {
                         src="/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png"
                         alt="AI Voice Healthcare Assistant Screenshot 1"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
                       />
                       <img
                         src="/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"
                         alt="AI Voice Healthcare Assistant Screenshot 2"
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
                       />
                     </div>
@@ -640,6 +674,8 @@ const Portfolio: React.FC = () => {
                         src="/ehub screenshot.jpeg"
                         alt="eHub Screenshot"
                         className="w-72 md:w-80 lg:w-80 h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick("/ehub screenshot.jpeg")}
                       />
                       
@@ -649,6 +685,7 @@ const Portfolio: React.FC = () => {
                         controls
                         className="w-72 md:w-70 lg:w-80 h-auto rounded-lg shadow-lg object-cover"
                         poster="/ehub screenshot.jpeg"
+                        preload="none"
                         style={{ aspectRatio: '9/16' }}
                       >
                         Your browser does not support the video tag.
@@ -669,6 +706,8 @@ const Portfolio: React.FC = () => {
                         src={screenshot}
                         alt={`${selectedProject.title} Screenshot ${index + 1}`}
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
                       />
                     ))}
@@ -687,6 +726,8 @@ const Portfolio: React.FC = () => {
                         src={screenshot}
                         alt={`${selectedProject.title} Screenshot ${index + 1}`}
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
                       />
                     ))}
@@ -705,6 +746,8 @@ const Portfolio: React.FC = () => {
                         src={screenshot}
                         alt={`${selectedProject.title} Screenshot ${index + 1}`}
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
                       />
                     ))}
@@ -723,6 +766,8 @@ const Portfolio: React.FC = () => {
                         src={screenshot}
                         alt={`${selectedProject.title} Visual ${index + 1}`}
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
                       />
                     ))}
@@ -741,6 +786,8 @@ const Portfolio: React.FC = () => {
                         src={screenshot}
                         alt={`${selectedProject.title} Screenshot ${index + 1}`}
                         className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
                       />
                     ))}
@@ -799,12 +846,15 @@ const Portfolio: React.FC = () => {
               src={selectedImage}
               alt="Expanded view"
               className="max-w-full max-h-full object-contain rounded-lg"
+              decoding="async"
             />
           </div>
         </div>
       )}
     </section>
   );
-};
+});
+
+Portfolio.displayName = "Portfolio";
 
 export default Portfolio;

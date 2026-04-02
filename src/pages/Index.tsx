@@ -12,24 +12,17 @@ import Footer from "@/components/Footer";
 const Index = () => {
   const [selectedServiceSubject, setSelectedServiceSubject] = React.useState<string>("");
 
-  const scrollToContact = () => {
+  const scrollToContact = React.useCallback(() => {
     const element = document.getElementById("contact");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  }, []);
 
-  const handleServiceClick = (serviceTitle: string) => {
+  const handleServiceClick = React.useCallback((serviceTitle: string) => {
     setSelectedServiceSubject(serviceTitle);
     scrollToContact();
-  };
-
-  React.useEffect(() => {
-    document.documentElement.style.scrollBehavior = "smooth";
-    return () => {
-      document.documentElement.style.scrollBehavior = "auto";
-    };
-  }, []);
+  }, [scrollToContact]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
@@ -39,33 +32,17 @@ const Index = () => {
       {/* Hero Section */}
       <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-8 text-center overflow-hidden bg-blue-900">
         {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Existing Floating Orbs */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute top-3/4 right-1/4 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl animate-float-delayed"></div>
-          <div className="absolute top-1/2 left-3/4 w-32 h-32 bg-cyan-400/15 rounded-full blur-xl animate-float-slow"></div>
-          <div className="absolute bottom-1/4 left-1/2 w-40 h-40 bg-indigo-400/10 rounded-full blur-2xl animate-orb-pulse"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div className="absolute top-[14%] left-[12%] h-56 w-56 rounded-full bg-blue-400/12 blur-3xl md:h-72 md:w-72" />
+          <div className="absolute bottom-[14%] right-[10%] h-48 w-48 rounded-full bg-cyan-300/12 blur-3xl md:h-64 md:w-64" />
+          <div className="absolute top-[28%] right-[22%] hidden h-40 w-40 rounded-full bg-indigo-300/10 blur-2xl lg:block" />
 
-          {/* Additional Floating Orbs */}
-          <div className="absolute top-1/6 right-1/3 w-56 h-56 bg-green-500/8 rounded-full blur-2xl animate-float" style={{ animationDelay: '3s' }}></div>
-          <div className="absolute bottom-1/3 left-1/6 w-72 h-72 bg-pink-500/6 rounded-full blur-3xl animate-float-delayed" style={{ animationDelay: '4s' }}></div>
-          <div className="absolute top-2/3 right-1/6 w-44 h-44 bg-yellow-400/10 rounded-full blur-xl animate-float-slow" style={{ animationDelay: '1.5s' }}></div>
-          <div className="absolute top-1/3 left-1/2 w-36 h-36 bg-teal-400/12 rounded-full blur-2xl animate-orb-pulse" style={{ animationDelay: '2.5s' }}></div>
+          <div className="absolute top-24 left-[10%] h-2 w-2 rounded-full bg-white/30 md:animate-particle-drift" />
+          <div className="absolute right-[16%] top-40 hidden h-3 w-3 rounded-full bg-white/20 md:block md:animate-particle-drift-delayed" />
+          <div className="absolute bottom-28 left-[28%] hidden h-1.5 w-1.5 rounded-full bg-white/25 lg:block lg:animate-particle-drift" />
 
-          {/* Moving Particles */}
-          <div className="absolute top-20 left-10 w-2 h-2 bg-white/30 rounded-full animate-particle-drift"></div>
-          <div className="absolute top-40 right-20 w-3 h-3 bg-white/25 rounded-full animate-particle-drift-delayed"></div>
-          <div className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-white/20 rounded-full animate-particle-drift" style={{ animationDelay: '7s' }}></div>
-          <div className="absolute bottom-20 right-1/3 w-2.5 h-2.5 bg-white/35 rounded-full animate-particle-drift-delayed" style={{ animationDelay: '9s' }}></div>
-          <div className="absolute top-1/2 left-1/5 w-2 h-2 bg-white/25 rounded-full animate-particle-drift" style={{ animationDelay: '11s' }}></div>
-          <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-white/40 rounded-full animate-particle-drift-delayed" style={{ animationDelay: '13s' }}></div>
-
-          {/* Geometric Shapes */}
-          <div className="absolute top-1/5 left-1/3 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-400/20 transform rotate-45 animate-rotate-float"></div>
-          <div className="absolute bottom-1/5 right-1/3 w-12 h-12 bg-gradient-to-br from-cyan-400/25 to-indigo-400/25 animate-geometric-move"></div>
-          <div className="absolute top-2/5 right-1/5 w-20 h-20 bg-gradient-to-br from-green-400/15 to-blue-400/15 transform rotate-45 animate-rotate-float-delayed"></div>
-          <div className="absolute bottom-2/5 left-2/5 w-14 h-14 bg-gradient-to-br from-pink-400/20 to-yellow-400/20 animate-geometric-move-delayed"></div>
-          <div className="absolute top-3/5 left-1/6 w-18 h-18 bg-gradient-to-br from-teal-400/18 to-purple-400/18 transform rotate-45 animate-rotate-float" style={{ animationDelay: '5s' }}></div>
+          <div className="absolute left-[20%] top-[18%] hidden h-14 w-14 rotate-45 bg-gradient-to-br from-blue-300/20 to-cyan-300/10 lg:block lg:animate-rotate-float" />
+          <div className="absolute bottom-[20%] right-[24%] hidden h-12 w-12 rounded-2xl bg-gradient-to-br from-cyan-300/15 to-indigo-300/15 lg:block lg:animate-geometric-move" />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto px-4">
           {/* Animated Badge */}

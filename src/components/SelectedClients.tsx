@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home } from "lucide-react";
 
-const SelectedClients: React.FC = () => {
+const SelectedClients: React.FC = memo(() => {
   const clients = [
     {
       icon: Home,
@@ -14,7 +14,7 @@ const SelectedClients: React.FC = () => {
   ];
 
   return (
-    <section id="selected-clients" className="py-16 bg-gray-50">
+    <section id="selected-clients" className="performance-section py-16 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-full border border-purple-200/20 backdrop-blur-sm">
@@ -57,6 +57,8 @@ const SelectedClients: React.FC = () => {
       </div>
     </section>
   );
-};
+});
+
+SelectedClients.displayName = "SelectedClients";
 
 export default SelectedClients;

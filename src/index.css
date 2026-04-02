@@ -72,8 +72,14 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
   }
 }
 
@@ -105,6 +111,17 @@ All colors MUST be HSL.
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .performance-section {
+    contain: layout paint style;
+  }
+
+  @supports (content-visibility: auto) {
+    .performance-section {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 900px;
+    }
   }
   
   @keyframes fadeInUp {
@@ -640,10 +657,13 @@ All colors MUST be HSL.
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
   * {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
   }
 }
-
