@@ -1,69 +1,12 @@
 import React, { memo, useCallback, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Linkedin, X } from "lucide-react";
-
-type CompanyMember = {
-  name: string;
-  role: string;
-  isCoFounder: boolean;
-  summary: string;
-  avatar: string;
-  linkedin?: string;
-  behance?: string;
-};
-
-const companyMembers: CompanyMember[] = [
-  {
-    name: "Yassin AbuArki",
-    role: "Chief Executive Officer (CEO) & Founder",
-    isCoFounder: false,
-    summary: "Yassin combines hands-on technical expertise in Flutter and React Native with executive leadership. As CEO, he defines Samalync’s strategic direction, oversees operations, and leads business growth while ensuring delivery excellence across projects. Technical expertise: Mobile and cross-platform development (Flutter, React Native). Leadership strengths: Strategic planning, project oversight, company leadership, and stakeholder management.",
-    avatar: "/me.jpg",
-    linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/",
-  },
-  {
-    name: "Mohamed Babiker",
-    role: "Senior Full-Stack Engineering",
-    isCoFounder: false,
-    summary: "Mohamed is a senior full-stack engineering contributor with strong experience in React, React Native, Node.js, TypeScript, and PostgreSQL. He has contributed to scalable web and mobile solutions, supporting RESTful API design, microservices architecture, database optimization, and cloud infrastructure including AWS, Vercel, and Docker. Mohamed brings clarity and structure to complex technical requirements through clean, maintainable code.",
-    avatar: "/mohamed-babiker.jpg",
-    linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/",
-  },
-  {
-    name: "Muhammed Salah",
-    role: "Frontend, Mobile Development",
-    isCoFounder: false,
-    summary: "Muhammed is a frontend and mobile development contributor focused on building responsive and user-friendly digital experiences. He has contributed to web applications using React, HTML, CSS, and JavaScript, as well as cross-platform mobile solutions using Flutter and Dart. His work emphasizes usability, performance, and clean interface design across platforms.",
-    avatar: "/muhammed-salah.jpg",
-    linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a",
-  },
-  {
-    name: "Nancy Kwizera Teta",
-    role: "Backend & AI/ML Engineering",
-    isCoFounder: false,
-    summary: "Nancy is a backend and AI/ML engineering contributor with experience in Flask, Node.js, Python, TypeScript, JavaScript, and database systems. She has contributed to backend APIs and data-driven components, supporting machine learning integration and scalable backend architectures within project-based collaborations.",
-    avatar: "/nancy-kwizera-teta.jpg",
-    linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/",
-  },
-  {
-    name: "Ghufran Osama",
-    role: "Graphic Design",
-    isCoFounder: false,
-    summary: "Ghufran is a talented graphic designer who specializes in creating visually compelling designs for branding, marketing materials, and digital experiences. With a keen eye for aesthetics and a passion for visual storytelling, Ghufra brings creativity and precision to every project, ensuring that our visual communications effectively represent the Samalync brand and engage our audience.",
-    avatar: "/ghufran.png",
-    linkedin: "",
-    behance: "",
-  },
-  {
-    name: "Ahmed Abdelhakeem",
-    role: "UI/UX Design Intern",
-    isCoFounder: false,
-    summary: "Ahmed is a UI/UX Design intern contributing to user research, prototyping, and crafting intuitive interfaces that improve user experience.",
-    avatar: "/ahmed-hakeem.png",
-    linkedin: "https://www.linkedin.com/in/ahmed-abdelhakim-mohamed-2b71073a2/",
-    behance: "https://www.behance.net/ahmedhakeem18/",
-  },
-];
+import { Linkedin, Sparkles, X } from "lucide-react";
+import {
+  CompanyMember,
+  coreTeamMembers,
+  formatRoleText,
+  internMembers,
+} from "@/data/teamMembers";
 
 const teamStats = [
   {
@@ -89,23 +32,14 @@ const teamStats = [
   },
 ] as const;
 
-const formatRoleText = (member: CompanyMember) => {
-  const hasCoFounderInRole = /co-?founder/i.test(member.role);
-
-  if (member.isCoFounder && !hasCoFounderInRole) {
-    return `${member.role} & Co-Founder`;
-  }
-
-  return member.role;
-};
-
 type TeamMemberCardProps = {
   member: CompanyMember;
   index: number;
   onSelect: (member: CompanyMember) => void;
+  badgeLabel?: string;
 };
 
-const TeamMemberCard = memo(({ member, index, onSelect }: TeamMemberCardProps) => {
+const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel }: TeamMemberCardProps) => {
   const hasLinks = Boolean(member.linkedin || member.behance);
 
   return (
@@ -115,6 +49,12 @@ const TeamMemberCard = memo(({ member, index, onSelect }: TeamMemberCardProps) =
       onClick={() => onSelect(member)}
     >
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-br from-cyan-50 via-blue-50/80 to-white" />
+
+      {badgeLabel && (
+        <div className="absolute left-6 top-6 z-20 inline-flex items-center rounded-full border border-cyan-200 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-700 shadow-sm backdrop-blur">
+          {badgeLabel}
+        </div>
+      )}
 
       <CardContent className="relative z-10 p-8 text-center">
         <div className="relative mx-auto mb-6 flex items-center justify-center">
@@ -229,17 +169,71 @@ const About = memo(() => {
           </div>
         </div>
 
-        {/* Team Members Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
-          {companyMembers.map((member, index) => (
-            <TeamMemberCard
-              key={member.name}
-              member={member}
-              index={index}
-              onSelect={handleSelectMember}
-            />
+        <div className="mx-auto mb-8 flex max-w-7xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="space-y-3">
+            <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-600">
+              Core Team
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-3xl font-bold text-slate-900">Leadership, engineering, and design</h3>
+              <p className="max-w-2xl text-base leading-relaxed text-slate-600">
+                The people guiding strategy and delivering the product, design, and technical work behind Samalync.
+              </p>
+            </div>
+          </div>
+          <div className="inline-flex items-center self-start rounded-full border border-cyan-100 bg-cyan-50 px-4 py-2 text-sm font-semibold text-cyan-700">
+            {coreTeamMembers.length} team members
+          </div>
+        </div>
+
+        <div className="mx-auto mb-16 flex max-w-7xl flex-wrap justify-center gap-8">
+          {coreTeamMembers.map((member, index) => (
+            <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)] xl:w-[calc(33.333%-1.34rem)]">
+              <TeamMemberCard
+                member={member}
+                index={index}
+                onSelect={handleSelectMember}
+              />
+            </div>
           ))}
         </div>
+
+        {internMembers.length > 0 && (
+          <div className="mx-auto mb-20 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 p-[1px] shadow-[0_32px_80px_-32px_rgba(8,145,178,0.45)]">
+            <div className="rounded-[calc(2rem-1px)] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
+              <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div className="space-y-4">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-100">
+                    <Sparkles className="h-4 w-4 text-cyan-300" />
+                    Internship Program
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-3xl font-bold text-white">Interns growing with the team</h3>
+                    <p className="max-w-2xl text-base leading-relaxed text-slate-300">
+                      A dedicated space for emerging designers and developers contributing to real products through UI/UX and Flutter work.
+                    </p>
+                  </div>
+                </div>
+                <div className="inline-flex items-center self-start rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200">
+                  {internMembers.length} interns
+                </div>
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-8">
+                {internMembers.map((member, index) => (
+                  <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)]">
+                    <TeamMemberCard
+                      member={member}
+                      index={coreTeamMembers.length + index}
+                      onSelect={handleSelectMember}
+                      badgeLabel="Intern"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Company Stats */}
         <AboutStats />

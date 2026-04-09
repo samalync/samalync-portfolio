@@ -71,29 +71,25 @@ const Services: React.FC<ServicesProps> = memo(({ onServiceClick }) => {
           {services.map((service, index) => (
             <Card
               key={index}
-              className="group relative overflow-hidden backdrop-blur-xl bg-white/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2 hover:scale-[1.02] active:scale-[0.98]"
+              className="animate-fade-in-up group relative overflow-hidden border border-slate-200/80 bg-white shadow-[0_18px_40px_-24px_rgba(15,23,42,0.28)] transition-[transform,box-shadow,border-color,background-color] duration-300 cursor-pointer transform-gpu hover:-translate-y-1.5 hover:border-blue-200/70 hover:shadow-[0_22px_48px_-20px_rgba(37,99,235,0.22)] motion-reduce:animate-none motion-reduce:transform-none motion-reduce:transition-none"
               onClick={() => onServiceClick?.(service.title)}
               style={{
-                animation: `fadeInUp 0.8s ease-out ${index * 0.1}s both`
+                animationDelay: `${index * 80}ms`,
+                animationFillMode: "both",
               }}
             >
-              {/* Gradient overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}></div>
+              <div className={`pointer-events-none absolute right-5 top-5 h-12 w-12 rounded-full bg-gradient-to-br ${service.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-70`}></div>
+              <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-blue-300/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
-              {/* Floating particles effect */}
-              <div className="absolute top-4 right-4 w-2 h-2 bg-current opacity-20 rounded-full animate-ping group-hover:animate-pulse" style={{ animationDelay: `${index * 0.2}s` }}></div>
-              <div className="absolute bottom-4 left-4 w-1 h-1 bg-current opacity-30 rounded-full animate-ping group-hover:animate-pulse" style={{ animationDelay: `${index * 0.2 + 0.5}s` }}></div>
-
-              <CardContent className="p-8 text-center space-y-6 relative z-10">
+              <CardContent className="relative z-10 flex h-full flex-col p-8 text-center space-y-6">
                 <div className="relative">
-                  <div className={`mx-auto w-20 h-20 bg-gradient-to-br ${service.hoverGradient} rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg group-hover:shadow-xl`}>
-                    <service.icon className={`h-10 w-10 ${service.iconColor} group-hover:scale-110 transition-transform duration-300`} />
+                  <div className={`mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br ${service.hoverGradient} shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105`}>
+                    <service.icon className={`h-10 w-10 ${service.iconColor} transition-transform duration-300 group-hover:scale-105`} />
                   </div>
-                  {/* Icon glow effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`}></div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 flex-1">
                   <h3 className="text-2xl font-bold text-gray-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-blue-600 group-hover:bg-clip-text transition-all duration-300">
                     {service.title}
                   </h3>
@@ -105,8 +101,7 @@ const Services: React.FC<ServicesProps> = memo(({ onServiceClick }) => {
                   </p>
                 </div>
 
-                {/* Bottom accent */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-current to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </CardContent>
             </Card>
           ))}

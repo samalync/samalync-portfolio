@@ -1,80 +1,103 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Linkedin, X, ExternalLink, Award, Code, Users } from "lucide-react";
+import { Code, Linkedin, Sparkles, Users, X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import {
+  CompanyMember,
+  companyMembers,
+  coreTeamMembers,
+  formatRoleText,
+  internMembers,
+} from "@/data/teamMembers";
 
 const Team: React.FC = () => {
-  const [selectedMember, setSelectedMember] = useState<typeof companyMembers[0] | null>(null);
+  const [selectedMember, setSelectedMember] = useState<CompanyMember | null>(null);
   const [enlargedPhoto, setEnlargedPhoto] = useState<string | null>(null);
-
-  const companyMembers = [
-    {
-      name: "Yassin AbuArki",
-      role: "Chief Executive Officer (CEO)",
-      isCoFounder: false,
-      summary: "Yassin combines hands-on technical expertise in Flutter and React Native with executive leadership. As CEO, he defines Samalync's strategic direction, oversees operations, and leads business growth while ensuring delivery excellence across projects. Technical expertise: Mobile and cross-platform development (Flutter, React Native). Leadership strengths: Strategic planning, project oversight, company leadership, and stakeholder management.",
-      avatar: "/me.jpg",
-      linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/"
-    },
-    {
-      name: "Mohamed Babiker",
-      role: "Senior Full-Stack Engineering",
-      isCoFounder: false,
-      summary: "Mohamed is a senior full-stack engineering contributor with strong experience in React, React Native, Node.js, TypeScript, and PostgreSQL. He has contributed to scalable web and mobile solutions, supporting RESTful API design, microservices architecture, database optimization, and cloud infrastructure including AWS, Vercel, and Docker. Mohamed brings clarity and structure to complex technical requirements through clean, maintainable code.",
-      avatar: "/mohamed-babiker.jpg",
-      linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/"
-    },
-    {
-      name: "Muhammed Salah",
-      role: "Frontend, Mobile Development",
-      isCoFounder: false,
-      summary: "Muhammed is a frontend and mobile development contributor focused on building responsive and user-friendly digital experiences. He has contributed to web applications using React, HTML, CSS, and JavaScript, as well as cross-platform mobile solutions using Flutter and Dart. His work emphasizes usability, performance, and clean interface design across platforms.",
-      avatar: "/muhammed-salah.jpg",
-      linkedin: "https://www.linkedin.com/in/mohammed-salahelden-647b6128a"
-    },
-    {
-      name: "Nancy Kwizera Teta",
-      role: "Backend & AI/ML Engineering",
-      isCoFounder: false,
-      summary: "Nancy is a backend and AI/ML engineering contributor with experience in Flask, Node.js, Python, TypeScript, JavaScript, and database systems. She has contributed to backend APIs and data-driven components, supporting machine learning integration and scalable backend architectures within project-based collaborations.",
-      avatar: "/nancy-kwizera-teta.jpg",
-      linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/"
-    },
-    {
-      name: "Ghufran Osama",
-      role: "Graphic Design",
-      isCoFounder: false,
-      summary: "Ghufran is a talented graphic designer who specializes in creating visually compelling designs for branding, marketing materials, and digital experiences. With a keen eye for aesthetics and a passion for visual storytelling, Ghufra brings creativity and precision to every project, ensuring that our visual communications effectively represent the Samalync brand and engage our audience.",
-      avatar: "/ghufran.png",
-      linkedin: "",
-      behance: ""
-    },
-    {
-      name: "Ahmed Abdelhakeem",
-      role: "UI/UX Design Intern",
-      isCoFounder: false,
-      summary: "Ahmed is a UI/UX Design intern contributing to user research, prototyping, and crafting intuitive interfaces that improve user experience.",
-      avatar: "/ahmed-hakeem.png",
-      linkedin: "https://www.linkedin.com/in/ahmed-abdelhakim-mohamed-2b71073a2/",
-      behance: "https://www.behance.net/ahmedhakeem18/"
-    },
-  ];
-
-  const formatRoleText = (member: typeof companyMembers[0]) => {
-    const hasCoFounderInRole = /co-?founder/i.test(member.role);
-
-    if (member.isCoFounder && !hasCoFounderInRole) {
-      return `${member.role} & Co-Founder`;
-    }
-
-    return member.role;
-  };
 
   const handleGetOfferClick = () => {
     // Navigate to contact section or handle offer request
     window.location.href = "/#contact";
   };
+
+  const renderMemberCard = (member: CompanyMember, index: number, badgeLabel?: string) => (
+    <div
+      key={member.name}
+      className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/90 backdrop-blur-xl shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-200 hover:shadow-2xl cursor-pointer"
+      style={{
+        animation: `fadeInUp 0.8s ease-out ${index * 0.1}s both`
+      }}
+      onClick={() => setSelectedMember(member)}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-white opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+
+      {badgeLabel && (
+        <div className="absolute left-6 top-6 z-20 inline-flex items-center rounded-full border border-cyan-200 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-700 shadow-sm backdrop-blur">
+          {badgeLabel}
+        </div>
+      )}
+
+      <div className="relative z-10 p-8 text-center space-y-6">
+        <div className="relative mx-auto flex items-center justify-center">
+          {member.avatar.startsWith("/") ? (
+            <img
+              src={member.avatar}
+              alt={member.name}
+              className="h-36 w-36 rounded-full border-4 border-white object-cover shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:shadow-xl"
+            />
+          ) : (
+            <div className="flex h-36 w-36 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-3xl font-bold text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
+              {member.avatar}
+            </div>
+          )}
+
+          {(member.linkedin || member.behance) && (
+            <div className="absolute -bottom-3 -right-3 flex items-center space-x-2">
+              {member.linkedin && (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0077B5] shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#005885]"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <Linkedin className="h-5 w-5 text-white" />
+                </a>
+              )}
+
+              {member.behance && (
+                <a
+                  href={member.behance}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1769FF] shadow-lg transition-all duration-300 hover:scale-110 hover:opacity-90"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <span className="text-sm font-semibold text-white">B</span>
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h3 className="text-2xl font-bold text-gray-900 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent">
+              {member.name}
+            </h3>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-600">
+              {formatRoleText(member)}
+            </p>
+          </div>
+
+          <p className="line-clamp-4 text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
+            {member.summary}
+          </p>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -91,7 +114,7 @@ const Team: React.FC = () => {
               Meet Our Team
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-              We are a diverse team of talented individuals united by our passion for technology and innovation. Each member brings unique expertise and perspectives that drive our success.
+              Meet the core team leading delivery across engineering, product, and design, plus the interns growing through hands-on UI/UX and Flutter work.
             </p>
           </div>
         </div>
@@ -100,93 +123,63 @@ const Team: React.FC = () => {
       {/* Team Members Grid */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {companyMembers.map((member, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden backdrop-blur-xl bg-slate-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 rounded-3xl"
-              style={{
-                animation: `fadeInUp 0.8s ease-out ${index * 0.1}s both`
-              }}
-              onClick={() => setSelectedMember(member)}
-            >
-                {/* Gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+          <div className="mx-auto mb-10 flex max-w-7xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-600">
+                <Users className="h-4 w-4 text-cyan-600" />
+                Core Team
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold text-slate-900">Specialists building the company forward</h2>
+                <p className="max-w-2xl text-base leading-relaxed text-slate-600">
+                  The people shaping strategy, product delivery, engineering, and brand execution across Samalync.
+                </p>
+              </div>
+            </div>
+            <div className="inline-flex items-center self-start rounded-full border border-cyan-100 bg-cyan-50 px-4 py-2 text-sm font-semibold text-cyan-700">
+              {coreTeamMembers.length} core members
+            </div>
+          </div>
 
-                <div className="p-8 text-center space-y-6 relative z-10">
-                  {/* Avatar or Photo */}
-                  <div className="relative mx-auto flex items-center justify-center">
-                    {member.avatar.startsWith("/") ? (
-                      <img
-                        src={member.avatar}
-                        alt={member.name}
-                        className={`w-36 h-36 rounded-full border-4 border-white shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-500 ${
-                          member.name === "Hirwa Shingiro Bertrand"
-                            ? "object-cover"
-                            : "object-cover"
-                        }`}
-                        style={member.name === "Hirwa Shingiro Bertrand" ? { objectPosition: "center 60%" } : undefined}
-                      />
-                    ) : (
-                      <div className="w-36 h-36 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition-transform duration-500 shadow-lg group-hover:shadow-xl">
-                        {member.avatar}
-                      </div>
-                    )}
-
-                    {/* Avatar glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    {(member.linkedin || member.behance || member.name === "Hirwa Shingiro Bertrand") && (
-                      <div className="absolute -bottom-3 -right-3 flex items-center space-x-2">
-                        {member.linkedin && (
-                          <a
-                            href={member.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] hover:scale-110 transition-all duration-300 shadow-lg"
-                          >
-                            <Linkedin className="h-5 w-5 text-white" />
-                          </a>
-                        )}
-
-                        {member.behance && member.name === "Ahmed Abdelhakeem" && (
-                          <a
-                            href={member.behance}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 bg-[#1769FF] rounded-full flex items-center justify-center hover:opacity-90 hover:scale-110 transition-all duration-300 shadow-lg"
-                          >
-                            <span className="text-white text-sm font-semibold">B</span>
-                          </a>
-                        )}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-blue-600 group-hover:bg-clip-text transition-all duration-300">
-                        {member.name}
-                      </h3>
-                      <div className="space-y-2">
-                        <p className="text-cyan-600 font-semibold text-sm uppercase tracking-wider">
-                          {formatRoleText(member)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-600 leading-relaxed text-sm group-hover:text-gray-700 transition-colors duration-300 line-clamp-4">
-                      {member.summary}
-                    </p>
-                  </div>
-
-                  {/* Bottom accent */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
+          <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-8">
+            {coreTeamMembers.map((member, index) => (
+              <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)] xl:w-[calc(33.333%-1.34rem)]">
+                {renderMemberCard(member, index)}
               </div>
             ))}
           </div>
+
+          {internMembers.length > 0 && (
+            <div className="mx-auto mt-16 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950 p-[1px] shadow-[0_32px_80px_-32px_rgba(14,165,233,0.45)]">
+              <div className="rounded-[calc(2rem-1px)] bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.18),_transparent_42%),linear-gradient(135deg,_rgba(15,23,42,0.98),_rgba(3,7,18,0.94))] px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
+                <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                  <div className="space-y-4">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-100">
+                      <Sparkles className="h-4 w-4 text-cyan-300" />
+                      Intern Track
+                    </div>
+                    <div className="space-y-2">
+                      <h2 className="text-3xl font-bold text-white">Interns in product, UX, and Flutter</h2>
+                      <p className="max-w-2xl text-base leading-relaxed text-slate-300">
+                        This section highlights interns separately so their growth, focus areas, and contributions are clear at a glance.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center self-start rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200">
+                    {internMembers.length} interns
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-8">
+                  {internMembers.map((member, index) => (
+                    <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)]">
+                      {renderMemberCard(member, coreTeamMembers.length + index, "Intern")}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -194,20 +187,35 @@ const Team: React.FC = () => {
       <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="group text-center space-y-4 p-8 bg-gradient-to-br from-white/80 to-blue-50/50 backdrop-blur-sm rounded-3xl border border-blue-100/50 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105">
-              <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">9+</div>
-              <div className="text-gray-600 font-medium text-lg">Team Members</div>
-              <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto group-hover:w-16 transition-all duration-300"></div>
+            <div className="group rounded-3xl border border-blue-100/60 bg-gradient-to-br from-white/90 to-blue-50/70 p-8 text-center shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-xl">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-700">
+                <Users className="h-6 w-6" />
+              </div>
+              <div className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
+                {companyMembers.length}
+              </div>
+              <div className="mt-4 text-lg font-medium text-gray-600">People Across Samalync</div>
+              <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 group-hover:w-16" />
             </div>
-            <div className="group text-center space-y-4 p-8 bg-gradient-to-br from-white/80 to-cyan-50/50 backdrop-blur-sm rounded-3xl border border-cyan-100/50 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105">
-              <div className="text-5xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">10+</div>
-              <div className="text-gray-600 font-medium text-lg">Projects Completed</div>
-              <div className="w-12 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mx-auto group-hover:w-16 transition-all duration-300"></div>
+            <div className="group rounded-3xl border border-cyan-100/60 bg-gradient-to-br from-white/90 to-cyan-50/70 p-8 text-center shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-xl">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-100 text-cyan-700">
+                <Code className="h-6 w-6" />
+              </div>
+              <div className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
+                {coreTeamMembers.length}
+              </div>
+              <div className="mt-4 text-lg font-medium text-gray-600">Core Team Specialists</div>
+              <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300 group-hover:w-16" />
             </div>
-            <div className="group text-center space-y-4 p-8 bg-gradient-to-br from-white/80 to-indigo-50/50 backdrop-blur-sm rounded-3xl border border-indigo-100/50 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105">
-              <div className="text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">95%</div>
-              <div className="text-gray-600 font-medium text-lg">Client Satisfaction</div>
-              <div className="w-12 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto group-hover:w-16 transition-all duration-300"></div>
+            <div className="group rounded-3xl border border-indigo-100/60 bg-gradient-to-br from-white/90 to-indigo-50/70 p-8 text-center shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-xl">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-700">
+                <Sparkles className="h-6 w-6" />
+              </div>
+              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
+                {internMembers.length}
+              </div>
+              <div className="mt-4 text-lg font-medium text-gray-600">Active Interns</div>
+              <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 group-hover:w-16" />
             </div>
           </div>
         </div>

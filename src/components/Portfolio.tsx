@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -21,6 +22,7 @@ const PROJECT_IMAGE_CONTAIN_TITLES = new Set([
   "Ozone Restaurant & Cafe",
   "Khartoum Interfilm",
   "Mondo Wooden Utensils",
+  "Mobily Saudi Telecom",
 ]);
 
 // ─── Section Header ───────────────────────────────────────────────────────────
@@ -58,11 +60,11 @@ const ProjectGrid = memo(
             <img
               src={project.image}
               alt={project.title}
-              className={`absolute inset-0 h-full w-full ${
+              className={`absolute inset-0 h-full w-full transition-all duration-500 ${
                 PROJECT_IMAGE_CONTAIN_TITLES.has(project.title)
-                  ? "object-contain p-4"
-                  : "object-cover"
-              } opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110`}
+                  ? "object-contain p-4 opacity-90 group-hover:opacity-100 group-hover:scale-105"
+                  : "object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110"
+              }`}
               loading="lazy"
               decoding="async"
             />
@@ -293,6 +295,32 @@ const Portfolio = memo(() => {
         "Digital Asset Library"
       ],
       category: "brand"
+    },
+    {
+      title: "Mobily Saudi Telecom",
+      type: "SIM Packaging & Die-Cut Design",
+      description: "Packaging design work created for Mobily Saudi Arabia, covering SIM card pack concepts, bilingual activation layouts, and print-ready die-cut artwork for prepaid, roaming, and internal distribution variants. The system balances brand consistency with clear activation instructions and production accuracy for retail-ready output.",
+      tech: ["Adobe Illustrator", "Adobe Photoshop", "Print Production", "Packaging Design"],
+      image: "/mobily/mobily.png",
+      demoUrl: "",
+      githubUrl: "",
+      screenshots: [
+        "/mobily/screenshots/SIM-T12.png",
+        "/mobily/screenshots/prepaid.JPG",
+        "/mobily/screenshots/roaming.JPG",
+        "/mobily/screenshots/internal.JPG"
+      ],
+      features: [
+        "SIM Pack Layout Design",
+        "Die-Cut Production Artwork",
+        "Bilingual Arabic & English Packaging",
+        "Prepaid, Roaming, and Internal Variants",
+        "Activation Instruction Design",
+        "QR Code & Information Panel Layouts",
+        "Brand-Consistent Packaging System",
+        "Print-Ready Delivery Files"
+      ],
+      category: "brand"
     }
   ], []);
 
@@ -389,9 +417,417 @@ const Portfolio = memo(() => {
     }
   }, [currentImageIndex, currentScreenshots]);
 
+  const projectModal = selectedProject && typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[100] overflow-y-auto bg-black/65 p-4 md:p-6"
+          onClick={closeModal}
+        >
+          <div className="flex min-h-full items-center justify-center">
+            <div
+              className="flex max-h-[95vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_32px_120px_-32px_rgba(15,23,42,0.55)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex-1 overflow-y-auto p-6">
+                {/* Modal Header */}
+                <div className="mb-6 flex items-start justify-between">
+                  <div>
+                    <h3 className="text-2xl font-bold text-foreground">{selectedProject.title}</h3>
+                    <p className="text-muted-foreground">{selectedProject.type}</p>
+                  </div>
+                  <button
+                    onClick={closeModal}
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                {/* Project Image */}
+                <div className="mb-6">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className={`mx-auto h-80 w-3/4 rounded-lg ${
+                      PROJECT_IMAGE_CONTAIN_TITLES.has(selectedProject.title)
+                        ? "object-contain"
+                        : "object-cover"
+                    }`}
+                    decoding="async"
+                  />
+                </div>
+
+                {/* Project Disclaimer — only shown for team member projects */}
+                {selectedProject.category === "team" && (
+                  <div className="mb-6 rounded-lg border-l-4 border-primary/20 bg-muted/50 p-4">
+                    <p className="text-sm italic text-muted-foreground">
+                      "This project was completed by one of our company members before the founding of Samalync, and it now forms part of our collective experience"
+                    </p>
+                  </div>
+                )}
+
+                {/* Project Description */}
+                <div className="mb-6">
+                  <h4 className="mb-3 text-lg font-semibold text-foreground">About This Project</h4>
+                  <p className="leading-relaxed text-muted-foreground">{selectedProject.description}</p>
+                </div>
+
+                {/* Features */}
+                <div className="mb-6">
+                  <h4 className="mb-3 text-lg font-semibold text-foreground">Key Features</h4>
+                  <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                    {selectedProject.features.map((feature: string, index: number) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <div className="h-2 w-2 rounded-full bg-primary"></div>
+                        <span className="text-muted-foreground">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tech Stack */}
+                <div className="mb-6">
+                  <h4 className="mb-3 text-lg font-semibold text-foreground">Technologies Used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.tech.map((tech: string, index: number) => (
+                      <span
+                        key={index}
+                        className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+
+                {/* Role and Outcome - Only for Movieex */}
+                {selectedProject.title === "Movieex" && (
+                  <div className="mb-6 space-y-4">
+                    <div>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">Role</h4>
+                      <p className="leading-relaxed text-muted-foreground">
+                        Mobile Developer – responsible for UI design integration, feature implementation, and app performance optimization.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">Outcome</h4>
+                      <p className="leading-relaxed text-muted-foreground">
+                        Delivered a smooth, engaging entertainment experience that simplified content access and boosted user satisfaction.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        <img
+                          src="/Screenshots/1.png"
+                          alt="Movieex Screenshot 1"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/Screenshots/1.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
+                        />
+                        <img
+                          src="/Screenshots/2.png"
+                          alt="Movieex Screenshot 2"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/Screenshots/2.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
+                        />
+                        <img
+                          src="/Screenshots/3.png"
+                          alt="Movieex Screenshot 3"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/Screenshots/3.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
+                        />
+                        <img
+                          src="/Screenshots/4.png"
+                          alt="Movieex Screenshot 4"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/Screenshots/4.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
+                        />
+                        <img
+                          src="/Screenshots/5.png"
+                          alt="Movieex Screenshot 5"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/Screenshots/5.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
+                        />
+                        <img
+                          src="/Screenshots/6.png"
+                          alt="Movieex Screenshot 6"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/Screenshots/6.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
+                        />
+                        <img
+                          src="/Screenshots/7.png"
+                          alt="Movieex Screenshot 7"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/Screenshots/7.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Special Section - Only for AI Voice Healthcare Assistant */}
+                {selectedProject.title === "AI Voice Healthcare Assistant" && (
+                  <div className="mb-6 space-y-4">
+                    <div>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">Problem Solved</h4>
+                      <ul className="space-y-1 leading-relaxed text-muted-foreground">
+                        <li>• Language barriers in healthcare</li>
+                        <li>• Limited access to medical specialists</li>
+                        <li>• Lack of preliminary medical guidance</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">Outcome</h4>
+                      <p className="leading-relaxed text-muted-foreground">
+                        Created an accessible telemedicine platform that bridges language barriers, improves medical consultation response times, and enables better healthcare delivery across Rwanda.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <img
+                          src="/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png"
+                          alt="AI Voice Healthcare Assistant Screenshot 1"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
+                        />
+                        <img
+                          src="/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"
+                          alt="AI Voice Healthcare Assistant Screenshot 2"
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Role and Outcome - Only for eHub Surveys */}
+                {selectedProject.title === "eHub Surveys" && (
+                  <div className="mb-6 space-y-4">
+                    <div>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">Role</h4>
+                      <p className="leading-relaxed text-muted-foreground">
+                        Mobile Developer – implemented geolocation features, survey logic, and multimedia submission functionalities.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">Outcome</h4>
+                      <p className="leading-relaxed text-muted-foreground">
+                        Delivered a reliable and intelligent survey platform that improved data accuracy and enhanced the feedback collection process for retail businesses.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                      <div className="flex flex-col items-center justify-start gap-4 md:flex-row">
+                        <img
+                          src="/ehub screenshot.jpeg"
+                          alt="eHub Screenshot"
+                          className="h-auto w-72 cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80 md:w-80 lg:w-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick("/ehub screenshot.jpeg")}
+                        />
+
+                        <video
+                          src="/ehub video.MP4"
+                          controls
+                          className="h-auto w-72 rounded-lg object-cover shadow-lg md:w-70 lg:w-80"
+                          poster="/ehub screenshot.jpeg"
+                          preload="none"
+                          style={{ aspectRatio: "9/16" }}
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Screenshots for Ozone Restaurant */}
+                {selectedProject.title === "Ozone Restaurant & Cafe" && selectedProject.screenshots && (
+                  <div className="mb-6">
+                    <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                        <img
+                          key={index}
+                          src={screenshot}
+                          alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Screenshots for Viewesta */}
+                {selectedProject.title === "Viewesta" && selectedProject.screenshots && (
+                  <div className="mb-6">
+                    <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                        <img
+                          key={index}
+                          src={screenshot}
+                          alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Screenshots for Sudan Mart */}
+                {selectedProject.title === "Sudan Mart" && selectedProject.screenshots && (
+                  <div className="mb-6">
+                    <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                        <img
+                          key={index}
+                          src={screenshot}
+                          alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Screenshots for Brand Identity projects */}
+                {selectedProject.category === "brand" && selectedProject.screenshots && (
+                  <div className="mb-6">
+                    <h4 className="mb-8 text-lg font-semibold text-foreground">Brand Visuals</h4>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                        <img
+                          key={index}
+                          src={screenshot}
+                          alt={`${selectedProject.title} Visual ${index + 1}`}
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Screenshots for Website Solutions projects */}
+                {selectedProject.category === "website" && selectedProject.screenshots && (
+                  <div className="mb-6">
+                    <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {selectedProject.screenshots.map((screenshot: string, index: number) => (
+                        <img
+                          key={index}
+                          src={screenshot}
+                          alt={`${selectedProject.title} Screenshot ${index + 1}`}
+                          className="h-auto w-full cursor-pointer rounded-lg shadow-lg transition-opacity hover:opacity-80"
+                          loading="lazy"
+                          decoding="async"
+                          onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
+
+  const imageModal = selectedImage && typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[110] bg-black/80 p-4"
+          onClick={closeImageModal}
+        >
+          <div
+            className="relative flex min-h-full w-full items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative flex h-full max-h-[95vh] w-full max-w-7xl items-center justify-center">
+              <button
+                onClick={closeImageModal}
+                className="absolute right-4 top-4 z-10 rounded-full bg-black/50 p-2 text-white transition-colors hover:text-gray-300"
+              >
+                <X className="h-6 w-6" />
+              </button>
+
+              {currentScreenshots.length > 1 && (
+                <>
+                  <button
+                    onClick={goToPreviousImage}
+                    className="absolute left-4 z-10 rounded-full bg-black/50 p-3 text-white transition-colors hover:text-gray-300"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="h-8 w-8" />
+                  </button>
+                  <button
+                    onClick={goToNextImage}
+                    className="absolute right-4 z-10 rounded-full bg-black/50 p-3 text-white transition-colors hover:text-gray-300"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="h-8 w-8" />
+                  </button>
+
+                  <div className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-black/50 px-4 py-2 text-sm text-white">
+                    {currentImageIndex + 1} / {currentScreenshots.length}
+                  </div>
+                </>
+              )}
+
+              <img
+                src={selectedImage}
+                alt="Expanded view"
+                className="max-h-full max-w-full rounded-lg object-contain"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
+
   return (
-    <section id="portfolio" className="performance-section py-20 bg-slate-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <section id="portfolio" className="performance-section py-20 bg-slate-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Page Header ─────────────────────────────────────────────────── */}
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-200/20 backdrop-blur-sm">
@@ -448,410 +884,10 @@ const Portfolio = memo(() => {
         <div className="text-center mt-12" />
       </div>
 
-      {/* Project Details Modal */}
-      {selectedProject && (
-        <div 
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={closeModal}
-        >
-          <div 
-            className="bg-background rounded-2xl max-w-6xl w-full max-h-[95vh] overflow-hidden flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-6 overflow-y-auto flex-1">
-              {/* Modal Header */}
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">{selectedProject.title}</h3>
-                  <p className="text-muted-foreground">{selectedProject.type}</p>
-                </div>
-                <button
-                  onClick={closeModal}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-
-              {/* Project Image */}
-              <div className="mb-6">
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className={`w-3/4 h-80 ${
-                    PROJECT_IMAGE_CONTAIN_TITLES.has(selectedProject.title)
-                      ? "object-contain"
-                      : "object-cover"
-                  } rounded-lg mx-auto`}
-                  decoding="async"
-                />
-              </div>
-
-              {/* Project Disclaimer — only shown for team member projects */}
-              {selectedProject.category === "team" && (
-                <div className="mb-6 p-4 bg-muted/50 rounded-lg border-l-4 border-primary/20">
-                  <p className="text-sm text-muted-foreground italic">
-                    "This project was completed by one of our company members before the founding of Samalync, and it now forms part of our collective experience"
-                  </p>
-                </div>
-              )}
-
-              {/* Project Description */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-foreground mb-3">About This Project</h4>
-                <p className="text-muted-foreground leading-relaxed">{selectedProject.description}</p>
-              </div>
-
-              {/* Features */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-foreground mb-3">Key Features</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {selectedProject.features.map((feature: string, index: number) => (
-                    <div key={index} className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <span className="text-muted-foreground">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tech Stack */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-foreground mb-3">Technologies Used</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.tech.map((tech: string, index: number) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-
-              {/* Role and Outcome - Only for Movieex */}
-              {selectedProject.title === "Movieex" && (
-                <div className="mb-6 space-y-4">
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-3">Role</h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Mobile Developer – responsible for UI design integration, feature implementation, and app performance optimization.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-3">Outcome</h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Delivered a smooth, engaging entertainment experience that simplified content access and boosted user satisfaction.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      <img
-                        src="/Screenshots/1.png"
-                        alt="Movieex Screenshot 1"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/Screenshots/1.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
-                      />
-                      <img
-                        src="/Screenshots/2.png"
-                        alt="Movieex Screenshot 2"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/Screenshots/2.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
-                      />
-                      <img
-                        src="/Screenshots/3.png"
-                        alt="Movieex Screenshot 3"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/Screenshots/3.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
-                      />
-                      <img
-                        src="/Screenshots/4.png"
-                        alt="Movieex Screenshot 4"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/Screenshots/4.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
-                      />
-                      <img
-                        src="/Screenshots/5.png"
-                        alt="Movieex Screenshot 5"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/Screenshots/5.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
-                      />
-                      <img
-                        src="/Screenshots/6.png"
-                        alt="Movieex Screenshot 6"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/Screenshots/6.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
-                      />
-                      <img
-                        src="/Screenshots/7.png"
-                        alt="Movieex Screenshot 7"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/Screenshots/7.png", ["/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/6.png", "/Screenshots/7.png"])}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Special Section - Only for AI Voice Healthcare Assistant */}
-              {selectedProject.title === "AI Voice Healthcare Assistant" && (
-                <div className="mb-6 space-y-4">
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-3">Problem Solved</h4>
-                    <ul className="text-muted-foreground leading-relaxed space-y-1">
-                      <li>• Language barriers in healthcare</li>
-                      <li>• Limited access to medical specialists</li>
-                      <li>• Lack of preliminary medical guidance</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-3">Outcome</h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Created an accessible telemedicine platform that bridges language barriers, improves medical consultation response times, and enables better healthcare delivery across Rwanda.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <img
-                        src="/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png"
-                        alt="AI Voice Healthcare Assistant Screenshot 1"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
-                      />
-                      <img
-                        src="/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"
-                        alt="AI Voice Healthcare Assistant Screenshot 2"
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png", ["/AI Voice File/Screen Shot 2025-10-13 at 12.47.54 PM.png", "/AI Voice File/Screen Shot 2025-10-13 at 12.48.21 PM.png"])}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Role and Outcome - Only for eHub Surveys */}
-              {selectedProject.title === "eHub Surveys" && (
-                <div className="mb-6 space-y-4">
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-3">Role</h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Mobile Developer – implemented geolocation features, survey logic, and multimedia submission functionalities.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-3">Outcome</h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Delivered a reliable and intelligent survey platform that improved data accuracy and enhanced the feedback collection process for retail businesses.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                    <div className="flex flex-col md:flex-row gap-4 justify-start items-center">
-                      {/* Screenshot Image */}
-                      <img
-                        src="/ehub screenshot.jpeg"
-                        alt="eHub Screenshot"
-                        className="w-72 md:w-80 lg:w-80 h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick("/ehub screenshot.jpeg")}
-                      />
-                      
-                      {/* Video */}
-                      <video
-                        src="/ehub video.MP4"
-                        controls
-                        className="w-72 md:w-70 lg:w-80 h-auto rounded-lg shadow-lg object-cover"
-                        poster="/ehub screenshot.jpeg"
-                        preload="none"
-                        style={{ aspectRatio: '9/16' }}
-                      >
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Screenshots for Ozone Restaurant */}
-              {selectedProject.title === "Ozone Restaurant & Cafe" && selectedProject.screenshots && (
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
-                      <img
-                        key={index}
-                        src={screenshot}
-                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Screenshots for Viewesta */}
-              {selectedProject.title === "Viewesta" && selectedProject.screenshots && (
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
-                      <img
-                        key={index}
-                        src={screenshot}
-                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Screenshots for Sudan Mart */}
-              {selectedProject.title === "Sudan Mart" && selectedProject.screenshots && (
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
-                      <img
-                        key={index}
-                        src={screenshot}
-                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Screenshots for Brand Identity projects */}
-              {selectedProject.category === "brand" && selectedProject.screenshots && (
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-foreground mb-8">Brand Visuals</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
-                      <img
-                        key={index}
-                        src={screenshot}
-                        alt={`${selectedProject.title} Visual ${index + 1}`}
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Screenshots for Website Solutions projects */}
-              {selectedProject.category === "website" && selectedProject.screenshots && (
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-foreground mb-8">Screenshots</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {selectedProject.screenshots.map((screenshot: string, index: number) => (
-                      <img
-                        key={index}
-                        src={screenshot}
-                        alt={`${selectedProject.title} Screenshot ${index + 1}`}
-                        className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-opacity"
-                        loading="lazy"
-                        decoding="async"
-                        onClick={() => handleImageClick(screenshot, selectedProject.screenshots)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Image Modal */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
-          onClick={closeImageModal}
-        >
-          <div 
-            className="relative max-w-7xl max-h-[95vh] w-full h-full flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={closeImageModal}
-              className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-2"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            
-            {/* Navigation buttons - only show if there are multiple screenshots */}
-            {currentScreenshots.length > 1 && (
-              <>
-                <button
-                  onClick={goToPreviousImage}
-                  className="absolute left-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-3"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft className="h-8 w-8" />
-                </button>
-                <button
-                  onClick={goToNextImage}
-                  className="absolute right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-3"
-                  aria-label="Next image"
-                >
-                  <ChevronRight className="h-8 w-8" />
-                </button>
-                
-                {/* Image counter */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 bg-black/50 text-white px-4 py-2 rounded-full text-sm">
-                  {currentImageIndex + 1} / {currentScreenshots.length}
-                </div>
-              </>
-            )}
-            
-            <img
-              src={selectedImage}
-              alt="Expanded view"
-              className="max-w-full max-h-full object-contain rounded-lg"
-              decoding="async"
-            />
-          </div>
-        </div>
-      )}
-    </section>
+      </section>
+      {projectModal}
+      {imageModal}
+    </>
   );
 });
 
