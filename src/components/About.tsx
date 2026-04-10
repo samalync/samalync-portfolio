@@ -1,11 +1,12 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Linkedin, Sparkles, X } from "lucide-react";
 import {
   CompanyMember,
   coreTeamMembers,
   formatRoleText,
-  internMembers,
+  traineeMembers,
 } from "@/data/teamMembers";
 
 const teamStats = [
@@ -143,12 +144,83 @@ AboutStats.displayName = "AboutStats";
 
 const About = memo(() => {
   const [selectedMember, setSelectedMember] = useState<CompanyMember | null>(null);
+  const isModalOpen = Boolean(selectedMember);
   const handleSelectMember = useCallback((member: CompanyMember) => {
     setSelectedMember(member);
   }, []);
   const closeMemberModal = useCallback(() => {
     setSelectedMember(null);
   }, []);
+
+  useEffect(() => {
+    if (!isModalOpen || typeof document === "undefined") {
+      return;
+    }
+
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+    };
+  }, [isModalOpen]);
+
+  const selectedMemberModal = selectedMember && typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[100] overflow-y-auto overscroll-contain bg-slate-950/82 p-4 backdrop-blur-sm"
+          onClick={closeMemberModal}
+        >
+          <div className="flex min-h-full items-center justify-center">
+            <div
+              className="relative z-[101] w-full max-w-2xl overflow-y-auto rounded-3xl border border-slate-200 bg-white shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={closeMemberModal}
+                className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
+              >
+                <X className="h-6 w-6" />
+              </button>
+              <div className="flex flex-col items-center space-y-6 p-10 text-center">
+                {selectedMember.avatar.startsWith("/") ? (
+                  <img
+                    src={selectedMember.avatar}
+                    alt={selectedMember.name}
+                    className="mb-2 h-48 w-48 rounded-full border-4 border-blue-100 object-cover shadow-md"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="mb-2 flex h-48 w-48 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-5xl font-extrabold text-white shadow-md">
+                    {selectedMember.avatar}
+                  </div>
+                )}
+                <h2 className="text-3xl font-extrabold text-blue-900">{selectedMember.name}</h2>
+                <p className="mb-2 text-lg font-semibold text-blue-700">{formatRoleText(selectedMember)}</p>
+                <p className="mb-4 text-base leading-relaxed text-slate-700">{selectedMember.summary}</p>
+                <div className="mt-2 flex justify-center space-x-4">
+                  {selectedMember.linkedin && (
+                    <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B5] text-white shadow-sm transition-colors duration-200 hover:bg-[#005885]">
+                      <Linkedin className="h-6 w-6" />
+                    </a>
+                  )}
+                  {selectedMember.behance && (
+                    <a href={selectedMember.behance} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1769FF] text-white shadow-sm transition-opacity duration-200 hover:opacity-90">
+                      <span className="text-lg font-semibold text-white">B</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
 
   return (
     <section id="about" className="performance-section py-20 bg-white relative overflow-hidden">
@@ -198,35 +270,35 @@ const About = memo(() => {
           ))}
         </div>
 
-        {internMembers.length > 0 && (
+        {traineeMembers.length > 0 && (
           <div className="mx-auto mb-20 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 p-[1px] shadow-[0_32px_80px_-32px_rgba(8,145,178,0.45)]">
             <div className="rounded-[calc(2rem-1px)] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
               <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div className="space-y-4">
                   <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-100">
                     <Sparkles className="h-4 w-4 text-cyan-300" />
-                    Internship Program
+                    Training Program
                   </div>
                   <div className="space-y-3">
-                    <h3 className="text-3xl font-bold text-white">Interns growing with the team</h3>
+                    <h3 className="text-3xl font-bold text-white">Trainees growing with the team</h3>
                     <p className="max-w-2xl text-base leading-relaxed text-slate-300">
                       A dedicated space for emerging designers and developers contributing to real products through UI/UX and Flutter work.
                     </p>
                   </div>
                 </div>
                 <div className="inline-flex items-center self-start rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200">
-                  {internMembers.length} interns
+                  {traineeMembers.length} Trainees
                 </div>
               </div>
 
               <div className="flex flex-wrap justify-center gap-8">
-                {internMembers.map((member, index) => (
+                {traineeMembers.map((member, index) => (
                   <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)]">
                     <TeamMemberCard
                       member={member}
                       index={coreTeamMembers.length + index}
                       onSelect={handleSelectMember}
-                      badgeLabel="Intern"
+                      badgeLabel="Trainee"
                     />
                   </div>
                 ))}
@@ -239,54 +311,7 @@ const About = memo(() => {
         <AboutStats />
       </div>
 
-      {/* Team Member Detail Modal */}
-      {selectedMember && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/72 p-4"
-          onClick={closeMemberModal}
-        >
-          <div
-            className="relative z-[101] max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl border border-slate-200 bg-white shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={closeMemberModal}
-              className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            <div className="flex flex-col items-center text-center p-10 space-y-6">
-              {selectedMember.avatar.startsWith("/") ? (
-                <img
-                  src={selectedMember.avatar}
-                  alt={selectedMember.name}
-                  className="mb-2 h-48 w-48 rounded-full border-4 border-blue-100 object-cover shadow-md"
-                  decoding="async"
-                />
-              ) : (
-                <div className="mb-2 flex h-48 w-48 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-5xl font-extrabold text-white shadow-md">
-                  {selectedMember.avatar}
-                </div>
-              )}
-              <h2 className="text-3xl font-extrabold text-blue-900">{selectedMember.name}</h2>
-              <p className="mb-2 text-lg font-semibold text-blue-700">{formatRoleText(selectedMember)}</p>
-              <p className="mb-4 text-base leading-relaxed text-slate-700">{selectedMember.summary}</p>
-              <div className="flex space-x-4 justify-center mt-2">
-                {selectedMember.linkedin && (
-                  <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B5] text-white shadow-sm transition-colors duration-200 hover:bg-[#005885]">
-                    <Linkedin className="h-6 w-6" />
-                  </a>
-                )}
-                {selectedMember.behance && (
-                  <a href={selectedMember.behance} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1769FF] text-white shadow-sm transition-opacity duration-200 hover:opacity-90">
-                    <span className="text-white text-lg font-semibold">B</span>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {selectedMemberModal}
     </section>
   );
 });

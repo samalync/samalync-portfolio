@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Code, Linkedin, Sparkles, Users, X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,17 +8,123 @@ import {
   companyMembers,
   coreTeamMembers,
   formatRoleText,
-  internMembers,
+  traineeMembers,
 } from "@/data/teamMembers";
 
 const Team: React.FC = () => {
   const [selectedMember, setSelectedMember] = useState<CompanyMember | null>(null);
   const [enlargedPhoto, setEnlargedPhoto] = useState<string | null>(null);
+  const isModalOpen = Boolean(selectedMember || enlargedPhoto);
 
   const handleGetOfferClick = () => {
     // Navigate to contact section or handle offer request
     window.location.href = "/#contact";
   };
+
+  useEffect(() => {
+    if (!isModalOpen || typeof document === "undefined") {
+      return;
+    }
+
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+    };
+  }, [isModalOpen]);
+
+  const selectedMemberModal = selectedMember && typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[100] overflow-y-auto overscroll-contain bg-slate-950/86 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedMember(null)}
+        >
+          <div className="flex min-h-full items-center justify-center">
+            <div
+              className="relative z-[101] w-full max-w-2xl overflow-y-auto rounded-3xl border-4 border-blue-200 bg-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 shadow-md transition-colors duration-200 hover:bg-gray-200"
+              >
+                <X className="h-6 w-6 text-gray-600" />
+              </button>
+              <div className="flex flex-col items-center space-y-6 p-10 text-center">
+                {selectedMember.avatar.startsWith("/") ? (
+                  <div
+                    className="relative group cursor-pointer"
+                    onClick={() => setEnlargedPhoto(selectedMember.avatar)}
+                  >
+                    <img
+                      src={selectedMember.avatar}
+                      alt={selectedMember.name}
+                      className="mb-2 h-48 w-48 rounded-full border-4 border-blue-400 object-cover shadow-2xl transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-400/10 to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-blue-600">
+                        Click to enlarge
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mb-2 flex h-48 w-48 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-5xl font-extrabold text-white shadow-2xl">
+                    {selectedMember.avatar}
+                  </div>
+                )}
+                <h2 className="text-3xl font-extrabold text-blue-900 drop-shadow-lg">{selectedMember.name}</h2>
+                <p className="mb-2 text-lg font-semibold text-blue-700">{formatRoleText(selectedMember)}</p>
+                <p className="mb-4 text-base leading-relaxed text-gray-700">{selectedMember.summary}</p>
+                <div className="mt-2 flex justify-center space-x-4">
+                  {selectedMember.linkedin && (
+                    <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B5] shadow-lg transition-all duration-300 hover:bg-[#005885]">
+                      <Linkedin className="h-6 w-6 text-white" />
+                    </a>
+                  )}
+                  {selectedMember.behance && (
+                    <a href={selectedMember.behance} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1769FF] shadow-lg transition-all duration-300 hover:opacity-90">
+                      <span className="text-lg font-semibold text-white">B</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
+
+  const enlargedPhotoModal = enlargedPhoto && typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[200] overflow-y-auto overscroll-contain bg-slate-950/92 p-4 backdrop-blur-md"
+          onClick={() => setEnlargedPhoto(null)}
+        >
+          <div className="flex min-h-full items-center justify-center">
+            <div className="relative z-[201] w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={() => setEnlargedPhoto(null)}
+                className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-colors duration-200 hover:bg-white/30"
+              >
+                <X className="h-6 w-6 text-white" />
+              </button>
+              <img
+                src={enlargedPhoto}
+                alt="Enlarged photo"
+                className="max-h-[90vh] w-full rounded-2xl object-contain shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
 
   const renderMemberCard = (member: CompanyMember, index: number, badgeLabel?: string) => (
     <div
@@ -114,7 +221,7 @@ const Team: React.FC = () => {
               Meet Our Team
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-              Meet the core team leading delivery across engineering, product, and design, plus the interns growing through hands-on UI/UX and Flutter work.
+              Meet the core team leading delivery across engineering, product, and design, plus the trainees growing through hands-on UI/UX and Flutter work.
             </p>
           </div>
         </div>
@@ -149,31 +256,31 @@ const Team: React.FC = () => {
             ))}
           </div>
 
-          {internMembers.length > 0 && (
+          {traineeMembers.length > 0 && (
             <div className="mx-auto mt-16 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950 p-[1px] shadow-[0_32px_80px_-32px_rgba(14,165,233,0.45)]">
               <div className="rounded-[calc(2rem-1px)] bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.18),_transparent_42%),linear-gradient(135deg,_rgba(15,23,42,0.98),_rgba(3,7,18,0.94))] px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
                 <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                   <div className="space-y-4">
                     <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-100">
                       <Sparkles className="h-4 w-4 text-cyan-300" />
-                      Intern Track
+                      Trainee Track
                     </div>
                     <div className="space-y-2">
-                      <h2 className="text-3xl font-bold text-white">Interns in product, UX, and Flutter</h2>
+                      <h2 className="text-3xl font-bold text-white">Trainees in product, UX, and Flutter</h2>
                       <p className="max-w-2xl text-base leading-relaxed text-slate-300">
-                        This section highlights interns separately so their growth, focus areas, and contributions are clear at a glance.
+                        This section highlights trainees separately so their growth, focus areas, and contributions are clear at a glance.
                       </p>
                     </div>
                   </div>
                   <div className="inline-flex items-center self-start rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200">
-                    {internMembers.length} interns
+                    {traineeMembers.length} Trainees
                   </div>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-8">
-                  {internMembers.map((member, index) => (
+                  {traineeMembers.map((member, index) => (
                     <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)]">
-                      {renderMemberCard(member, coreTeamMembers.length + index, "Intern")}
+                      {renderMemberCard(member, coreTeamMembers.length + index, "Trainee")}
                     </div>
                   ))}
                 </div>
@@ -212,93 +319,17 @@ const Team: React.FC = () => {
                 <Sparkles className="h-6 w-6" />
               </div>
               <div className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
-                {internMembers.length}
+                {traineeMembers.length}
               </div>
-              <div className="mt-4 text-lg font-medium text-gray-600">Active Interns</div>
+              <div className="mt-4 text-lg font-medium text-gray-600">Active Trainees</div>
               <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 group-hover:w-16" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Member Detail Modal */}
-      {selectedMember && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-[2px] flex items-center justify-center z-[100] p-4 animate-fadeIn"
-          onClick={() => setSelectedMember(null)}
-        >
-          <div
-            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-blue-200 relative animate-scaleIn z-[101]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedMember(null)}
-              className="absolute top-6 right-6 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200 shadow-md"
-            >
-              <X className="h-6 w-6 text-gray-600" />
-            </button>
-            <div className="flex flex-col items-center text-center p-10 space-y-6">
-              {selectedMember.avatar.startsWith("/") ? (
-                <div
-                  className="relative group cursor-pointer"
-                  onClick={() => setEnlargedPhoto(selectedMember.avatar)}
-                >
-                  <img
-                    src={selectedMember.avatar}
-                    alt={selectedMember.name}
-                    className="w-48 h-48 rounded-full border-4 border-blue-400 shadow-2xl object-cover mb-2 transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-cyan-400/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="text-blue-600 font-semibold text-sm bg-white/90 px-3 py-1 rounded-full">Click to enlarge</span>
-                  </div>
-                </div>
-              ) : (
-                <div className="w-48 h-48 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-5xl font-extrabold shadow-2xl mb-2">
-                  {selectedMember.avatar}
-                </div>
-              )}
-              <h2 className="text-3xl font-extrabold text-blue-900 drop-shadow-lg">{selectedMember.name}</h2>
-              <p className="text-lg text-blue-700 font-semibold mb-2">{formatRoleText(selectedMember)}</p>
-              <p className="text-gray-700 text-base leading-relaxed mb-4">{selectedMember.summary}</p>
-              <div className="flex space-x-4 justify-center mt-2">
-                {selectedMember.linkedin && (
-                  <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#0077B5] rounded-full flex items-center justify-center hover:bg-[#005885] transition-all duration-300 shadow-lg">
-                    <Linkedin className="h-6 w-6 text-white" />
-                  </a>
-                )}
-                {selectedMember.behance && (
-                  <a href={selectedMember.behance} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#1769FF] rounded-full flex items-center justify-center hover:opacity-90 transition-all duration-300 shadow-lg">
-                    <span className="text-white text-lg font-semibold">B</span>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Enlarged Photo Modal */}
-      {enlargedPhoto && (
-        <div
-          className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-[200] p-4 animate-fadeIn"
-          onClick={() => setEnlargedPhoto(null)}
-        >
-          <div className="relative max-w-4xl max-h-[90vh] w-full z-[201]">
-            <button
-              onClick={() => setEnlargedPhoto(null)}
-              className="absolute -top-12 right-0 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors duration-200 backdrop-blur-sm"
-            >
-              <X className="h-6 w-6 text-white" />
-            </button>
-            <img
-              src={enlargedPhoto}
-              alt="Enlarged photo"
-              className="w-full h-full object-contain rounded-2xl shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        </div>
-      )}
+      {selectedMemberModal}
+      {enlargedPhotoModal}
 
       <Footer />
     </div>

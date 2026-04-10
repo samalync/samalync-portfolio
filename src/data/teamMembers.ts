@@ -1,4 +1,4 @@
-export type CompanyMemberGroup = "team" | "intern";
+export type CompanyMemberGroup = "team" | "trainee";
 
 export type CompanyMember = {
   name: string;
@@ -68,9 +68,9 @@ export const companyMembers: CompanyMember[] = [
     role: "UI/UX & Flutter Development Trainee",
     isCoFounder: false,
     summary:
-      "Ahmed is a UI/UX and Flutter development Trainee contributing to user research, interface design, prototyping, and cross-platform product experiences that feel intuitive and polished.",
+      "Ahmed is a UI/UX and Flutter development trainee contributing to user research, interface design, prototyping, and cross-platform product experiences that feel intuitive and polished.",
     avatar: "/ahmed-hakeem.png",
-    group: "intern",
+    group: "trainee",
     linkedin: "https://www.linkedin.com/in/ahmed-abdelhakim-mohamed-2b71073a2/",
     behance: "https://www.behance.net/ahmedhakeem18/",
   },
@@ -79,15 +79,15 @@ export const companyMembers: CompanyMember[] = [
     role: "Flutter Development Trainee",
     isCoFounder: false,
     summary:
-      "Muhammed is a Flutter development intern supporting cross-platform mobile experiences with Dart and Flutter, helping turn ideas into smooth, responsive app interfaces.",
-    avatar: "MM",
-    group: "intern",
+      "Muhammed is a Flutter development trainee supporting cross-platform mobile experiences with Dart and Flutter, helping turn ideas into smooth, responsive app interfaces.",
+    avatar: "/md-mustafa.jpg",
+    group: "trainee",
   },
 ];
 
 export const coreTeamMembers = companyMembers.filter((member) => member.group === "team");
 
-export const internMembers = companyMembers.filter((member) => member.group === "intern");
+export const traineeMembers = companyMembers.filter((member) => member.group === "trainee");
 
 export const formatRoleText = (member: CompanyMember) => {
   const hasCoFounderInRole = /co-?founder/i.test(member.role);
