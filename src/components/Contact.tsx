@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Send, Mail, Phone, MapPin, Clock, type LucideIcon } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '@/config/emailjs';
+import { useLanguage } from "@/i18n";
 
 type ContactProps = {
   initialSubject?: string;
@@ -19,37 +20,38 @@ type ContactInfoItem = {
   description?: string;
 };
 
-const contactInfo: ContactInfoItem[] = [
-  {
-    icon: Mail,
-    title: "Email",
-    value: "support@samalync.com",
-  },
-  {
-    icon: Phone,
-    title: "Call",
-    value: "+250796110934",
-  },
-  {
-    icon: MapPin,
-    title: "Location",
-    value: "Kigali, Rwanda",
-  },
-  {
-    icon: Clock,
-    title: "Working Hours",
-    value: "8:00 AM - 5:00 PM",
-    description: "Monday - Friday",
-  },
-];
+const ContactInfoPanel = memo(({ contactText }: { contactText: ReturnType<typeof useLanguage>["t"] extends (key: "contact") => infer T ? T : never }) => {
+  const contactInfo: ContactInfoItem[] = [
+    {
+      icon: Mail,
+      title: contactText.info.email,
+      value: "support@samalync.com",
+    },
+    {
+      icon: Phone,
+      title: contactText.info.call,
+      value: "+250796110934",
+    },
+    {
+      icon: MapPin,
+      title: contactText.info.location,
+      value: "Kigali, Rwanda",
+    },
+    {
+      icon: Clock,
+      title: contactText.info.hours,
+      value: "8:00 AM - 5:00 PM",
+      description: contactText.info.weekdays,
+    },
+  ];
 
-const ContactInfoPanel = memo(() => (
+  return (
   <div className="relative border-l border-slate-200 bg-slate-50 p-8 lg:p-12">
     <div className="space-y-8">
       <div className="space-y-4">
-        <h3 className="text-3xl font-bold text-gray-900">Get in Touch</h3>
+        <h3 className="text-3xl font-bold text-gray-900">{contactText.panelTitle}</h3>
         <p className="text-gray-600 leading-relaxed">
-          We'd love to hear from you. Whether you have a project in mind or need consultation, reach out anytime.
+          {contactText.panelIntro}
         </p>
       </div>
 
@@ -75,17 +77,20 @@ const ContactInfoPanel = memo(() => (
 
       <div className="border-t border-slate-200 pt-8">
         <p className="text-sm italic text-gray-500">
-          "We typically respond within 24 hours"
+          "{contactText.response}"
         </p>
       </div>
     </div>
   </div>
-));
+  );
+});
 
 ContactInfoPanel.displayName = "ContactInfoPanel";
 
 const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
   const { toast } = useToast();
+  const { t } = useLanguage();
+  const contactText = t("contact");
   const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -119,8 +124,8 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
     // Validation
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: "Error",
-        description: "Please fill in all required fields.",
+        title: contactText.error,
+        description: contactText.required,
         variant: "destructive",
       });
       return;
@@ -130,8 +135,8 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       toast({
-        title: "Error", 
-        description: "Please enter a valid email address.",
+        title: contactText.error,
+        description: contactText.invalidEmail,
         variant: "destructive",
       });
       return;
@@ -149,8 +154,8 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
       );
       
       toast({
-        title: "Message Sent!",
-        description: "Your message has been sent successfully. We'll get back to you soon!",
+        title: contactText.successTitle,
+        description: contactText.success,
       });
       
       // Reset form
@@ -160,14 +165,14 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
       console.error('Failed to send message');
       
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or contact us directly.",
+        title: contactText.error,
+        description: contactText.failed,
         variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData.email, formData.message, formData.name, toast]);
+  }, [contactText, formData.email, formData.message, formData.name, toast]);
 
   return (
     <section id="contact" className="performance-section py-20 bg-white relative overflow-hidden">
@@ -176,13 +181,13 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full border border-blue-200/20 backdrop-blur-sm">
-            <span className="text-sm font-medium text-blue-600 tracking-wide">GET IN TOUCH</span>
+            <span className="text-sm font-medium text-blue-600 tracking-wide">{contactText.eyebrow}</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight">
-            Contact Us
+            {contactText.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-            Ready to start your project? Get in touch with us and let's discuss how we can help bring your ideas to life.
+            {contactText.intro}
           </p>
         </div>
 
@@ -194,9 +199,9 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
                 <div className="relative bg-white p-8 lg:p-12">
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">Send Message</h3>
+                      <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">{contactText.sendTitle}</h3>
                       <p className="text-gray-600 leading-relaxed">
-                        Ready to start your project? Let's discuss how we can help bring your ideas to life.
+                        {contactText.sendIntro}
                       </p>
                     </div>
 
@@ -210,21 +215,21 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-3">
                           <label htmlFor="name" className="text-sm font-semibold text-gray-700">
-                            Name *
+                            {contactText.name}
                           </label>
                           <Input
                             id="name"
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
-                            placeholder="Your full name"
+                            placeholder={contactText.namePlaceholder}
                             required
                             className="h-12 rounded-xl border-slate-200 bg-slate-50 transition-colors duration-200 focus:border-blue-500 focus:ring-blue-500/20"
                           />
                         </div>
                         <div className="space-y-3">
                           <label htmlFor="email" className="text-sm font-semibold text-gray-700">
-                            Email *
+                            {contactText.email}
                           </label>
                           <Input
                             id="email"
@@ -241,28 +246,28 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
 
                       <div className="space-y-3">
                         <label htmlFor="subject" className="text-sm font-semibold text-gray-700">
-                          Subject
+                          {contactText.subject}
                         </label>
                         <Input
                           id="subject"
                           name="title"
                           value={formData.subject}
                           onChange={handleInputChange}
-                          placeholder="Project inquiry, partnership, etc."
+                          placeholder={contactText.subjectPlaceholder}
                           className="h-12 rounded-xl border-slate-200 bg-slate-50 transition-colors duration-200 focus:border-blue-500 focus:ring-blue-500/20"
                         />
                       </div>
 
                       <div className="space-y-3">
                         <label htmlFor="message" className="text-sm font-semibold text-gray-700">
-                          Message *
+                          {contactText.message}
                         </label>
                         <Textarea
                           id="message"
                           name="message"
                           value={formData.message}
                           onChange={handleInputChange}
-                          placeholder="Tell us about your project or how we can help you..."
+                          placeholder={contactText.messagePlaceholder}
                           rows={5}
                           required
                           className="resize-none rounded-xl border-slate-200 bg-slate-50 transition-colors duration-200 focus:border-blue-500 focus:ring-blue-500/20"
@@ -275,7 +280,7 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
                         className="h-14 w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold shadow-md transition-colors duration-200 hover:from-blue-500 hover:to-cyan-500 hover:shadow-lg"
                       >
                         <span className="flex items-center justify-center gap-2">
-                          <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+                          <span>{isSubmitting ? contactText.sending : contactText.send}</span>
                           <Send className={`h-5 w-5 ${isSubmitting ? 'animate-pulse' : ''}`} />
                         </span>
                       </Button>
@@ -284,7 +289,7 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
                 </div>
 
                 {/* Contact Information Section */}
-                <ContactInfoPanel />
+                <ContactInfoPanel contactText={contactText} />
               </div>
             </CardContent>
           </Card>

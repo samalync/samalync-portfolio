@@ -2,6 +2,7 @@ import React, { memo, useCallback, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
 type ProjectCategory = "core" | "website" | "brand" | "team";
 
@@ -110,6 +111,8 @@ const Portfolio = memo(() => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [currentScreenshots, setCurrentScreenshots] = useState<string[]>([]);
+  const { t } = useLanguage();
+  const portfolioText = t("portfolio");
 
   // ─── Core Products ─────────────────────────────────────────────────────────
   const coreProducts = useMemo<Project[]>(() => [
@@ -461,20 +464,20 @@ const Portfolio = memo(() => {
                 {selectedProject.category === "team" && (
                   <div className="mb-6 rounded-lg border-l-4 border-primary/20 bg-muted/50 p-4">
                     <p className="text-sm italic text-muted-foreground">
-                      "This project was completed by one of our company members before the founding of Samalync, and it now forms part of our collective experience"
+                      "{portfolioText.disclaimer}"
                     </p>
                   </div>
                 )}
 
                 {/* Project Description */}
                 <div className="mb-6">
-                  <h4 className="mb-3 text-lg font-semibold text-foreground">About This Project</h4>
+                  <h4 className="mb-3 text-lg font-semibold text-foreground">{portfolioText.aboutProject}</h4>
                   <p className="leading-relaxed text-muted-foreground">{selectedProject.description}</p>
                 </div>
 
                 {/* Features */}
                 <div className="mb-6">
-                  <h4 className="mb-3 text-lg font-semibold text-foreground">Key Features</h4>
+                  <h4 className="mb-3 text-lg font-semibold text-foreground">{portfolioText.features}</h4>
                   <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
                     {selectedProject.features.map((feature: string, index: number) => (
                       <div key={index} className="flex items-center space-x-2">
@@ -487,7 +490,7 @@ const Portfolio = memo(() => {
 
                 {/* Tech Stack */}
                 <div className="mb-6">
-                  <h4 className="mb-3 text-lg font-semibold text-foreground">Technologies Used</h4>
+                  <h4 className="mb-3 text-lg font-semibold text-foreground">{portfolioText.technologies}</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.tech.map((tech: string, index: number) => (
                       <span
@@ -505,19 +508,19 @@ const Portfolio = memo(() => {
                 {selectedProject.title === "Movieex" && (
                   <div className="mb-6 space-y-4">
                     <div>
-                      <h4 className="mb-3 text-lg font-semibold text-foreground">Role</h4>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">{portfolioText.role}</h4>
                       <p className="leading-relaxed text-muted-foreground">
                         Mobile Developer – responsible for UI design integration, feature implementation, and app performance optimization.
                       </p>
                     </div>
                     <div>
-                      <h4 className="mb-3 text-lg font-semibold text-foreground">Outcome</h4>
+                      <h4 className="mb-3 text-lg font-semibold text-foreground">{portfolioText.outcome}</h4>
                       <p className="leading-relaxed text-muted-foreground">
                         Delivered a smooth, engaging entertainment experience that simplified content access and boosted user satisfaction.
                       </p>
                     </div>
                     <div>
-                      <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                      <h4 className="mb-8 text-lg font-semibold text-foreground">{portfolioText.screenshots}</h4>
                       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                         <img
                           src="/Screenshots/1.png"
@@ -726,7 +729,7 @@ const Portfolio = memo(() => {
                 {/* Screenshots for Brand Identity projects */}
                 {selectedProject.category === "brand" && selectedProject.screenshots && (
                   <div className="mb-6">
-                    <h4 className="mb-8 text-lg font-semibold text-foreground">Brand Visuals</h4>
+                    <h4 className="mb-8 text-lg font-semibold text-foreground">{portfolioText.brandVisuals}</h4>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                       {selectedProject.screenshots.map((screenshot: string, index: number) => (
                         <img
@@ -746,7 +749,7 @@ const Portfolio = memo(() => {
                 {/* Screenshots for Website Solutions projects */}
                 {selectedProject.category === "website" && selectedProject.screenshots && (
                   <div className="mb-6">
-                    <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
+                    <h4 className="mb-8 text-lg font-semibold text-foreground">{portfolioText.screenshots}</h4>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                       {selectedProject.screenshots.map((screenshot: string, index: number) => (
                         <img
@@ -793,14 +796,14 @@ const Portfolio = memo(() => {
                   <button
                     onClick={goToPreviousImage}
                     className="absolute left-4 z-10 rounded-full bg-black/50 p-3 text-white transition-colors hover:text-gray-300"
-                    aria-label="Previous image"
+                    aria-label={portfolioText.previousImage}
                   >
                     <ChevronLeft className="h-8 w-8" />
                   </button>
                   <button
                     onClick={goToNextImage}
                     className="absolute right-4 z-10 rounded-full bg-black/50 p-3 text-white transition-colors hover:text-gray-300"
-                    aria-label="Next image"
+                    aria-label={portfolioText.nextImage}
                   >
                     <ChevronRight className="h-8 w-8" />
                   </button>
@@ -813,7 +816,7 @@ const Portfolio = memo(() => {
 
               <img
                 src={selectedImage}
-                alt="Expanded view"
+                alt={portfolioText.expandedView}
                 className="max-h-full max-w-full rounded-lg object-contain"
                 decoding="async"
               />
@@ -831,20 +834,20 @@ const Portfolio = memo(() => {
         {/* ── Page Header ─────────────────────────────────────────────────── */}
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-200/20 backdrop-blur-sm">
-            <span className="text-sm font-medium text-purple-600 tracking-wide">OUR WORK</span>
+            <span className="text-sm font-medium text-purple-600 tracking-wide">{portfolioText.eyebrow}</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight mb-4 pb-2">
-            Projects
+            {portfolioText.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-            Explore our portfolio of successful projects that showcase our expertise in mobile development, web applications, and graphic design.
+            {portfolioText.intro}
           </p>
         </div>
 
         {/* ── Section 1: Core Products ─────────────────────────────────────── */}
         <SectionHeader
-          title="Core Products"
-          subtitle="Products built and owned by Samalync"
+          title={portfolioText.coreTitle}
+          subtitle={portfolioText.coreSubtitle}
         />
         <ProjectGrid items={coreProducts} onSelect={handleViewProject} />
 
@@ -852,8 +855,8 @@ const Portfolio = memo(() => {
         {websiteSolutions.length > 0 && (
           <>
             <SectionHeader
-              title="Website Solutions"
-              subtitle="Business websites and digital experiences delivered for clients"
+              title={portfolioText.websiteTitle}
+              subtitle={portfolioText.websiteSubtitle}
             />
             <ProjectGrid items={websiteSolutions} onSelect={handleViewProject} />
           </>
@@ -863,8 +866,8 @@ const Portfolio = memo(() => {
         {brandIdentityProjects.length > 0 && (
           <>
             <SectionHeader
-              title="Brand Identity & Visual Design"
-              subtitle="Logo design, brand systems, and graphic design work"
+              title={portfolioText.brandTitle}
+              subtitle={portfolioText.brandSubtitle}
             />
             <ProjectGrid items={brandIdentityProjects} onSelect={handleViewProject} />
           </>
@@ -874,8 +877,8 @@ const Portfolio = memo(() => {
         {teamMemberProjects.length > 0 && (
           <>
             <SectionHeader
-              title="Projects by Team Members"
-              subtitle="Work developed by individual team members, showcasing their breadth of experience"
+              title={portfolioText.teamTitle}
+              subtitle={portfolioText.teamSubtitle}
             />
             <ProjectGrid items={teamMemberProjects} onSelect={handleViewProject} />
           </>

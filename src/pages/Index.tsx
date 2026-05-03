@@ -8,9 +8,12 @@ import SelectedClients from "@/components/SelectedClients";
 import Partnerships from "@/components/Partnerships";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/i18n";
 
 const Index = () => {
   const [selectedServiceSubject, setSelectedServiceSubject] = React.useState<string>("");
+  const { t } = useLanguage();
+  const hero = t("hero");
 
   const scrollToContact = React.useCallback(() => {
     const element = document.getElementById("contact");
@@ -49,33 +52,32 @@ const Index = () => {
           <div className="animate-fade-in-up mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              Available for Projects
+              {hero.available}
             </span>
           </div>
 
           {/* Main Headline */}
           <h1 className="animate-fade-in-up text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6" style={{ animationDelay: '0.1s' }}>
-            <span className="block">Transform Your</span>
-            <span className="text-blue-200">Digital Vision</span>
-            <span className="block">Into Reality</span>
+            <span className="block">{hero.title1}</span>
+            <span className="text-blue-200">{hero.title2}</span>
+            <span className="block">{hero.title3}</span>
           </h1>
 
           {/* Subheadline */}
           <p className="animate-fade-in-up text-lg md:text-xl lg:text-2xl text-blue-100 max-w-3xl mx-auto mb-8 leading-relaxed" style={{ animationDelay: '0.2s' }}>
-            We craft innovative software solutions and stunning mobile applications
-            that propel your business into the future.
+            {hero.subtitle}
           </p>
 
           {/* Feature Pills */}
           <div className="animate-fade-in-up flex flex-wrap justify-center gap-3 mb-10" style={{ animationDelay: '0.3s' }}>
             <span className="px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
-              Fast Delivery
+              {hero.fast}
             </span>
             <span className="px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
-              Premium Quality
+              {hero.quality}
             </span>
             <span className="px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
-              Secure & Scalable
+              {hero.secure}
             </span>
           </div>
 
@@ -85,7 +87,7 @@ const Index = () => {
               onClick={scrollToContact}
               className="inline-flex items-center gap-3 px-8 py-4 bg-white hover:bg-blue-50 text-primary font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-white/25"
             >
-              <span className="text-lg">Start Your Project</span>
+              <span className="text-lg">{hero.cta}</span>
               <span className="text-xl">→</span>
             </button>
           </div>
@@ -94,19 +96,19 @@ const Index = () => {
           <div className="animate-fade-in-up mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto" style={{ animationDelay: '0.5s' }}>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-white">10+</div>
-              <div className="text-blue-200 text-sm mt-1">Projects Completed</div>
+              <div className="text-blue-200 text-sm mt-1">{hero.stats[0]}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-white">24/7</div>
-              <div className="text-blue-200 text-sm mt-1">Support Available</div>
+              <div className="text-blue-200 text-sm mt-1">{hero.stats[1]}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-white">5+</div>
-              <div className="text-blue-200 text-sm mt-1">Years Experience</div>
+              <div className="text-blue-200 text-sm mt-1">{hero.stats[2]}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-white">99%</div>
-              <div className="text-blue-200 text-sm mt-1">Client Satisfaction</div>
+              <div className="text-blue-200 text-sm mt-1">{hero.stats[3]}</div>
             </div>
           </div>
         </div>

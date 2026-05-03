@@ -2,8 +2,12 @@ import React, { memo } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Linkedin, ArrowUp, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/i18n";
 
 const Footer: React.FC = memo(() => {
+  const { t } = useLanguage();
+  const footer = t("footer");
+  const header = t("header");
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -16,19 +20,14 @@ const Footer: React.FC = memo(() => {
   };
 
   const navigation = [
-    { label: "Home", id: "hero" },
-    { label: "Services", id: "services" },
-    { label: "Projects", id: "portfolio" },
-    { label: "About", id: "about" },
-    { label: "Contact", id: "contact" }
+    { label: header.nav.home, id: "hero" },
+    { label: header.nav.services, id: "services" },
+    { label: header.nav.projects, id: "portfolio" },
+    { label: header.nav.about, id: "about" },
+    { label: header.nav.contact, id: "contact" }
   ];
 
-  const Projects = [
-    "Mobile App Development",
-    "Website Development", 
-    "Backend & APIs",
-    "Graphic Design",
-  ];
+  const Projects = footer.projects;
 
   const socialLinks = [
     { icon: Linkedin, href: "https://rw.linkedin.com/company/samalync-ltd", label: "Company LinkedIn" },
@@ -38,7 +37,7 @@ const Footer: React.FC = memo(() => {
   const companyMembers = [
     {
       name: "Yassi Abuarki",
-      role: "Chief Executive Officer (CEO)",
+      role: footer.role,
       isCoFounder: false,
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/",
       image: "/me.jpg"
@@ -67,7 +66,7 @@ const Footer: React.FC = memo(() => {
                 <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2"></div>
               </div>
               <p className="text-gray-300 leading-relaxed max-w-md text-lg">
-                We are a software company specializing in mobile applications, websites, and smart system solutions. Driven by innovation, we deliver technology solutions that help our clients grow and achieve their goals efficiently and flexibly.
+                {footer.description}
               </p>
             </div>
 
@@ -89,7 +88,7 @@ const Footer: React.FC = memo(() => {
           {/* Navigation Links */}
           <div className="space-y-8">
             <h4 className="text-xl font-bold text-white relative">
-              Quick Links
+              {footer.quickLinks}
               <div className="w-8 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2"></div>
             </h4>
             <nav className="space-y-4">
@@ -113,7 +112,7 @@ const Footer: React.FC = memo(() => {
           {/* Projects */}
           <div className="space-y-8">
             <h4 className="text-xl font-bold text-white relative">
-              Services
+              {footer.services}
               <div className="w-8 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2"></div>
             </h4>
             <div className="space-y-4">
@@ -135,7 +134,7 @@ const Footer: React.FC = memo(() => {
           {/* Company Members */}
           <div className="space-y-8">
             <h4 className="text-xl font-bold text-white relative">
-              Leadership
+              {footer.leadership}
               <div className="w-8 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2"></div>
             </h4>
             <div className="space-y-6">
@@ -167,7 +166,7 @@ const Footer: React.FC = memo(() => {
                     className="inline-flex items-center text-blue-400 hover:text-blue-300 text-sm transition-colors duration-300 hover:scale-105"
                   >
                     <Linkedin className="h-4 w-4 mr-2" />
-                    LinkedIn Profile
+                    {footer.linkedin}
                   </a>
                 </div>
               ))}
@@ -181,22 +180,22 @@ const Footer: React.FC = memo(() => {
           {/* Bottom Footer */}
           <div className="py-8 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             <div className="text-gray-400 text-sm font-medium">
-              © 2025 SAMALYNC. All rights reserved.
+              © 2025 SAMALYNC. {footer.rights}
             </div>
 
             <div className="flex items-center space-x-8">
               <span className="text-gray-500 text-sm cursor-not-allowed hover:text-gray-400 transition-colors duration-300">
-                Privacy Policy
+                {footer.privacy}
               </span>
               <span className="text-gray-500 text-sm cursor-not-allowed hover:text-gray-400 transition-colors duration-300">
-                Terms of Service
+                {footer.terms}
               </span>
               <Button
                 onClick={scrollToTop}
                 className="group bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white border-0 shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 rounded-xl px-6 py-3"
               >
                 <ArrowUp className="h-4 w-4 mr-2 group-hover:-translate-y-1 transition-transform duration-300" />
-                Back to top
+                {footer.backToTop}
               </Button>
             </div>
           </div>

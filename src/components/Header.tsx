@@ -1,23 +1,26 @@
 import React, { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Globe2, Menu, X } from "lucide-react";
+import { Language, useLanguage } from "@/i18n";
 
 interface HeaderProps {
   onGetOfferClick: () => void;
 }
 
 const navItems = [
-  { label: "Home", id: "hero" },
-  { label: "Services", id: "services" },
-  { label: "Projects", id: "portfolio" },
-  { label: "About", id: "about" },
-  { label: "Partnerships", id: "partnerships" },
-  { label: "Clients", id: "selected-clients" },
-  { label: "Contact", id: "contact" },
-];
+  { key: "home", id: "hero" },
+  { key: "services", id: "services" },
+  { key: "projects", id: "portfolio" },
+  { key: "about", id: "about" },
+  { key: "partnerships", id: "partnerships" },
+  { key: "clients", id: "selected-clients" },
+  { key: "contact", id: "contact" },
+] as const;
 
 const Header: React.FC<HeaderProps> = React.memo(({ onGetOfferClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+  const header = t("header");
 
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -31,6 +34,33 @@ const Header: React.FC<HeaderProps> = React.memo(({ onGetOfferClick }) => {
     setIsMobileMenuOpen(false);
     onGetOfferClick();
   }, [onGetOfferClick]);
+
+  const handleLanguageChange = useCallback((nextLanguage: Language) => {
+    setLanguage(nextLanguage);
+  }, [setLanguage]);
+
+  const languageToggle = (
+    <div
+      className="inline-flex items-center rounded-full border border-gray-200 bg-white p-1 shadow-sm"
+      aria-label={header.languageLabel}
+    >
+      <Globe2 className="mx-2 h-4 w-4 text-gray-500" aria-hidden="true" />
+      {(["en", "ar"] as const).map((item) => (
+        <button
+          key={item}
+          type="button"
+          onClick={() => handleLanguageChange(item)}
+          className={`rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+            language === item
+              ? "bg-primary text-primary-foreground"
+              : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+          }`}
+        >
+          {item === "en" ? header.english : header.arabic}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -53,25 +83,26 @@ const Header: React.FC<HeaderProps> = React.memo(({ onGetOfferClick }) => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className="text-gray-800 hover:text-primary transition-colors duration-200 font-medium"
               >
-                {item.label}
+                {header.nav[item.key]}
               </button>
             ))}
           </nav>
 
           {/* CTA Button - Desktop */}
-          <div className="hidden md:flex">
+          <div className="hidden md:flex items-center gap-3">
+            {languageToggle}
             <Button 
               onClick={handleGetOfferClick}
               className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg"
             >
-              Get Offer
+              {header.getOffer}
             </Button>
           </div>
 
@@ -94,16 +125,17 @@ const Header: React.FC<HeaderProps> = React.memo(({ onGetOfferClick }) => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left text-gray-800 hover:text-primary transition-colors duration-200 font-medium"
+                  className="block w-full text-start text-gray-800 hover:text-primary transition-colors duration-200 font-medium"
                 >
-                  {item.label}
+                  {header.nav[item.key]}
                 </button>
               ))}
+              {languageToggle}
               <Button 
                 onClick={handleGetOfferClick}
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mt-4"
               >
-                Get Offer
+                {header.getOffer}
               </Button>
             </nav>
           </div>

@@ -7,13 +7,19 @@ import {
   CompanyMember,
   companyMembers,
   coreTeamMembers,
-  formatRoleText,
+  getMemberName,
+  getMemberRole,
+  getMemberSummary,
   traineeMembers,
 } from "@/data/teamMembers";
+import { useLanguage } from "@/i18n";
 
 const Team: React.FC = () => {
   const [selectedMember, setSelectedMember] = useState<CompanyMember | null>(null);
   const [enlargedPhoto, setEnlargedPhoto] = useState<string | null>(null);
+  const { language, t } = useLanguage();
+  const teamText = t("teamPage");
+  const aboutText = t("about");
   const isModalOpen = Boolean(selectedMember || enlargedPhoto);
 
   const handleGetOfferClick = () => {
@@ -63,12 +69,12 @@ const Team: React.FC = () => {
                   >
                     <img
                       src={selectedMember.avatar}
-                      alt={selectedMember.name}
+                      alt={getMemberName(selectedMember, language)}
                       className="mb-2 h-48 w-48 rounded-full border-4 border-blue-400 object-cover shadow-2xl transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-400/10 to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <span className="rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-blue-600">
-                        Click to enlarge
+                        {teamText.clickToEnlarge}
                       </span>
                     </div>
                   </div>
@@ -77,9 +83,9 @@ const Team: React.FC = () => {
                     {selectedMember.avatar}
                   </div>
                 )}
-                <h2 className="text-3xl font-extrabold text-blue-900 drop-shadow-lg">{selectedMember.name}</h2>
-                <p className="mb-2 text-lg font-semibold text-blue-700">{formatRoleText(selectedMember)}</p>
-                <p className="mb-4 text-base leading-relaxed text-gray-700">{selectedMember.summary}</p>
+                <h2 className="text-3xl font-extrabold text-blue-900 drop-shadow-lg">{getMemberName(selectedMember, language)}</h2>
+                <p className="mb-2 text-lg font-semibold text-blue-700">{getMemberRole(selectedMember, language)}</p>
+                <p className="mb-4 text-base leading-relaxed text-gray-700">{getMemberSummary(selectedMember, language)}</p>
                 <div className="mt-2 flex justify-center space-x-4">
                   {selectedMember.linkedin && (
                     <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B5] shadow-lg transition-all duration-300 hover:bg-[#005885]">
@@ -116,7 +122,7 @@ const Team: React.FC = () => {
               </button>
               <img
                 src={enlargedPhoto}
-                alt="Enlarged photo"
+                alt={teamText.enlargedPhoto}
                 className="max-h-[90vh] w-full rounded-2xl object-contain shadow-2xl"
               />
             </div>
@@ -148,7 +154,7 @@ const Team: React.FC = () => {
           {member.avatar.startsWith("/") ? (
             <img
               src={member.avatar}
-              alt={member.name}
+              alt={getMemberName(member, language)}
               className="h-36 w-36 rounded-full border-4 border-white object-cover shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:shadow-xl"
             />
           ) : (
@@ -189,15 +195,15 @@ const Team: React.FC = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <h3 className="text-2xl font-bold text-gray-900 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent">
-              {member.name}
+              {getMemberName(member, language)}
             </h3>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-600">
-              {formatRoleText(member)}
+              {getMemberRole(member, language)}
             </p>
           </div>
 
           <p className="line-clamp-4 text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
-            {member.summary}
+            {getMemberSummary(member, language)}
           </p>
         </div>
 
@@ -215,13 +221,13 @@ const Team: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-6 mb-16">
             <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full border border-blue-200/20 backdrop-blur-sm">
-              <span className="text-sm font-medium text-blue-600 tracking-wide">OUR TEAM</span>
+              <span className="text-sm font-medium text-blue-600 tracking-wide">{teamText.eyebrow}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight">
-              Meet Our Team
+              {teamText.title}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-              Meet the core team leading delivery across engineering, product, and design, plus the trainees growing through hands-on UI/UX and Flutter work.
+              {teamText.intro}
             </p>
           </div>
         </div>
@@ -234,17 +240,17 @@ const Team: React.FC = () => {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-600">
                 <Users className="h-4 w-4 text-cyan-600" />
-                Core Team
+                {teamText.core}
               </div>
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold text-slate-900">Specialists building the company forward</h2>
+                <h2 className="text-3xl font-bold text-slate-900">{teamText.coreTitle}</h2>
                 <p className="max-w-2xl text-base leading-relaxed text-slate-600">
-                  The people shaping strategy, product delivery, engineering, and brand execution across Samalync.
+                  {teamText.coreIntro}
                 </p>
               </div>
             </div>
             <div className="inline-flex items-center self-start rounded-full border border-cyan-100 bg-cyan-50 px-4 py-2 text-sm font-semibold text-cyan-700">
-              {coreTeamMembers.length} core members
+              {coreTeamMembers.length} {teamText.coreMembers}
             </div>
           </div>
 
@@ -263,24 +269,24 @@ const Team: React.FC = () => {
                   <div className="space-y-4">
                     <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-100">
                       <Sparkles className="h-4 w-4 text-cyan-300" />
-                      Trainee Track
+                      {teamText.traineeTrack}
                     </div>
                     <div className="space-y-2">
-                      <h2 className="text-3xl font-bold text-white">Trainees in product, UX, and Flutter</h2>
+                      <h2 className="text-3xl font-bold text-white">{teamText.traineeTitle}</h2>
                       <p className="max-w-2xl text-base leading-relaxed text-slate-300">
-                        This section highlights trainees separately so their growth, focus areas, and contributions are clear at a glance.
+                        {teamText.traineeIntro}
                       </p>
                     </div>
                   </div>
                   <div className="inline-flex items-center self-start rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200">
-                    {traineeMembers.length} Trainees
+                    {traineeMembers.length} {aboutText.trainees}
                   </div>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-8">
                   {traineeMembers.map((member, index) => (
-                    <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)]">
-                      {renderMemberCard(member, coreTeamMembers.length + index, "Trainee")}
+                    <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
+                      {renderMemberCard(member, coreTeamMembers.length + index, aboutText.trainee)}
                     </div>
                   ))}
                 </div>
@@ -301,7 +307,7 @@ const Team: React.FC = () => {
               <div className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
                 {companyMembers.length}
               </div>
-              <div className="mt-4 text-lg font-medium text-gray-600">People Across Samalync</div>
+              <div className="mt-4 text-lg font-medium text-gray-600">{teamText.people}</div>
               <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 group-hover:w-16" />
             </div>
             <div className="group rounded-3xl border border-cyan-100/60 bg-gradient-to-br from-white/90 to-cyan-50/70 p-8 text-center shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-xl">
@@ -311,7 +317,7 @@ const Team: React.FC = () => {
               <div className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
                 {coreTeamMembers.length}
               </div>
-              <div className="mt-4 text-lg font-medium text-gray-600">Core Team Specialists</div>
+              <div className="mt-4 text-lg font-medium text-gray-600">{teamText.specialists}</div>
               <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300 group-hover:w-16" />
             </div>
             <div className="group rounded-3xl border border-indigo-100/60 bg-gradient-to-br from-white/90 to-indigo-50/70 p-8 text-center shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-xl">
@@ -321,7 +327,7 @@ const Team: React.FC = () => {
               <div className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
                 {traineeMembers.length}
               </div>
-              <div className="mt-4 text-lg font-medium text-gray-600">Active Trainees</div>
+              <div className="mt-4 text-lg font-medium text-gray-600">{teamText.activeTrainees}</div>
               <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 group-hover:w-16" />
             </div>
           </div>

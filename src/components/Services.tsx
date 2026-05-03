@@ -1,49 +1,40 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Cpu, Palette, Megaphone, Bot } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
 type ServicesProps = {
   onServiceClick?: (serviceTitle: string) => void;
 };
 
 const Services: React.FC<ServicesProps> = memo(({ onServiceClick }) => {
+  const { t } = useLanguage();
+  const servicesText = t("services");
   const services = [
     {
       icon: Cpu,
-      title: "Software Solutions",
-      description: "End-to-End Digital Systems",
-      details:
-        "We design and build complete software solutions — from high-performance mobile and web applications to secure, scalable backend systems and APIs. Our focus is delivering reliable, future-ready products that grow with your business.",
+      ...servicesText.items[0],
       gradient: "from-blue-500/20 to-cyan-500/20",
       iconColor: "text-blue-500",
       hoverGradient: "from-blue-500/10 to-cyan-500/10"
     },
     {
       icon: Bot,
-      title: "AI & Automation",
-      description: "Intelligent Process Optimization",
-      details:
-        "We implement AI-powered solutions and automation systems to streamline operations, enhance decision-making, and drive efficiency. From chatbots and predictive analytics to workflow automation, we help businesses leverage cutting-edge technology for competitive advantage.",
+      ...servicesText.items[1],
       gradient: "from-purple-500/20 to-pink-500/20",
       iconColor: "text-purple-500",
       hoverGradient: "from-purple-500/10 to-pink-500/10"
     },
     {
       icon: Palette,
-      title: "Graphic Design",
-      description: "Distinct Visual Identity",
-      details:
-        "We craft logos, brand systems, and UI designs that communicate your brand's personality, ensure visual consistency, and elevate your presence across digital platforms.",
+      ...servicesText.items[2],
       gradient: "from-orange-500/20 to-red-500/20",
       iconColor: "text-orange-500",
       hoverGradient: "from-orange-500/10 to-red-500/10"
     },
     {
       icon: Megaphone,
-      title: "Marketing & Brand Strategy",
-      description: "Growth-Driven Market Presence",
-      details:
-        "In collaboration with Khartoum Interfilem, we provide strategic marketing and branding services that help products reach the right audience, strengthen brand identity, and drive measurable growth across digital channels.",
+      ...servicesText.items[3],
       gradient: "from-green-500/20 to-emerald-500/20",
       iconColor: "text-green-500",
       hoverGradient: "from-green-500/10 to-emerald-500/10"
@@ -57,13 +48,13 @@ const Services: React.FC<ServicesProps> = memo(({ onServiceClick }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full border border-blue-200/20 backdrop-blur-sm">
-            <span className="text-sm font-medium text-blue-600 tracking-wide">WHAT WE DO</span>
+            <span className="text-sm font-medium text-blue-600 tracking-wide">{servicesText.eyebrow}</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight">
-            Our Services
+            {servicesText.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-            We provide comprehensive technology solutions to help your business grow and succeed in the digital world.
+            {servicesText.intro}
           </p>
         </div>
 
@@ -109,9 +100,9 @@ const Services: React.FC<ServicesProps> = memo(({ onServiceClick }) => {
 
         {/* Call to action */}
         <div className="text-center mt-16">
-          <p className="text-gray-600 mb-6">Ready to transform your business with our expertise?</p>
+          <p className="text-gray-600 mb-6">{servicesText.ctaQuestion}</p>
           <div className="inline-flex items-center space-x-2 text-blue-600 font-medium">
-            <span>Scroll down to get started</span>
+            <span>{servicesText.cta}</span>
             <div className="w-6 h-6 border-2 border-current rounded-full flex items-center justify-center">
               <div className="w-1 h-1 bg-current rounded-full animate-bounce"></div>
             </div>

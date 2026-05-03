@@ -5,9 +5,12 @@ import { Linkedin, Sparkles, X } from "lucide-react";
 import {
   CompanyMember,
   coreTeamMembers,
-  formatRoleText,
+  getMemberName,
+  getMemberRole,
+  getMemberSummary,
   traineeMembers,
 } from "@/data/teamMembers";
+import { useLanguage } from "@/i18n";
 
 const teamStats = [
   {
@@ -38,10 +41,12 @@ type TeamMemberCardProps = {
   index: number;
   onSelect: (member: CompanyMember) => void;
   badgeLabel?: string;
+  language: "en" | "ar";
 };
 
-const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel }: TeamMemberCardProps) => {
+const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel, language }: TeamMemberCardProps) => {
   const hasLinks = Boolean(member.linkedin || member.behance);
+  const memberName = getMemberName(member, language);
 
   return (
     <Card
@@ -62,7 +67,7 @@ const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel }: TeamMember
           {member.avatar.startsWith("/") ? (
             <img
               src={member.avatar}
-              alt={member.name}
+              alt={memberName}
               className="h-32 w-32 rounded-full border-4 border-white object-cover shadow-md transition-transform duration-300 group-hover:scale-[1.03]"
               loading="lazy"
               decoding="async"
@@ -104,14 +109,14 @@ const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel }: TeamMember
 
         <div className="space-y-3">
           <div className="space-y-2">
-            <h3 className="text-2xl font-bold text-slate-900">{member.name}</h3>
+            <h3 className="text-2xl font-bold text-slate-900">{memberName}</h3>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">
-              {formatRoleText(member)}
+              {getMemberRole(member, language)}
             </p>
           </div>
 
           <p className="line-clamp-4 text-sm leading-relaxed text-slate-600">
-            {member.summary}
+            {getMemberSummary(member, language)}
           </p>
         </div>
 
@@ -123,9 +128,9 @@ const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel }: TeamMember
 
 TeamMemberCard.displayName = "TeamMemberCard";
 
-const AboutStats = memo(() => (
+const AboutStats = memo(({ labels }: { labels: readonly string[] }) => (
   <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 max-w-4xl mx-auto">
-    {teamStats.map((stat) => (
+    {teamStats.map((stat, index) => (
       <div
         key={stat.label}
         className={`rounded-3xl border ${stat.border} bg-gradient-to-br ${stat.background} p-8 text-center shadow-sm transition-shadow duration-300 hover:shadow-md`}
@@ -133,7 +138,7 @@ const AboutStats = memo(() => (
         <div className={`bg-gradient-to-r ${stat.accent} bg-clip-text text-5xl font-bold text-transparent`}>
           {stat.value}
         </div>
-        <div className="mt-4 text-lg font-medium text-slate-600">{stat.label}</div>
+        <div className="mt-4 text-lg font-medium text-slate-600">{labels[index] ?? stat.label}</div>
         <div className={`mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r ${stat.accent}`} />
       </div>
     ))}
@@ -144,6 +149,8 @@ AboutStats.displayName = "AboutStats";
 
 const About = memo(() => {
   const [selectedMember, setSelectedMember] = useState<CompanyMember | null>(null);
+  const { language, t } = useLanguage();
+  const about = t("about");
   const isModalOpen = Boolean(selectedMember);
   const handleSelectMember = useCallback((member: CompanyMember) => {
     setSelectedMember(member);
@@ -190,7 +197,7 @@ const About = memo(() => {
                 {selectedMember.avatar.startsWith("/") ? (
                   <img
                     src={selectedMember.avatar}
-                    alt={selectedMember.name}
+                    alt={getMemberName(selectedMember, language)}
                     className="mb-2 h-48 w-48 rounded-full border-4 border-blue-100 object-cover shadow-md"
                     decoding="async"
                   />
@@ -199,9 +206,9 @@ const About = memo(() => {
                     {selectedMember.avatar}
                   </div>
                 )}
-                <h2 className="text-3xl font-extrabold text-blue-900">{selectedMember.name}</h2>
-                <p className="mb-2 text-lg font-semibold text-blue-700">{formatRoleText(selectedMember)}</p>
-                <p className="mb-4 text-base leading-relaxed text-slate-700">{selectedMember.summary}</p>
+                <h2 className="text-3xl font-extrabold text-blue-900">{getMemberName(selectedMember, language)}</h2>
+                <p className="mb-2 text-lg font-semibold text-blue-700">{getMemberRole(selectedMember, language)}</p>
+                <p className="mb-4 text-base leading-relaxed text-slate-700">{getMemberSummary(selectedMember, language)}</p>
                 <div className="mt-2 flex justify-center space-x-4">
                   {selectedMember.linkedin && (
                     <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B5] text-white shadow-sm transition-colors duration-200 hover:bg-[#005885]">
@@ -229,14 +236,14 @@ const About = memo(() => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-200/20 backdrop-blur-sm">
-            <span className="text-sm font-medium text-cyan-600 tracking-wide">ABOUT US</span>
+            <span className="text-sm font-medium text-cyan-600 tracking-wide">{about.eyebrow}</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-cyan-800 to-blue-800 bg-clip-text text-transparent leading-tight">
-            Meet Our Team
+            {about.title}
           </h2>
           <div className="max-w-4xl mx-auto space-y-6">
             <p className="text-xl text-gray-600 leading-relaxed font-light">
-              We are a software company delivering innovative mobile, web, and design solutions, backed by experienced leadership and a network of skilled independent contributors and collaborators.
+              {about.intro}
             </p>
           </div>
         </div>
@@ -244,17 +251,17 @@ const About = memo(() => {
         <div className="mx-auto mb-8 flex max-w-7xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
             <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-600">
-              Core Team
+              {about.core}
             </div>
             <div className="space-y-2">
-              <h3 className="text-3xl font-bold text-slate-900">Leadership, engineering, and design</h3>
+              <h3 className="text-3xl font-bold text-slate-900">{about.coreTitle}</h3>
               <p className="max-w-2xl text-base leading-relaxed text-slate-600">
-                The people guiding strategy and delivering the product, design, and technical work behind Samalync.
+                {about.coreIntro}
               </p>
             </div>
           </div>
           <div className="inline-flex items-center self-start rounded-full border border-cyan-100 bg-cyan-50 px-4 py-2 text-sm font-semibold text-cyan-700">
-            {coreTeamMembers.length} team members
+            {coreTeamMembers.length} {about.teamMembers}
           </div>
         </div>
 
@@ -265,6 +272,7 @@ const About = memo(() => {
                 member={member}
                 index={index}
                 onSelect={handleSelectMember}
+                language={language}
               />
             </div>
           ))}
@@ -277,28 +285,29 @@ const About = memo(() => {
                 <div className="space-y-4">
                   <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-100">
                     <Sparkles className="h-4 w-4 text-cyan-300" />
-                    Training Program
+                    {about.training}
                   </div>
                   <div className="space-y-3">
-                    <h3 className="text-3xl font-bold text-white">Trainees growing with the team</h3>
+                    <h3 className="text-3xl font-bold text-white">{about.trainingTitle}</h3>
                     <p className="max-w-2xl text-base leading-relaxed text-slate-300">
-                      A dedicated space for emerging designers and developers contributing to real products through UI/UX and Flutter work.
+                      {about.trainingIntro}
                     </p>
                   </div>
                 </div>
                 <div className="inline-flex items-center self-start rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200">
-                  {traineeMembers.length} Trainees
+                  {traineeMembers.length} {about.trainees}
                 </div>
               </div>
 
               <div className="flex flex-wrap justify-center gap-8">
                 {traineeMembers.map((member, index) => (
-                  <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)]">
+                  <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
                     <TeamMemberCard
                       member={member}
                       index={coreTeamMembers.length + index}
                       onSelect={handleSelectMember}
-                      badgeLabel="Trainee"
+                      badgeLabel={about.trainee}
+                      language={language}
                     />
                   </div>
                 ))}
@@ -308,7 +317,7 @@ const About = memo(() => {
         )}
 
         {/* Company Stats */}
-        <AboutStats />
+        <AboutStats labels={about.stats} />
       </div>
 
       {selectedMemberModal}

@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Team from "./pages/Team";
 import NotFound from "./pages/NotFound";
 import React from "react";
+import { LanguageProvider } from "./i18n";
 
 const queryClient = new QueryClient();
 
@@ -14,16 +15,18 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/team" element={<Team />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </HashRouter>
+        <LanguageProvider>
+          <Toaster />
+          <Sonner />
+          <HashRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/team" element={<Team />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </HashRouter>
+        </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

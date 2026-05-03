@@ -1,37 +1,28 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Truck } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
 const Partnerships: React.FC = memo(() => {
+  const { t } = useLanguage();
+  const partnershipsText = t("partnerships");
   const partners = [
     {
-      name: "Viewesta",
-      description: "African Streaming Platform",
+      ...partnershipsText.items[0],
       coverImage: "/v.png",
-      details:
-        "Viewesta is a leading African streaming platform delivering premium entertainment content across the continent. We're proud to partner with Viewesta in bringing innovative digital experiences to African audiences.",
     },
     {
       icon: Truck,
       coverImage: "/sudan-mart.png",
-      name: "Sudan Mart",
-      description: "On-demand delivery & last‑mile logistics",
-      details:
-        "Sudan Mart is a fast and reliable delivery service for goods and food. We collaborate to build smooth ordering experiences, real-time updates, and scalable delivery operations.",
+      ...partnershipsText.items[1],
     },
     {
-      name: "Khartoum Interfilm",
-      description: "Marketing agency",
+      ...partnershipsText.items[2],
       coverImage: "/k.png",
-      details:
-        "Khartoum Interfilm is a creative marketing agency focused on storytelling, brand strategy, and creative campaigns across digital platforms. We partner to deliver standout marketing and visual experiences.",
     },
     {
-      name: "Ozone Restaurant & Cafe",
-      description: "Restaurant and dining establishment",
+      ...partnershipsText.items[3],
       coverImage: "/ozone.png",
-      details:
-        "Ozone Restaurant & Cafe offers exceptional dining experiences with diverse culinary options. We collaborate to enhance their digital presence and streamline their operations through innovative technology solutions.",
     },
   ];
 
@@ -40,13 +31,13 @@ const Partnerships: React.FC = memo(() => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-6 mb-20">
           <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full border border-green-200/20 backdrop-blur-sm">
-            <span className="text-sm font-medium text-green-600 tracking-wide">OUR PARTNERS</span>
+            <span className="text-sm font-medium text-green-600 tracking-wide">{partnershipsText.eyebrow}</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight">
-            Partnerships
+            {partnershipsText.title}
           </h2>
           <p className="text-xl text-gray-600 leading-relaxed font-light max-w-3xl mx-auto">
-            We collaborate with innovative companies to deliver exceptional digital solutions and expand our reach across diverse markets.
+            {partnershipsText.intro}
           </p>
         </div>
 
