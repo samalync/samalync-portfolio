@@ -17,14 +17,14 @@ export type CompanyMember = {
 export const companyMembers: CompanyMember[] = [
   {
     name: "Yassin AbuArki",
-    nameAr: "ياسين أبواركي",
+    nameAr: "ياسين أبوعركي",
     role: "Chief Executive Officer (CEO) & Founder",
     roleAr: "الرئيس التنفيذي والمؤسس",
     isCoFounder: false,
     summary:
-      "Yassin combines hands-on technical expertise in Flutter and React Native with executive leadership. As CEO, he defines Samalync's strategic direction, oversees operations, and leads business growth while ensuring delivery excellence across projects. Technical expertise: Mobile and cross-platform development (Flutter, React Native). Leadership strengths: Strategic planning, project oversight, company leadership, and stakeholder management.",
+      "Yassin combines hands-on technical expertise in Flutter with executive leadership. As CEO, he defines Samalync's strategic direction, oversees operations, and leads business growth while ensuring delivery excellence across projects. Technical expertise: Mobile and cross-platform development (Flutter). Leadership strengths: Strategic planning, project oversight, company leadership, and stakeholder management.",
     summaryAr:
-      "يجمع ياسين بين الخبرة التقنية العملية في Flutter وReact Native والقيادة التنفيذية. بصفته الرئيس التنفيذي، يحدد التوجه الاستراتيجي لسامالينك، ويشرف على العمليات، ويقود نمو الأعمال مع ضمان جودة التنفيذ في المشاريع. خبرته التقنية تشمل تطوير تطبيقات الموبايل ومتعددة المنصات، وتشمل نقاط قوته التخطيط الاستراتيجي وإدارة المشاريع وقيادة الشركة والتعامل مع أصحاب المصلحة.",
+      "يجمع ياسين بين الخبرة التقنية العملية في Flutter  والقيادة التنفيذية. بصفته الرئيس التنفيذي، يحدد التوجه الاستراتيجي لسامالينك، ويشرف على العمليات، ويقود نمو الأعمال مع ضمان جودة التنفيذ في المشاريع. خبرته التقنية تشمل تطوير تطبيقات الموبايل ومتعددة المنصات، وتشمل نقاط قوته التخطيط الاستراتيجي وإدارة المشاريع وقيادة الشركة والتعامل مع أصحاب المصلحة.",
     avatar: "/me.jpg",
     group: "team",
     linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/",
@@ -154,8 +154,8 @@ export const companyMembers: CompanyMember[] = [
     group: "trainee",
   },
   {
-    name: "Amro",
-    nameAr: "عمرو",
+    name: "Amro Sayed",
+    nameAr: " عمرو سيد",
     role: "Flutter Development Trainee",
     roleAr: "متدرب تطوير Flutter",
     isCoFounder: false,
