@@ -166,6 +166,32 @@ export const companyMembers: CompanyMember[] = [
     avatar: "/amro.png",
     group: "trainee",
   },
+  {
+    name: "Ibrahim Abubakr",
+    nameAr: "ابراهيم أبوبكر",
+    role: "Flutter Development Trainee",
+    roleAr: "متدرب تطوير Flutter",
+    isCoFounder: false,
+    summary:
+      "Ibrahim is a Flutter development trainee developing mobile app skills with Dart and Flutter through hands-on product interface work.",
+    summaryAr:
+      "ابراهيم متدرب في تطوير Flutter يطوّر مهارات تطبيقات الموبايل باستخدام Dart وFlutter عبر العمل العملي على واجهات المنتجات.",
+    avatar: "",
+    group: "trainee",
+  },
+   {
+    name: "Mohammed Salah",
+    nameAr: "محمد صلاح",
+    role: "Flutter Development Trainee",
+    roleAr: "متدرب تطوير Flutter",
+    isCoFounder: false,
+    summary:
+      "Mohammed is a Flutter development trainee developing mobile app skills with Dart and Flutter through hands-on product interface work.",
+    summaryAr:
+      "محمد متدرب في تطوير Flutter يطوّر مهارات تطبيقات الموبايل باستخدام Dart وFlutter عبر العمل العملي على واجهات المنتجات.",
+    avatar: "/mohammed-salah.png",
+    group: "trainee",
+  },
 ];
 
 export const coreTeamMembers = companyMembers.filter((member) => member.group === "team");
