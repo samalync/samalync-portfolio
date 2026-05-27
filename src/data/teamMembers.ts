@@ -176,7 +176,20 @@ export const companyMembers: CompanyMember[] = [
       "Ibrahim is a Flutter development trainee developing mobile app skills with Dart and Flutter through hands-on product interface work.",
     summaryAr:
       "ابراهيم متدرب في تطوير Flutter يطوّر مهارات تطبيقات الموبايل باستخدام Dart وFlutter عبر العمل العملي على واجهات المنتجات.",
-    avatar: "",
+    avatar: "/ibrahim.png",
+    group: "trainee",
+  },
+    {
+    name: "Mustafa Hashim",
+    nameAr: "مصطفى هاشم",
+    role: "Flutter Development Trainee",
+    roleAr: "متدرب تطوير Flutter",
+    isCoFounder: false,
+    summary:
+      "Mustafa is a Flutter development trainee developing mobile app skills with Dart and Flutter through hands-on product interface work.",
+    summaryAr:
+      "ابراهيم متدرب في تطوير Flutter يطوّر مهارات تطبيقات الموبايل باستخدام Dart وFlutter عبر العمل العملي على واجهات المنتجات.",
+    avatar: "/mustafa-hashim.png",
     group: "trainee",
   },
    {
