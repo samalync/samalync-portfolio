@@ -44,6 +44,19 @@ export const companyMembers: CompanyMember[] = [
     linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/",
   },
   {
+    name: "Ibrahim Abubakr",
+    nameAr: "ابراهيم أبوبكر",
+    role: "Flutter Mobile Developer",
+    roleAr: "مطور تطبيقات موبايل Flutter",
+    isCoFounder: false,
+    summary:
+      "Ibrahim is a Flutter mobile developer focused on building polished, responsive cross-platform mobile applications with Dart and Flutter. He contributes to product interfaces and mobile experiences that are reliable, smooth, and user-friendly.",
+    summaryAr:
+      "ابراهيم مطور تطبيقات موبايل Flutter يركز على بناء تطبيقات موبايل متعددة المنصات ومتجاوبة باستخدام Dart وFlutter. يساهم في واجهات المنتجات وتجارب الموبايل لتكون موثوقة وسلسة وسهلة الاستخدام.",
+    avatar: "/ibrahim.png",
+    group: "team",
+  },
+  {
     name: "Mustafa Khamis",
     nameAr: "مصطفى خميس",
     role: "Frontend Development",

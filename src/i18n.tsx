@@ -97,10 +97,10 @@ export const translations = {
       intro: "We work with forward-thinking brands to build digital products that make a difference.",
       items: [
         {
-          name: "Hamima",
-          description: "Domestic Service Platform",
+          name: "Pet Bait",
+          description: "On-demand Home Veterinary Service",
           details:
-            "Hamima is a domestic service platform connecting households with trusted home care and household services. We collaborate with Hamima to deliver a smooth, reliable experience for booking cleaning, maintenance, and other at-home services.",
+            "Pet Bait is a premium on-demand home veterinary service for pets, helping pet owners access trusted veterinary care from the comfort of home.",
         },
       ],
     },
@@ -312,10 +312,10 @@ export const translations = {
       intro: "نعمل مع علامات طموحة لبناء منتجات رقمية تصنع أثرا.",
       items: [
         {
-          name: "Hamima",
-          description: "منصة خدمات منزلية",
+          name: "Pet Bait",
+          description: "خدمة بيطرية منزلية عند الطلب",
           details:
-            "Hamima منصة خدمات منزلية تربط الأسر بمقدمي رعاية وخدمات منزلية موثوقين. نتعاون معها لتقديم تجربة سلسة وموثوقة لحجز خدمات التنظيف والصيانة وغيرها من الخدمات المنزلية.",
+            "Pet Bait خدمة بيطرية منزلية مميزة عند الطلب للحيوانات الأليفة، تساعد أصحاب الحيوانات على الوصول إلى رعاية بيطرية موثوقة من المنزل.",
         },
       ],
     },
