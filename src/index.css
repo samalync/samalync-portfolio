@@ -116,13 +116,6 @@ All colors MUST be HSL.
   .performance-section {
     contain: layout paint style;
   }
-
-  @supports (content-visibility: auto) {
-    .performance-section {
-      content-visibility: auto;
-      contain-intrinsic-size: 1px 900px;
-    }
-  }
   
   @keyframes fadeInUp {
     from {
@@ -402,7 +395,6 @@ All colors MUST be HSL.
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
   }
   
   /* Full Page Background */
@@ -415,7 +407,6 @@ All colors MUST be HSL.
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     z-index: -20;
   }
   

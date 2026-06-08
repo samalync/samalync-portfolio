@@ -36,11 +36,11 @@ const Footer: React.FC = memo(() => {
 
   const companyMembers = [
     {
-      name: "Yassi Abuarki",
+      name: "Yassin Abuarki",
       role: footer.role,
       isCoFounder: false,
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/",
-      image: "/me.jpg"
+      image: "/avatars/me.webp"
     },
   ];
 
@@ -48,9 +48,9 @@ const Footer: React.FC = memo(() => {
     <footer className="performance-section bg-gradient-to-br from-gray-900 via-blue-900 to-cyan-900 text-white relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 hidden h-96 w-96 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 blur-3xl lg:block"></div>
-        <div className="absolute bottom-20 right-20 hidden h-80 w-80 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-3xl md:block"></div>
-        <div className="absolute left-1/2 top-1/2 hidden h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-3xl xl:block"></div>
+        <div className="absolute top-20 left-20 hidden h-96 w-96 rounded-full bg-blue-500/10 lg:block"></div>
+        <div className="absolute bottom-20 right-20 hidden h-80 w-80 rounded-full bg-cyan-500/10 md:block"></div>
+        <div className="absolute left-1/2 top-1/2 hidden h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 xl:block"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -76,7 +76,7 @@ const Footer: React.FC = memo(() => {
                 <a
                   key={index}
                   href={social.href}
-                  className="group w-12 h-12 bg-white/10 backdrop-blur-sm hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/25"
+                  className="group w-12 h-12 bg-white/10 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 rounded-xl flex items-center justify-center transition-colors duration-200"
                   aria-label={social.label}
                 >
                   <social.icon className="h-6 w-6 text-white group-hover:scale-110 transition-transform duration-300" />
@@ -97,9 +97,6 @@ const Footer: React.FC = memo(() => {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className="group block text-gray-300 hover:text-white transition-all duration-300 text-left relative"
-                  style={{
-                    animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                  }}
                 >
                   <span className="relative z-10">{item.label}</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
@@ -120,9 +117,6 @@ const Footer: React.FC = memo(() => {
                 <div
                   key={index}
                   className="text-gray-300 text-sm hover:text-white transition-colors duration-300 flex items-center space-x-2"
-                  style={{
-                    animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                  }}
                 >
                   <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
                   <span>{service}</span>
@@ -141,15 +135,14 @@ const Footer: React.FC = memo(() => {
               {companyMembers.map((member, index) => (
                 <div
                   key={index}
-                  className="space-y-3 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-500/30 transition-all duration-300 hover:bg-white/10 flex flex-col items-center"
-                  style={{
-                    animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                  }}
+                  className="space-y-3 p-4 bg-white/5 rounded-xl border border-white/10 hover:border-blue-500/30 transition-colors duration-200 hover:bg-white/10 flex flex-col items-center"
                 >
                   {member.image && (
                     <img
                       src={member.image}
                       alt={member.name}
+                      width={80}
+                      height={80}
                       className="w-20 h-20 rounded-full object-cover border-2 border-blue-400 mb-2 shadow-lg"
                       loading="lazy"
                       decoding="async"

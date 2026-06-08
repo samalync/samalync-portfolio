@@ -1,5 +1,4 @@
 import React from "react";
-import TechBackground from "@/components/TechBackground";
 import Header from "@/components/Header";
 import Services from "@/components/Services";
 import Portfolio from "@/components/Portfolio";
@@ -29,16 +28,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
-      <TechBackground />
       <Header onGetOfferClick={scrollToContact} />
       
       {/* Hero Section */}
       <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-8 text-center overflow-hidden bg-blue-900">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-[14%] left-[12%] h-56 w-56 rounded-full bg-blue-400/12 blur-3xl md:h-72 md:w-72" />
-          <div className="absolute bottom-[14%] right-[10%] h-48 w-48 rounded-full bg-cyan-300/12 blur-3xl md:h-64 md:w-64" />
-          <div className="absolute top-[28%] right-[22%] hidden h-40 w-40 rounded-full bg-indigo-300/10 blur-2xl lg:block" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(96,165,250,0.18),transparent_28%),radial-gradient(circle_at_82%_18%,rgba(34,211,238,0.12),transparent_24%),linear-gradient(135deg,#0f172a_0%,#1d4ed8_45%,#0f4c81_100%)]" />
 
           <div className="absolute top-24 left-[10%] h-2 w-2 rounded-full bg-white/30 md:animate-particle-drift" />
           <div className="absolute right-[16%] top-40 hidden h-3 w-3 rounded-full bg-white/20 md:block md:animate-particle-drift-delayed" />
@@ -50,7 +46,7 @@ const Index = () => {
         <div className="relative z-10 max-w-6xl mx-auto px-4">
           {/* Animated Badge */}
           <div className="animate-fade-in-up mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-medium">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               {hero.available}
             </span>
@@ -70,13 +66,13 @@ const Index = () => {
 
           {/* Feature Pills */}
           <div className="animate-fade-in-up flex flex-wrap justify-center gap-3 mb-10" style={{ animationDelay: '0.3s' }}>
-            <span className="px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
+            <span className="px-4 py-2 rounded-full bg-white/20 text-white text-sm font-medium">
               {hero.fast}
             </span>
-            <span className="px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
+            <span className="px-4 py-2 rounded-full bg-white/20 text-white text-sm font-medium">
               {hero.quality}
             </span>
-            <span className="px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm text-sm font-medium">
+            <span className="px-4 py-2 rounded-full bg-white/20 text-white text-sm font-medium">
               {hero.secure}
             </span>
           </div>

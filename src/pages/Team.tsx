@@ -70,6 +70,8 @@ const Team: React.FC = () => {
                     <img
                       src={selectedMember.avatar}
                       alt={getMemberName(selectedMember, language)}
+                      width={192}
+                      height={192}
                       className="mb-2 h-48 w-48 rounded-full border-4 border-blue-400 object-cover shadow-2xl transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-400/10 to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -123,6 +125,8 @@ const Team: React.FC = () => {
               <img
                 src={enlargedPhoto}
                 alt={teamText.enlargedPhoto}
+                width={768}
+                height={768}
                 className="max-h-[90vh] w-full rounded-2xl object-contain shadow-2xl"
               />
             </div>
@@ -152,6 +156,8 @@ const Team: React.FC = () => {
             <img
               src={member.avatar}
               alt={getMemberName(member, language)}
+              width={144}
+              height={144}
               className="h-36 w-36 rounded-full border-4 border-white object-cover shadow-md transition-transform duration-200 group-hover:scale-105"
               loading="lazy"
               decoding="async"
@@ -219,7 +225,7 @@ const Team: React.FC = () => {
       <section className="pt-24 pb-16 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-6 mb-16">
-            <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full border border-blue-200/20 backdrop-blur-sm">
+            <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full border border-blue-200/20">
               <span className="text-sm font-medium text-blue-600 tracking-wide">{teamText.eyebrow}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-800 bg-clip-text text-transparent leading-tight">
@@ -262,7 +268,7 @@ const Team: React.FC = () => {
           </div>
 
           {traineeMembers.length > 0 && (
-            <div className="mx-auto mt-16 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950 p-[1px] shadow-[0_32px_80px_-32px_rgba(14,165,233,0.45)]">
+            <div className="mx-auto mt-16 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950 p-[1px] shadow-lg">
               <div className="rounded-[calc(2rem-1px)] bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.18),_transparent_42%),linear-gradient(135deg,_rgba(15,23,42,0.98),_rgba(3,7,18,0.94))] px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
                 <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                   <div className="space-y-4">

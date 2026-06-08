@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ onGetOfferClick }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* White background container */}
-      <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+      <div className="bg-white/95 border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -119,7 +119,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ onGetOfferClick }) => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-200">
+          <div className="md:hidden bg-white/95 border-t border-gray-200">
             <nav className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
                 <button

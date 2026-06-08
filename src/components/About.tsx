@@ -38,26 +38,24 @@ const teamStats = [
 
 type TeamMemberCardProps = {
   member: CompanyMember;
-  index: number;
   onSelect: (member: CompanyMember) => void;
   badgeLabel?: string;
   language: "en" | "ar";
 };
 
-const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel, language }: TeamMemberCardProps) => {
+const TeamMemberCard = memo(({ member, onSelect, badgeLabel, language }: TeamMemberCardProps) => {
   const hasLinks = Boolean(member.linkedin || member.behance);
   const memberName = getMemberName(member, language);
 
   return (
     <Card
       className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-lg cursor-pointer"
-      style={{ animation: `fadeInUp 0.55s ease-out ${index * 0.08}s both` }}
       onClick={() => onSelect(member)}
     >
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-br from-cyan-50 via-blue-50/80 to-white" />
 
       {badgeLabel && (
-        <div className="absolute left-6 top-6 z-20 inline-flex items-center rounded-full border border-cyan-200 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-700 shadow-sm backdrop-blur">
+        <div className="absolute left-6 top-6 z-20 inline-flex items-center rounded-full border border-cyan-200 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-700 shadow-sm">
           {badgeLabel}
         </div>
       )}
@@ -68,6 +66,8 @@ const TeamMemberCard = memo(({ member, index, onSelect, badgeLabel, language }: 
             <img
               src={member.avatar}
               alt={memberName}
+              width={128}
+              height={128}
               className="h-32 w-32 rounded-full border-4 border-white object-cover shadow-md transition-transform duration-300 group-hover:scale-[1.03]"
               loading="lazy"
               decoding="async"
@@ -198,6 +198,8 @@ const About = memo(() => {
                   <img
                     src={selectedMember.avatar}
                     alt={getMemberName(selectedMember, language)}
+                    width={192}
+                    height={192}
                     className="mb-2 h-48 w-48 rounded-full border-4 border-blue-100 object-cover shadow-md"
                     decoding="async"
                   />
@@ -235,7 +237,7 @@ const About = memo(() => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-6 mb-20">
-          <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-200/20 backdrop-blur-sm">
+          <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-200/20">
             <span className="text-sm font-medium text-cyan-600 tracking-wide">{about.eyebrow}</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gray-900 via-cyan-800 to-blue-800 bg-clip-text text-transparent leading-tight">
@@ -266,11 +268,10 @@ const About = memo(() => {
         </div>
 
         <div className="mx-auto mb-16 flex max-w-7xl flex-wrap justify-center gap-8">
-          {coreTeamMembers.map((member, index) => (
+          {coreTeamMembers.map((member) => (
             <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)] xl:w-[calc(33.333%-1.34rem)]">
               <TeamMemberCard
                 member={member}
-                index={index}
                 onSelect={handleSelectMember}
                 language={language}
               />
@@ -279,7 +280,7 @@ const About = memo(() => {
         </div>
 
         {traineeMembers.length > 0 && (
-          <div className="mx-auto mb-20 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 p-[1px] shadow-[0_32px_80px_-32px_rgba(8,145,178,0.45)]">
+          <div className="mx-auto mb-20 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 p-[1px] shadow-lg">
             <div className="rounded-[calc(2rem-1px)] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
               <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div className="space-y-4">
@@ -300,11 +301,10 @@ const About = memo(() => {
               </div>
 
               <div className="flex flex-wrap justify-center gap-8">
-                {traineeMembers.map((member, index) => (
+                {traineeMembers.map((member) => (
                   <div key={member.name} className="w-full max-w-[24rem] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
                     <TeamMemberCard
                       member={member}
-                      index={coreTeamMembers.length + index}
                       onSelect={handleSelectMember}
                       badgeLabel={about.trainee}
                       language={language}
