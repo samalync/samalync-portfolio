@@ -45,7 +45,7 @@ const Partnerships: React.FC = memo(() => {
           {partners.map((partner, index) => (
             <Card
               key={index}
-              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border border-gray-200 bg-gray-100 w-full sm:w-[320px] md:w-[400px]"
+              className="group card-shadow border border-gray-200 bg-gray-100 w-full transition-shadow duration-200 hover:shadow-lg sm:w-[320px] md:w-[400px]"
             >
               {/* Card header area (kept consistent so cards align) */}
               {partner.coverImage ? (
@@ -75,13 +75,13 @@ const Partnerships: React.FC = memo(() => {
               <CardContent className="p-8 text-center space-y-6">
                 {/* Show icon in content only when there's no cover image and it's not the second card */}
                 {(partner.icon && !(partner.coverImage || index === 1)) ? (
-                  <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <partner.icon className="h-8 w-8 text-primary group-hover:text-accent transition-colors duration-300" />
+                  <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
+                    <partner.icon className="h-8 w-8 text-primary" />
                   </div>
                 ) : null}
 
                 <div className="space-y-3">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-foreground">
                     {partner.name}
                   </h3>
                   <p className="text-accent font-medium">

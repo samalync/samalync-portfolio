@@ -135,16 +135,13 @@ const Team: React.FC = () => {
   const renderMemberCard = (member: CompanyMember, index: number, badgeLabel?: string) => (
     <div
       key={member.name}
-      className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/90 backdrop-blur-xl shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-200 hover:shadow-2xl cursor-pointer"
-      style={{
-        animation: `fadeInUp 0.8s ease-out ${index * 0.1}s both`
-      }}
+      className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-md transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-lg cursor-pointer"
       onClick={() => setSelectedMember(member)}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-white opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-white opacity-70" />
 
       {badgeLabel && (
-        <div className="absolute left-6 top-6 z-20 inline-flex items-center rounded-full border border-cyan-200 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-700 shadow-sm backdrop-blur">
+        <div className="absolute left-6 top-6 z-20 inline-flex items-center rounded-full border border-cyan-200 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-700 shadow-sm">
           {badgeLabel}
         </div>
       )}
@@ -155,10 +152,12 @@ const Team: React.FC = () => {
             <img
               src={member.avatar}
               alt={getMemberName(member, language)}
-              className="h-36 w-36 rounded-full border-4 border-white object-cover shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:shadow-xl"
+              className="h-36 w-36 rounded-full border-4 border-white object-cover shadow-md transition-transform duration-200 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
             />
           ) : (
-            <div className="flex h-36 w-36 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-3xl font-bold text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
+            <div className="flex h-36 w-36 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-3xl font-bold text-white shadow-md transition-transform duration-200 group-hover:scale-105">
               {member.avatar}
             </div>
           )}
@@ -170,7 +169,7 @@ const Team: React.FC = () => {
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0077B5] shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#005885]"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0077B5] shadow-md transition-transform duration-200 hover:scale-105"
                   onClick={(event) => event.stopPropagation()}
                 >
                   <Linkedin className="h-5 w-5 text-white" />
@@ -182,7 +181,7 @@ const Team: React.FC = () => {
                   href={member.behance}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1769FF] shadow-lg transition-all duration-300 hover:scale-110 hover:opacity-90"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1769FF] shadow-md transition-transform duration-200 hover:scale-105"
                   onClick={(event) => event.stopPropagation()}
                 >
                   <span className="text-sm font-semibold text-white">B</span>
@@ -194,7 +193,7 @@ const Team: React.FC = () => {
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <h3 className="text-2xl font-bold text-gray-900 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent">
+            <h3 className="text-2xl font-bold text-gray-900 transition-colors duration-200 group-hover:text-blue-700">
               {getMemberName(member, language)}
             </h3>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-600">
@@ -202,12 +201,12 @@ const Team: React.FC = () => {
             </p>
           </div>
 
-          <p className="line-clamp-4 text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
+          <p className="line-clamp-4 text-sm leading-relaxed text-gray-600">
             {getMemberSummary(member, language)}
           </p>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-cyan-500/70 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
       </div>
     </div>
   );
@@ -234,7 +233,7 @@ const Team: React.FC = () => {
       </section>
 
       {/* Team Members Grid */}
-      <section className="py-20 bg-white">
+      <section className="performance-section py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-10 flex max-w-7xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="space-y-4">

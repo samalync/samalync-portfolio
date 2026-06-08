@@ -55,6 +55,7 @@ export const companyMembers: CompanyMember[] = [
       "ابراهيم مطور تطبيقات موبايل Flutter يركز على بناء تطبيقات موبايل متعددة المنصات ومتجاوبة باستخدام Dart وFlutter. يساهم في واجهات المنتجات وتجارب الموبايل لتكون موثوقة وسلسة وسهلة الاستخدام.",
     avatar: "/ibrahim.png",
     group: "team",
+    linkedin: "https://www.linkedin.com/in/ibrahim-abubaker-4055112a1/",
   },
   {
     name: "Mustafa Khamis",

@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Home } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 const SelectedClients: React.FC = memo(() => {
@@ -8,7 +7,7 @@ const SelectedClients: React.FC = memo(() => {
   const clientsText = t("clients");
   const clients = [
     {
-      icon: Home,
+      coverImage: "/pet-bait.png",
       ...clientsText.items[0],
     },
   ];
@@ -32,13 +31,18 @@ const SelectedClients: React.FC = memo(() => {
           {clients.map((client, index) => (
             <Card
               key={index}
-              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border border-gray-200 bg-gray-100 w-full sm:w-[320px] md:w-[400px]"
+              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border border-gray-200 bg-gray-100 w-full overflow-hidden sm:w-[320px] md:w-[400px]"
             >
-              <CardContent className="p-8 text-center space-y-6">
-                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <client.icon className="h-8 w-8 text-primary group-hover:text-accent transition-colors duration-300" />
-                </div>
+              <div className="aspect-[16/9] w-full overflow-hidden bg-gray-100">
+                <img
+                  src={client.coverImage}
+                  alt={`${client.name} cover`}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
 
+              <CardContent className="px-8 pb-8 pt-4 text-center space-y-4">
                 <div className="space-y-3">
                   <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
                     {client.name}
