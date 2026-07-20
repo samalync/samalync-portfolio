@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Send, Mail, Phone, MapPin, Clock, type LucideIcon } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '@/config/emailjs';
-import { useLanguage } from "@/i18n";
+import { useLanguage, type TranslationMap } from "@/i18n";
 
 type ContactProps = {
   initialSubject?: string;
@@ -20,7 +20,7 @@ type ContactInfoItem = {
   description?: string;
 };
 
-const ContactInfoPanel = memo(({ contactText }: { contactText: ReturnType<typeof useLanguage>["t"] extends (key: "contact") => infer T ? T : never }) => {
+const ContactInfoPanel = memo(({ contactText }: { contactText: TranslationMap["contact"] }) => {
   const contactInfo: ContactInfoItem[] = [
     {
       icon: Mail,

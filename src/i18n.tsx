@@ -2,7 +2,15 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 
 export type Language = "en" | "ar";
 
-type TranslationMap = typeof translations.en;
+type WidenTranslation<T> = T extends string
+  ? string
+  : T extends readonly (infer Item)[]
+    ? readonly WidenTranslation<Item>[]
+    : T extends object
+      ? { readonly [Key in keyof T]: WidenTranslation<T[Key]> }
+      : T;
+
+export type TranslationMap = WidenTranslation<typeof translations.en>;
 
 type LanguageContextValue = {
   language: Language;

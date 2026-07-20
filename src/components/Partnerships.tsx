@@ -1,12 +1,20 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Truck } from "lucide-react";
+import { Truck, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/i18n";
+
+type Partner = {
+  name: string;
+  description: string;
+  details: string;
+  coverImage?: string;
+  icon?: LucideIcon;
+};
 
 const Partnerships: React.FC = memo(() => {
   const { t } = useLanguage();
   const partnershipsText = t("partnerships");
-  const partners = [
+  const partners: Partner[] = [
     {
       ...partnershipsText.items[0],
       coverImage: "/partners/viewesta.webp",

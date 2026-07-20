@@ -44,6 +44,21 @@ export const companyMembers: CompanyMember[] = [
     linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/",
   },
   {
+    name: "Mougahed Abdalla",
+    nameAr: "مجاهد عبدالله",
+    role: "Senior DevOps Engineer",
+    roleAr: "مهندس DevOps أول",
+    isCoFounder: false,
+    summary:
+      "Mougahed is a senior DevOps engineer focused on reliable delivery pipelines, cloud infrastructure, automation, and scalable production operations.",
+    summaryAr:
+      "مجاهد مهندس DevOps أول يركز على موثوقية مسارات التسليم والبنية التحتية السحابية والأتمتة وعمليات الإنتاج القابلة للتوسع.",
+    avatar: "/mogahed.png",
+    group: "team",
+    linkedin:
+      "https://www.linkedin.com/in/mougahed-m-017b661b3?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+  },
+  {
     name: "Ibrahim Abubakr",
     nameAr: "ابراهيم أبوبكر",
     role: "Flutter Mobile Developer",
