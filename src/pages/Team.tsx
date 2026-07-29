@@ -64,7 +64,7 @@ const Team: React.FC = () => {
               <div className="flex flex-col items-center space-y-6 p-10 text-center">
                 {selectedMember.avatar.startsWith("/") ? (
                   <div
-                    className="relative group cursor-pointer"
+                    className="group relative mb-2 h-48 w-48 shrink-0 cursor-pointer overflow-hidden rounded-full border-4 border-blue-400 shadow-2xl"
                     onClick={() => setEnlargedPhoto(selectedMember.avatar)}
                   >
                     <img
@@ -72,7 +72,7 @@ const Team: React.FC = () => {
                       alt={getMemberName(selectedMember, language)}
                       width={192}
                       height={192}
-                      className="mb-2 h-48 w-48 rounded-full border-4 border-blue-400 object-cover shadow-2xl transition-transform duration-300 group-hover:scale-105"
+                      className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-400/10 to-cyan-400/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <span className="rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-blue-600">
@@ -153,15 +153,17 @@ const Team: React.FC = () => {
       <div className="relative z-10 p-8 text-center space-y-6">
         <div className="relative mx-auto flex items-center justify-center">
           {member.avatar.startsWith("/") ? (
-            <img
-              src={member.avatar}
-              alt={getMemberName(member, language)}
-              width={144}
-              height={144}
-              className="h-36 w-36 rounded-full border-4 border-white object-cover shadow-md transition-transform duration-200 group-hover:scale-105"
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="h-36 w-36 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-md">
+              <img
+                src={member.avatar}
+                alt={getMemberName(member, language)}
+                width={144}
+                height={144}
+                className="block h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           ) : (
             <div className="flex h-36 w-36 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-3xl font-bold text-white shadow-md transition-transform duration-200 group-hover:scale-105">
               {member.avatar}

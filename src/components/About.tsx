@@ -63,15 +63,17 @@ const TeamMemberCard = memo(({ member, onSelect, badgeLabel, language }: TeamMem
       <CardContent className="relative z-10 p-8 text-center">
         <div className="relative mx-auto mb-6 flex items-center justify-center">
           {member.avatar.startsWith("/") ? (
-            <img
-              src={member.avatar}
-              alt={memberName}
-              width={128}
-              height={128}
-              className="h-32 w-32 rounded-full border-4 border-white object-cover shadow-md transition-transform duration-300 group-hover:scale-[1.03]"
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="h-32 w-32 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-md">
+              <img
+                src={member.avatar}
+                alt={memberName}
+                width={128}
+                height={128}
+                className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           ) : (
             <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-3xl font-bold text-white shadow-md">
               {member.avatar}
@@ -195,14 +197,16 @@ const About = memo(() => {
               </button>
               <div className="flex flex-col items-center space-y-6 p-10 text-center">
                 {selectedMember.avatar.startsWith("/") ? (
-                  <img
-                    src={selectedMember.avatar}
-                    alt={getMemberName(selectedMember, language)}
-                    width={192}
-                    height={192}
-                    className="mb-2 h-48 w-48 rounded-full border-4 border-blue-100 object-cover shadow-md"
-                    decoding="async"
-                  />
+                  <div className="mb-2 h-48 w-48 shrink-0 overflow-hidden rounded-full border-4 border-blue-100 shadow-md">
+                    <img
+                      src={selectedMember.avatar}
+                      alt={getMemberName(selectedMember, language)}
+                      width={192}
+                      height={192}
+                      className="block h-full w-full object-cover"
+                      decoding="async"
+                    />
+                  </div>
                 ) : (
                   <div className="mb-2 flex h-48 w-48 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 text-5xl font-extrabold text-white shadow-md">
                     {selectedMember.avatar}

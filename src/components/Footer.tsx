@@ -40,19 +40,12 @@ const Footer: React.FC = memo(() => {
       role: footer.role,
       isCoFounder: false,
       linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/",
-      image: "/avatars/me.webp"
+      image: "/avatars/me.webp?v=20260729"
     },
   ];
 
   return (
     <footer className="performance-section bg-gradient-to-br from-gray-900 via-blue-900 to-cyan-900 text-white relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 hidden h-96 w-96 rounded-full bg-blue-500/10 lg:block"></div>
-        <div className="absolute bottom-20 right-20 hidden h-80 w-80 rounded-full bg-cyan-500/10 md:block"></div>
-        <div className="absolute left-1/2 top-1/2 hidden h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 xl:block"></div>
-      </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Content */}
         <div className="py-20 grid md:grid-cols-2 lg:grid-cols-5 gap-12">
@@ -143,7 +136,7 @@ const Footer: React.FC = memo(() => {
                       alt={member.name}
                       width={80}
                       height={80}
-                      className="w-20 h-20 rounded-full object-cover border-2 border-blue-400 mb-2 shadow-lg"
+                      className="aspect-square h-20 w-20 shrink-0 rounded-full object-cover border-2 border-blue-400 mb-2 shadow-lg"
                       loading="lazy"
                       decoding="async"
                     />

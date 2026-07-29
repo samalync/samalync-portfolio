@@ -34,8 +34,6 @@ const Index = () => {
       <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-8 text-center overflow-hidden bg-blue-900">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(96,165,250,0.18),transparent_28%),radial-gradient(circle_at_82%_18%,rgba(34,211,238,0.12),transparent_24%),linear-gradient(135deg,#0f172a_0%,#1d4ed8_45%,#0f4c81_100%)]" />
-
           <div className="absolute top-24 left-[10%] h-2 w-2 rounded-full bg-white/30 md:animate-particle-drift" />
           <div className="absolute right-[16%] top-40 hidden h-3 w-3 rounded-full bg-white/20 md:block md:animate-particle-drift-delayed" />
           <div className="absolute bottom-28 left-[28%] hidden h-1.5 w-1.5 rounded-full bg-white/25 lg:block lg:animate-particle-drift" />
