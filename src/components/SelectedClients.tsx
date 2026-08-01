@@ -1,16 +1,38 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/i18n";
+import { BriefcaseBusiness, HeartHandshake, Truck } from "lucide-react";
+
+type ClientVisual = {
+  coverImage?: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  accent?: string;
+};
 
 const SelectedClients: React.FC = memo(() => {
   const { t } = useLanguage();
   const clientsText = t("clients");
-  const clients = [
+  const clientVisuals: ClientVisual[] = [
     {
       coverImage: "/pet-bait.png",
-      ...clientsText.items[0],
+    },
+    {
+      icon: Truck,
+      accent: "text-blue-700",
+    },
+    {
+      icon: HeartHandshake,
+      accent: "text-rose-600",
+    },
+    {
+      icon: BriefcaseBusiness,
+      accent: "text-indigo-700",
     },
   ];
+  const clients = clientsText.items.map((client, index) => ({
+    ...client,
+    ...clientVisuals[index],
+  }));
 
   return (
     <section id="selected-clients" className="performance-section py-16 bg-gray-50">
@@ -27,19 +49,29 @@ const SelectedClients: React.FC = memo(() => {
           </p>
         </div>
 
-        <div className="flex justify-center gap-6 lg:gap-8 flex-wrap xl:flex-nowrap">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-4">
           {clients.map((client, index) => (
             <Card
               key={index}
-              className="group hover:card-shadow-hover transition-all duration-300 card-shadow border border-gray-200 bg-gray-100 w-full overflow-hidden sm:w-[320px] md:w-[400px]"
+              className="group h-full w-full overflow-hidden border border-gray-200 bg-gray-100 card-shadow transition-all duration-300 hover:card-shadow-hover"
             >
               <div className="aspect-[16/9] w-full overflow-hidden bg-gray-100">
-                <img
-                  src={client.coverImage}
-                  alt={`${client.name} cover`}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
+                {client.coverImage ? (
+                  <img
+                    src={client.coverImage}
+                    alt={`${client.name} cover`}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div
+                    className={`flex h-full w-full flex-col items-center justify-center gap-3 bg-gray-100 ${client.accent} transition-transform duration-300 group-hover:scale-105`}
+                    aria-hidden="true"
+                  >
+                    {client.icon && <client.icon className="h-12 w-12" />}
+                    <span className="text-2xl font-bold tracking-[0.14em]">{client.name}</span>
+                  </div>
+                )}
               </div>
 
               <CardContent className="px-8 pb-8 pt-4 text-center space-y-4">

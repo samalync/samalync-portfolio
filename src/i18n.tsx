@@ -110,6 +110,24 @@ export const translations = {
           details:
             "Pet Bait is a premium on-demand home veterinary service for pets, helping pet owners access trusted veterinary care from the comfort of home.",
         },
+        {
+          name: "Hemoola",
+          description: "Connected Freight & Logistics Platform",
+          details:
+            "Hemoola connects shippers with drivers and carriers in one place, enabling them to post loads, negotiate terms, track deliveries, manage payments, and build trust through ratings.",
+        },
+        {
+          name: "UMURANGA",
+          description: "Partner Discovery Platform for Rwandans",
+          details:
+            "UMURANGA is a platform designed to help Rwandans find a spouse or compatible partner and build meaningful, lasting connections.",
+        },
+        {
+          name: "RAMS",
+          description: "Recruitment SaaS Platform",
+          details:
+            "RAMS is a Philippines-based recruitment platform connecting job seekers with opportunities in the UAE and the Middle East. Admins and agencies can post openings, while applicants can browse roles and apply directly through the platform.",
+        },
       ],
     },
     partnerships: {
@@ -324,6 +342,24 @@ export const translations = {
           description: "خدمة بيطرية منزلية عند الطلب",
           details:
             "Pet Bait خدمة بيطرية منزلية مميزة عند الطلب للحيوانات الأليفة، تساعد أصحاب الحيوانات على الوصول إلى رعاية بيطرية موثوقة من المنزل.",
+        },
+        {
+          name: "Hemoola",
+          description: "منصة متكاملة للشحن والخدمات اللوجستية",
+          details:
+            "تربط Hemoola أصحاب الشحنات بالسائقين وشركات النقل في مكان واحد، وتتيح نشر الشحنات والتفاوض وتتبع عمليات التسليم وإدارة المدفوعات وبناء الثقة عبر التقييمات.",
+        },
+        {
+          name: "UMURANGA",
+          description: "منصة للعثور على شريك للروانديين",
+          details:
+            "UMURANGA منصة مصممة لمساعدة الروانديين على العثور على شريك حياة أو شريك متوافق وبناء علاقات هادفة ودائمة.",
+        },
+        {
+          name: "RAMS",
+          description: "منصة توظيف سحابية",
+          details:
+            "RAMS منصة توظيف سحابية مقرها الفلبين تربط الباحثين عن عمل بفرص وظيفية في الإمارات والشرق الأوسط. تتيح للمشرفين ووكالات التوظيف نشر الوظائف، وللمتقدمين تصفح الفرص والتقديم عليها مباشرة عبر المنصة.",
         },
       ],
     },
