@@ -101,6 +101,19 @@ export const companyMembers: CompanyMember[] = [
     linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/",
   },
   {
+    name: "Hozaifa Tarig",
+    nameAr: "حذيفة طارق",
+    role: "Graphic Designer",
+    roleAr: "مصمم جرافيك",
+    isCoFounder: false,
+    summary:
+      "Hozaifa is a graphic designer crafting brand visuals, marketing materials, and digital assets for Samalync and its clients, pairing a strong sense of layout and typography with an eye for consistent, on-brand visual systems.",
+    summaryAr:
+      "حذيفة مصمم جرافيك يعمل على الهوية البصرية والمواد التسويقية والأصول الرقمية لسامالينك وعملائها، ويجمع بين حس قوي في التنسيق والخطوط ودقة في بناء أنظمة بصرية متناسقة ومعبرة عن العلامة.",
+    avatar: "/avatars/hozaifa.webp?v=20260729",
+    group: "team",
+  },
+  {
     name: "Ghufran Osama",
     nameAr: "غفران أسامة",
     role: "Graphic Design",
@@ -114,6 +127,19 @@ export const companyMembers: CompanyMember[] = [
     group: "team",
     linkedin: "",
     behance: "",
+  },
+  {
+    name: "Mohammed Yasser",
+    nameAr: "محمد ياسر",
+    role: "Media Coordinator",
+    roleAr: "منسق إعلامي",
+    isCoFounder: false,
+    summary:
+      "Mohammed joins Samalync Solutions as our media coordinator. He is responsible for documenting our company sessions, meetings, and events through high-quality photos and videos, helping us capture and preserve our key moments and activities.",
+    summaryAr:
+      "ينضم محمد إلى سامالينك منسقا إعلاميا، وهو مسؤول عن توثيق جلسات الشركة واجتماعاتها وفعالياتها عبر صور وفيديوهات عالية الجودة، بما يساعدنا على التقاط لحظاتنا وأنشطتنا المهمة والحفاظ عليها.",
+    avatar: "/avatars/mo-yasser.webp?v=20260729",
+    group: "team",
   },
   {
     name: "Ahmed Abdelhakeem",
@@ -280,6 +306,10 @@ export const companyMembers: CompanyMember[] = [
 export const coreTeamMembers = companyMembers.filter((member) => member.group === "team");
 
 export const traineeMembers = companyMembers.filter((member) => member.group === "trainee");
+
+// Some people appear in both groups (e.g. a trainee who also holds a core team role),
+// so head counts are based on distinct names rather than entries.
+export const uniqueMemberCount = new Set(companyMembers.map((member) => member.name)).size;
 
 export const formatRoleText = (member: CompanyMember) => {
   const hasCoFounderInRole = /co-?founder/i.test(member.role);

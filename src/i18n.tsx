@@ -105,12 +105,6 @@ export const translations = {
       intro: "We work with forward-thinking brands to build digital products that make a difference.",
       items: [
         {
-          name: "Pet Bait",
-          description: "On-demand Home Veterinary Service",
-          details:
-            "Pet Bait is a premium on-demand home veterinary service for pets, helping pet owners access trusted veterinary care from the comfort of home.",
-        },
-        {
           name: "Hemoola",
           description: "Connected Freight & Logistics Platform",
           details:
@@ -158,6 +152,12 @@ export const translations = {
           description: "Restaurant and dining establishment",
           details:
             "Ozone Restaurant & Cafe offers exceptional dining experiences with diverse culinary options. We collaborate to enhance their digital presence and streamline their operations through innovative technology solutions.",
+        },
+        {
+          name: "SSOS",
+          description: "Sudanese Students Online Summit",
+          details:
+            "SSOS is a community for Sudanese students running online workshops, sessions, and learning programs. We partner with SSOS to support students with technical mentorship and hands-on training in software development and design.",
         },
       ],
     },
@@ -338,12 +338,6 @@ export const translations = {
       intro: "نعمل مع علامات طموحة لبناء منتجات رقمية تصنع أثرا.",
       items: [
         {
-          name: "Pet Bait",
-          description: "خدمة بيطرية منزلية عند الطلب",
-          details:
-            "Pet Bait خدمة بيطرية منزلية مميزة عند الطلب للحيوانات الأليفة، تساعد أصحاب الحيوانات على الوصول إلى رعاية بيطرية موثوقة من المنزل.",
-        },
-        {
           name: "Hemoola",
           description: "منصة متكاملة للشحن والخدمات اللوجستية",
           details:
@@ -391,6 +385,12 @@ export const translations = {
           description: "مطعم ومقهى",
           details:
             "يقدم Ozone Restaurant & Cafe تجارب طعام مميزة بخيارات متنوعة. نتعاون معهم لتعزيز حضورهم الرقمي وتسهيل عملياتهم عبر حلول تقنية مبتكرة.",
+        },
+        {
+          name: "SSOS",
+          description: "قمة الطلاب السودانيين أونلاين",
+          details:
+            "SSOS مجتمع للطلاب السودانيين يقدم ورش عمل وجلسات وبرامج تعليمية عبر الإنترنت. نتشارك مع SSOS لدعم الطلاب بالإرشاد التقني والتدريب العملي في تطوير البرمجيات والتصميم.",
         },
       ],
     },

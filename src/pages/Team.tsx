@@ -5,12 +5,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
   CompanyMember,
-  companyMembers,
   coreTeamMembers,
   getMemberName,
   getMemberRole,
   getMemberSummary,
   traineeMembers,
+  uniqueMemberCount,
 } from "@/data/teamMembers";
 import { useLanguage } from "@/i18n";
 
@@ -312,7 +312,7 @@ const Team: React.FC = () => {
                 <Users className="h-6 w-6" />
               </div>
               <div className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-5xl font-bold text-transparent transition-transform duration-300 group-hover:scale-110">
-                {companyMembers.length}
+                {uniqueMemberCount}
               </div>
               <div className="mt-4 text-lg font-medium text-gray-600">{teamText.people}</div>
               <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 group-hover:w-16" />

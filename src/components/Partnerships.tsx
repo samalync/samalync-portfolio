@@ -9,6 +9,8 @@ type Partner = {
   details: string;
   coverImage?: string;
   icon?: LucideIcon;
+  // Logo-style covers are padded and contained; photo covers fill the frame.
+  logoCover?: boolean;
 };
 
 const Partnerships: React.FC = memo(() => {
@@ -18,10 +20,12 @@ const Partnerships: React.FC = memo(() => {
     {
       ...partnershipsText.items[0],
       coverImage: "/partners/viewesta.webp",
+      logoCover: true,
     },
     {
       icon: Truck,
       coverImage: "/partners/sudan-mart.webp",
+      logoCover: true,
       ...partnershipsText.items[1],
     },
     {
@@ -31,6 +35,12 @@ const Partnerships: React.FC = memo(() => {
     {
       ...partnershipsText.items[3],
       coverImage: "/partners/ozone.webp",
+      logoCover: true,
+    },
+    {
+      ...partnershipsText.items[4],
+      coverImage: "/partners/ssos.webp",
+      logoCover: true,
     },
   ];
 
@@ -49,7 +59,7 @@ const Partnerships: React.FC = memo(() => {
           </p>
         </div>
 
-        <div className="flex justify-center gap-6 lg:gap-8 flex-wrap xl:flex-nowrap">
+        <div className="flex justify-center gap-6 lg:gap-8 flex-wrap">
           {partners.map((partner, index) => (
             <Card
               key={index}
@@ -58,13 +68,13 @@ const Partnerships: React.FC = memo(() => {
               {/* Card header area (kept consistent so cards align) */}
               {partner.coverImage ? (
                 <div className="p-4">
-                  <div className={`w-full h-44 overflow-hidden rounded-xl ${(index === 0 || index === 1 || index === 3) ? 'p-4 flex items-center justify-center bg-transparent' : ''}`}>
+                  <div className={`w-full h-44 overflow-hidden rounded-xl ${partner.logoCover ? 'p-4 flex items-center justify-center bg-transparent' : ''}`}>
                     <img
                       src={partner.coverImage}
                       alt={`${partner.name} cover`}
                       width={400}
                       height={176}
-                      className={(index === 0 || index === 1 || index === 3) ? 'max-h-full max-w-full object-contain' : 'h-full w-full object-cover'}
+                      className={partner.logoCover ? 'max-h-full max-w-full object-contain' : 'h-full w-full object-cover'}
                       loading="lazy"
                       decoding="async"
                     />

@@ -14,9 +14,6 @@ const SelectedClients: React.FC = memo(() => {
   const clientsText = t("clients");
   const clientVisuals: ClientVisual[] = [
     {
-      coverImage: "/pet-bait.png",
-    },
-    {
       icon: Truck,
       accent: "text-blue-700",
     },
@@ -49,7 +46,7 @@ const SelectedClients: React.FC = memo(() => {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-3">
           {clients.map((client, index) => (
             <Card
               key={index}
