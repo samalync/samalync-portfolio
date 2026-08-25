@@ -1,0 +1,23 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="420" rx="32" fill="#F5F7FF"/>
+  <rect x="52" y="60" width="536" height="300" rx="26" fill="url(#paint0_linear_1_2)"/>
+  <path d="M120 250C120 236.745 130.745 226 144 226H216C229.255 226 240 236.745 240 250V270H120V250Z" fill="#E6ECFF"/>
+  <path d="M208 175C208 163.954 216.954 155 228 155H304C315.046 155 324 163.954 324 175V214H208V175Z" fill="#D8E3FF"/>
+  <path d="M344 165H456C471.464 165 484 177.536 484 193V234H344V165Z" fill="#EAF2FF"/>
+  <path d="M120 270H507C520.255 270 531 280.745 531 294V301H96V294C96 280.745 106.745 270 120 270Z" fill="#C9D8FF"/>
+  <circle cx="169" cy="300" r="34" fill="#0F172A"/>
+  <circle cx="169" cy="300" r="15" fill="#E2E8F0"/>
+  <circle cx="442" cy="300" r="34" fill="#0F172A"/>
+  <circle cx="442" cy="300" r="15" fill="#E2E8F0"/>
+  <path d="M232 212L289 212L334 254H232V212Z" fill="#A8BDFD"/>
+  <path d="M344 214H476L460 244H344V214Z" fill="#A8BDFD"/>
+  <path d="M214 164H254C268.359 164 280 175.641 280 190V214H214V164Z" fill="#7C8CFF"/>
+  <path d="M372 121H424L449 146H372V121Z" fill="#7C8CFF"/>
+  <text x="320" y="95" text-anchor="middle" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" letter-spacing="6">HEMOLA</text>
+  <defs>
+    <linearGradient id="paint0_linear_1_2" x1="52" y1="60" x2="588" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EEF4FF"/>
+      <stop offset="1" stop-color="#E4F1FF"/>
+    </linearGradient>
+  </defs>
+</svg>

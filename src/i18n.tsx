@@ -105,10 +105,10 @@ export const translations = {
       intro: "We work with forward-thinking brands to build digital products that make a difference.",
       items: [
         {
-          name: "Hemoola",
+          name: "Hemola",
           description: "Connected Freight & Logistics Platform",
           details:
-            "Hemoola connects shippers with drivers and carriers in one place, enabling them to post loads, negotiate terms, track deliveries, manage payments, and build trust through ratings.",
+            "Hemola connects shippers with drivers and carriers in one place, enabling them to post loads, negotiate terms, track deliveries, manage payments, and build trust through ratings.",
         },
         {
           name: "UMURANGA",
@@ -338,10 +338,10 @@ export const translations = {
       intro: "نعمل مع علامات طموحة لبناء منتجات رقمية تصنع أثرا.",
       items: [
         {
-          name: "Hemoola",
+          name: "Hemola",
           description: "منصة متكاملة للشحن والخدمات اللوجستية",
           details:
-            "تربط Hemoola أصحاب الشحنات بالسائقين وشركات النقل في مكان واحد، وتتيح نشر الشحنات والتفاوض وتتبع عمليات التسليم وإدارة المدفوعات وبناء الثقة عبر التقييمات.",
+            "تربط Hemola أصحاب الشحنات بالسائقين وشركات النقل في مكان واحد، وتتيح نشر الشحنات والتفاوض وتتبع عمليات التسليم وإدارة المدفوعات وبناء الثقة عبر التقييمات.",
         },
         {
           name: "UMURANGA",

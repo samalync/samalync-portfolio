@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/i18n";
-import { BriefcaseBusiness, HeartHandshake, Truck } from "lucide-react";
+import { BriefcaseBusiness, HeartHandshake } from "lucide-react";
 
 type ClientVisual = {
   coverImage?: string;
@@ -14,8 +14,7 @@ const SelectedClients: React.FC = memo(() => {
   const clientsText = t("clients");
   const clientVisuals: ClientVisual[] = [
     {
-      icon: Truck,
-      accent: "text-blue-700",
+      coverImage: "/hemola.webp",
     },
     {
       icon: HeartHandshake,

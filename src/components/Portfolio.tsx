@@ -141,6 +141,26 @@ const Portfolio = memo(() => {
       category: "core"
     },
     {
+      title: "Hemola",
+      type: "Connected Freight & Logistics Platform",
+      description: "Hemola is a freight and logistics marketplace that connects shippers with drivers and carriers in one unified platform. It enables load posting, negotiation, delivery tracking, payment coordination, and trust-building through service ratings, helping transport operations move more efficiently and transparently.",
+      tech: ["React", "Node.js", "PostgreSQL", "Google Maps", "Stripe", "Socket.io"],
+      image: "/hemola.webp",
+      demoUrl: "https://hemola-demo.com",
+      githubUrl: "",
+      features: [
+        "Load Posting & Matching",
+        "Driver and Carrier Coordination",
+        "Real-time Delivery Tracking",
+        "Negotiation & Rate Management",
+        "Payment Workflow Support",
+        "Service Ratings & Trust Signals",
+        "Logistics Dashboard",
+        "Transparent Operations"
+      ],
+      category: "core"
+    },
+    {
       title: "Sudan Mart",
       type: "On-demand Delivery & Last-mile Logistics",
       description: "Sudan Mart is a comprehensive on-demand delivery and last-mile logistics platform that connects customers with local businesses for instant delivery services. The platform offers real-time tracking, multiple payment options, and integrates with local vendors across Sudan. With advanced route optimization and driver management systems, Sudan Mart ensures fast, reliable delivery services while supporting local economies.",

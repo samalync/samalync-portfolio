@@ -73,6 +73,19 @@ export const companyMembers: CompanyMember[] = [
     linkedin: "https://www.linkedin.com/in/ibrahim-abubaker-4055112a1/",
   },
   {
+    name: "Mohammed Salah",
+    nameAr: "محمد صلاح",
+    role: "Flutter Mobile Developer",
+    roleAr: "مطور تطبيقات موبايل Flutter",
+    isCoFounder: false,
+    summary:
+      "Mohammed is a Flutter mobile developer building cross-platform mobile applications with Dart and Flutter. He contributes to product interfaces and mobile experiences that are responsive, reliable, and comfortable to use.",
+    summaryAr:
+      "محمد مطور تطبيقات موبايل Flutter يبني تطبيقات متعددة المنصات باستخدام Dart وFlutter. يساهم في واجهات المنتجات وتجارب الموبايل لتكون متجاوبة وموثوقة ومريحة في الاستخدام.",
+    avatar: "/avatars/mohammed-salah.webp?v=20260729",
+    group: "team",
+  },
+  {
     name: "Mustafa Khamis",
     nameAr: "مصطفى خميس",
     role: "Frontend Development",
