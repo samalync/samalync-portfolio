@@ -192,6 +192,26 @@ const Portfolio = memo(() => {
       category: "core"
     },
     {
+      title: "UMURANGA",
+      type: "Partner Discovery Platform for Rwandans",
+      description: "UMURANGA is a mobile matchmaking platform built to help Rwandans, at home and abroad, discover, connect, and build serious relationships in a warm, safe, and approachable environment. It covers the full relationship journey — from onboarding and profile setup through discovery, mutual matching, and private messaging — with multilingual support across English, Kinyarwanda, and French.",
+      tech: ["React Native", "Node.js", "PostgreSQL", "Firebase", "Socket.io"],
+      image: "/umuranga-logo.webp",
+      demoUrl: "",
+      githubUrl: "",
+      features: [
+        "Profile Discovery & Filters",
+        "Mutual Likes & Matching",
+        "Private Real-time Messaging",
+        "Multilingual UI (English, Kinyarwanda, French)",
+        "Free & Premium Access Tiers",
+        "Reporting & Blocking Controls",
+        "Push Notifications",
+        "Account & Privacy Management"
+      ],
+      category: "core"
+    },
+    {
       title: "Ozone Restaurant & Cafe",
       type: "Restaurant Website & Digital Menu",
       description: "A modern, responsive website for Ozone Restaurant & Cafe featuring an interactive digital menu, online reservations, and seamless customer experience. The platform showcases the restaurant's diverse culinary offerings, ambiance, and services while providing customers with easy access to menus, location details, and reservation capabilities.",
@@ -350,6 +370,33 @@ const Portfolio = memo(() => {
         "App Icon, Avatar & Favicon Set",
         "Monochrome & Reversed Versions",
         "Clear Space, Minimum Size & Usage Rules"
+      ],
+      category: "brand"
+    },
+    {
+      title: "UMURANGA Brand Identity",
+      type: "Brand Identity System",
+      description: "Brand identity system designed for UMURANGA, a matchmaking platform for Rwandans. The \"Connected Hearts\" concept uses two human forms interlocking into a heart to express connection, companionship, and trust, paired with a warm black-and-red palette and rounded, friendly typography that carries the brand across the app, marketing, and social presence.",
+      tech: ["Adobe Illustrator", "Figma", "Poppins Rounded"],
+      image: "/umuranga-brand-identity/2.webp",
+      demoUrl: "",
+      githubUrl: "",
+      screenshots: [
+        "/umuranga-brand-identity/1.webp",
+        "/umuranga-brand-identity/2.webp",
+        "/umuranga-brand-identity/3.webp",
+        "/umuranga-brand-identity/4.webp",
+        "/umuranga-brand-identity/5.webp"
+      ],
+      features: [
+        "Connected Hearts Concept & Rationale",
+        "Horizontal & Vertical Lockups",
+        "Mark-Only & App Icon Variants",
+        "Colour Palette System",
+        "Poppins Rounded Typography",
+        "Brand Personality Guidelines",
+        "App Icon on Light & Colour Backgrounds",
+        "Clear Space & Usage Rules"
       ],
       category: "brand"
     },

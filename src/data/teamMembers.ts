@@ -30,6 +30,23 @@ export const companyMembers: CompanyMember[] = [
     linkedin: "https://www.linkedin.com/in/yassin-arki-a91938254/",
   },
   {
+    name: "Baraa Abuarki",
+    nameAr: "براء أبوعركي",
+    role: "Senior Full-Stack Engineering",
+    roleAr: "مهندس برمجيات متكامل أول",
+    isCoFounder: false,
+  summary:
+
+  "Baraa is a Senior Software Engineer with over 11 years of experience across the software development lifecycle, working across web, mobile, backend, frontend, APIs, databases, and cloud technologies. He has extensive experience designing, developing, and scaling software solutions, with a strong focus on architecture, performance, maintainability, and solving complex technical challenges. Baraa brings broad technical expertise and a practical engineering mindset to building reliable, scalable, and production-ready software.",
+
+summaryAr:
+
+  "براء مهندس برمجيات أول يتمتع بخبرة تزيد عن 11 عامًا في مختلف مراحل دورة تطوير البرمجيات، مع خبرة واسعة في تطوير الويب والموبايل والأنظمة الخلفية والواجهات الأمامية وواجهات البرمجة وقواعد البيانات والتقنيات السحابية. يمتلك خبرة قوية في تصميم وتطوير وتوسعة الحلول البرمجية، مع تركيز على هندسة الأنظمة والأداء وقابلية الصيانة وحل التحديات التقنية المعقدة. يجمع براء بين الخبرة التقنية الواسعة والعقلية الهندسية العملية لبناء برمجيات موثوقة وقابلة للتوسع وجاهزة لبيئات الإنتاج.",
+    avatar: "/baraa.png?v=20260729",
+    group: "team",
+    linkedin: "https://www.linkedin.com/in/elbaraa-abuaraki/",
+  },
+  {
     name: "Mohamed Babiker",
     nameAr: "محمد بابكر",
     role: "Senior Full-Stack Engineering",
@@ -82,8 +99,9 @@ export const companyMembers: CompanyMember[] = [
       "Mohammed is a Flutter mobile developer building cross-platform mobile applications with Dart and Flutter. He contributes to product interfaces and mobile experiences that are responsive, reliable, and comfortable to use.",
     summaryAr:
       "محمد مطور تطبيقات موبايل Flutter يبني تطبيقات متعددة المنصات باستخدام Dart وFlutter. يساهم في واجهات المنتجات وتجارب الموبايل لتكون متجاوبة وموثوقة ومريحة في الاستخدام.",
-    avatar: "/avatars/mohammed-salah.webp?v=20260729",
+    avatar: "/mohammed-salah.png?v=20260729",
     group: "team",
+    linkedin: "https://www.linkedin.com/in/mohammed-salahelden-hassan-647b6128a/"
   },
   {
     name: "Mustafa Khamis",
