@@ -141,16 +141,16 @@ const Portfolio = memo(() => {
       category: "core"
     },
     {
-      title: "Hemola",
+      title: "Hemooltak",
       type: "Connected Freight & Logistics Platform",
-      description: "Hemola is a freight and logistics marketplace that connects shippers with drivers and carriers in one unified platform. It enables load posting, negotiation, delivery tracking, payment coordination, and trust-building through service ratings, helping transport operations move more efficiently and transparently.",
+      description: "Hemooltak is a freight and logistics marketplace that connects shippers with drivers and carriers in one unified platform. It enables load posting, negotiation, delivery tracking, payment coordination, and trust-building through service ratings, helping transport operations move more efficiently and transparently.",
       tech: ["React", "Node.js", "PostgreSQL", "Google Maps", "Stripe", "Socket.io"],
       image: "/hemola.webp",
-      demoUrl: "https://hemola-demo.com",
+      demoUrl: "https://Hemooltak-demo.com",
       githubUrl: "",
       screenshots: [
-        "/hemola-frontend/1.webp", "/hemola-frontend/2.webp", "/hemola-frontend/3.webp", "/hemola-frontend/4.webp", "/hemola-frontend/5.webp", "/hemola-frontend/6.webp", "/hemola-frontend/7.webp", "/hemola-frontend/8.webp", "/hemola-frontend/9.webp", "/hemola-frontend/10.webp", "/hemola-frontend/11.webp", "/hemola-frontend/12.webp", "/hemola-frontend/13.webp", "/hemola-frontend/14.webp", "/hemola-frontend/15.webp",
-        "/hemola-mobile/1.webp", "/hemola-mobile/2.webp", "/hemola-mobile/3.webp", "/hemola-mobile/4.webp", "/hemola-mobile/5.webp", "/hemola-mobile/6.webp", "/hemola-mobile/7.webp", "/hemola-mobile/8.webp", "/hemola-mobile/9.webp", "/hemola-mobile/10.webp", "/hemola-mobile/11.webp", "/hemola-mobile/12.webp", "/hemola-mobile/13.webp", "/hemola-mobile/14.webp", "/hemola-mobile/15.webp"
+        "/Hemooltak-frontend/1.webp", "/Hemooltak-frontend/2.webp", "/Hemooltak-frontend/3.webp", "/Hemooltak-frontend/4.webp", "/Hemooltak-frontend/5.webp", "/Hemooltak-frontend/6.webp", "/Hemooltak-frontend/7.webp", "/Hemooltak-frontend/8.webp", "/Hemooltak-frontend/9.webp", "/Hemooltak-frontend/10.webp", "/Hemooltak-frontend/11.webp", "/Hemooltak-frontend/12.webp", "/Hemooltak-frontend/13.webp", "/Hemooltak-frontend/14.webp", "/Hemooltak-frontend/15.webp",
+        "/Hemooltak-mobile/1.webp", "/Hemooltak-mobile/2.webp", "/Hemooltak-mobile/3.webp", "/Hemooltak-mobile/4.webp", "/Hemooltak-mobile/5.webp", "/Hemooltak-mobile/6.webp", "/Hemooltak-mobile/7.webp", "/Hemooltak-mobile/8.webp", "/Hemooltak-mobile/9.webp", "/Hemooltak-mobile/10.webp", "/Hemooltak-mobile/11.webp", "/Hemooltak-mobile/12.webp", "/Hemooltak-mobile/13.webp", "/Hemooltak-mobile/14.webp", "/Hemooltak-mobile/15.webp"
       ],
       features: [
         "Load Posting & Matching",
@@ -344,22 +344,22 @@ const Portfolio = memo(() => {
       category: "brand"
     },
     {
-      title: "Hemola Brand Identity",
+      title: "Hemooltak Brand Identity",
       type: "Brand Identity System",
-      description: "Bilingual brand identity system built for Hemola, the freight and logistics marketplace. The identity is anchored by the Exchange Mark — two opposing arrows representing the shipper and carrier moving toward agreement — and extends into a full lockup set, a navy and orange colour system, paired Poppins and Cairo typography for English and Arabic, and clear usage rules across app, web, and print.",
+      description: "Bilingual brand identity system built for Hemooltak, the freight and logistics marketplace. The identity is anchored by the Exchange Mark — two opposing arrows representing the shipper and carrier moving toward agreement — and extends into a full lockup set, a navy and orange colour system, paired Poppins and Cairo typography for English and Arabic, and clear usage rules across app, web, and print.",
       tech: ["Adobe Illustrator", "Figma", "Poppins", "Cairo"],
-      image: "/hemola-brand-identity/7.webp",
+      image: "/Hemooltak-brand-identity/7.webp",
       demoUrl: "",
       githubUrl: "",
       screenshots: [
-        "/hemola-brand-identity/1.webp",
-        "/hemola-brand-identity/2.webp",
-        "/hemola-brand-identity/3.webp",
-        "/hemola-brand-identity/4.webp",
-        "/hemola-brand-identity/5.webp",
-        "/hemola-brand-identity/6.webp",
-        "/hemola-brand-identity/7.webp",
-        "/hemola-brand-identity/8.webp"
+        "/Hemooltak-brand-identity/1.webp",
+        "/Hemooltak-brand-identity/2.webp",
+        "/Hemooltak-brand-identity/3.webp",
+        "/Hemooltak-brand-identity/4.webp",
+        "/Hemooltak-brand-identity/5.webp",
+        "/Hemooltak-brand-identity/6.webp",
+        "/Hemooltak-brand-identity/7.webp",
+        "/Hemooltak-brand-identity/8.webp"
       ],
       features: [
         "Exchange Mark Concept & Rationale",
@@ -807,8 +807,8 @@ const Portfolio = memo(() => {
                   </div>
                 )}
 
-                {/* Screenshots for Hemola */}
-                {selectedProject.title === "Hemola" && selectedProject.screenshots && (
+                {/* Screenshots for Hemooltak */}
+                {selectedProject.title === "Hemooltak" && selectedProject.screenshots && (
                   <div className="mb-6">
                     <h4 className="mb-8 text-lg font-semibold text-foreground">Screenshots</h4>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

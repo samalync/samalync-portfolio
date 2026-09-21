@@ -46,20 +46,20 @@ summaryAr:
     group: "team",
     linkedin: "https://www.linkedin.com/in/elbaraa-abuaraki/",
   },
-  {
-    name: "Mohamed Babiker",
-    nameAr: "محمد بابكر",
-    role: "Senior Full-Stack Engineering",
-    roleAr: "مهندس برمجيات متكامل أول",
-    isCoFounder: false,
-    summary:
-      "Mohamed is a senior full-stack engineering contributor with strong experience in React, React Native, Node.js, TypeScript, and PostgreSQL. He has contributed to scalable web and mobile solutions, supporting RESTful API design, microservices architecture, database optimization, and cloud infrastructure including AWS, Vercel, and Docker. Mohamed brings clarity and structure to complex technical requirements through clean, maintainable code.",
-    summaryAr:
-      "محمد مهندس برمجيات متكامل أول يتمتع بخبرة قوية في React وReact Native وNode.js وTypeScript وPostgreSQL. ساهم في حلول ويب وموبايل قابلة للتوسع، ودعم تصميم واجهات REST وبنى الخدمات المصغرة وتحسين قواعد البيانات والبنية السحابية مثل AWS وVercel وDocker. يقدم محمد وضوحا وتنظيما للمتطلبات التقنية المعقدة عبر كود نظيف وقابل للصيانة.",
-    avatar: "/avatars/mohamed-babiker.webp?v=20260729",
-    group: "team",
-    linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/",
-  },
+  // {
+  //   name: "Mohamed Babiker",
+  //   nameAr: "محمد بابكر",
+  //   role: "Senior Full-Stack Engineering",
+  //   roleAr: "مهندس برمجيات متكامل أول",
+  //   isCoFounder: false,
+  //   summary:
+  //     "Mohamed is a senior full-stack engineering contributor with strong experience in React, React Native, Node.js, TypeScript, and PostgreSQL. He has contributed to scalable web and mobile solutions, supporting RESTful API design, microservices architecture, database optimization, and cloud infrastructure including AWS, Vercel, and Docker. Mohamed brings clarity and structure to complex technical requirements through clean, maintainable code.",
+  //   summaryAr:
+  //     "محمد مهندس برمجيات متكامل أول يتمتع بخبرة قوية في React وReact Native وNode.js وTypeScript وPostgreSQL. ساهم في حلول ويب وموبايل قابلة للتوسع، ودعم تصميم واجهات REST وبنى الخدمات المصغرة وتحسين قواعد البيانات والبنية السحابية مثل AWS وVercel وDocker. يقدم محمد وضوحا وتنظيما للمتطلبات التقنية المعقدة عبر كود نظيف وقابل للصيانة.",
+  //   avatar: "/avatars/mohamed-babiker.webp?v=20260729",
+  //   group: "team",
+  //   linkedin: "https://www.linkedin.com/in/mohamed-sufyan-x/",
+  // },
   {
     name: "Mougahed Abdalla",
     nameAr: "مجاهد عبدالله",
@@ -144,21 +144,21 @@ summaryAr:
     avatar: "/avatars/hozaifa.webp?v=20260729",
     group: "team",
   },
-  {
-    name: "Ghufran Osama",
-    nameAr: "غفران أسامة",
-    role: "Graphic Design",
-    roleAr: "التصميم الجرافيكي",
-    isCoFounder: false,
-    summary:
-      "Ghufran is a talented graphic designer who specializes in creating visually compelling designs for branding, marketing materials, and digital experiences. With a keen eye for aesthetics and a passion for visual storytelling, Ghufran brings creativity and precision to every project, ensuring that our visual communications effectively represent the Samalync brand and engage our audience.",
-    summaryAr:
-      "غفران مصممة جرافيك موهوبة متخصصة في إنشاء تصاميم بصرية جذابة للهوية والمواد التسويقية والتجارب الرقمية. تمتلك ذوقا بصريا عاليا وشغفا بالسرد البصري، وتضيف الإبداع والدقة إلى كل مشروع لضمان أن تعبر اتصالاتنا البصرية عن علامة سامالينك بفاعلية وتجذب جمهورنا.",
-    avatar: "/avatars/ghufran.webp?v=20260729",
-    group: "team",
-    linkedin: "",
-    behance: "",
-  },
+  // {
+  //   name: "Ghufran Osama",
+  //   nameAr: "غفران أسامة",
+  //   role: "Graphic Design",
+  //   roleAr: "التصميم الجرافيكي",
+  //   isCoFounder: false,
+  //   summary:
+  //     "Ghufran is a talented graphic designer who specializes in creating visually compelling designs for branding, marketing materials, and digital experiences. With a keen eye for aesthetics and a passion for visual storytelling, Ghufran brings creativity and precision to every project, ensuring that our visual communications effectively represent the Samalync brand and engage our audience.",
+  //   summaryAr:
+  //     "غفران مصممة جرافيك موهوبة متخصصة في إنشاء تصاميم بصرية جذابة للهوية والمواد التسويقية والتجارب الرقمية. تمتلك ذوقا بصريا عاليا وشغفا بالسرد البصري، وتضيف الإبداع والدقة إلى كل مشروع لضمان أن تعبر اتصالاتنا البصرية عن علامة سامالينك بفاعلية وتجذب جمهورنا.",
+  //   avatar: "/avatars/ghufran.webp?v=20260729",
+  //   group: "team",
+  //   linkedin: "",
+  //   behance: "",
+  // },
   {
     name: "Mohammed Yasser",
     nameAr: "محمد ياسر",

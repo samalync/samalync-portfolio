@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/i18n";
-import { BriefcaseBusiness } from "lucide-react";
 
 type ClientVisual = {
   coverImage?: string;
@@ -18,10 +17,6 @@ const SelectedClients: React.FC = memo(() => {
     },
     {
       coverImage: "/umuranga-logo.webp",
-    },
-    {
-      icon: BriefcaseBusiness,
-      accent: "text-indigo-700",
     },
   ];
   const clients = clientsText.items.map((client, index) => ({
@@ -44,11 +39,11 @@ const SelectedClients: React.FC = memo(() => {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-3">
+        <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-6 lg:gap-8">
           {clients.map((client, index) => (
             <Card
               key={index}
-              className="group h-full w-full overflow-hidden border border-gray-200 bg-gray-100 card-shadow transition-all duration-300 hover:card-shadow-hover"
+              className="group h-full w-full overflow-hidden border border-gray-200 bg-gray-100 card-shadow transition-all duration-300 hover:card-shadow-hover sm:w-[360px] lg:w-[400px]"
             >
               <div className="aspect-[16/9] w-full overflow-hidden bg-gray-100">
                 {client.coverImage ? (

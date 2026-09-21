@@ -105,22 +105,16 @@ export const translations = {
       intro: "We work with forward-thinking brands to build digital products that make a difference.",
       items: [
         {
-          name: "Hemola",
+          name: "Hemooltak",
           description: "Connected Freight & Logistics Platform",
           details:
-            "Hemola connects shippers with drivers and carriers in one place, enabling them to post loads, negotiate terms, track deliveries, manage payments, and build trust through ratings.",
+            "Hemooltak connects shippers with drivers and carriers in one place, enabling them to post loads, negotiate terms, track deliveries, manage payments, and build trust through ratings.",
         },
         {
           name: "UMURANGA",
           description: "Partner Discovery Platform for Rwandans",
           details:
             "UMURANGA is a platform designed to help Rwandans find a spouse or compatible partner and build meaningful, lasting connections.",
-        },
-        {
-          name: "RAMS",
-          description: "Recruitment SaaS Platform",
-          details:
-            "RAMS is a Philippines-based recruitment platform connecting job seekers with opportunities in the UAE and the Middle East. Admins and agencies can post openings, while applicants can browse roles and apply directly through the platform.",
         },
       ],
     },
@@ -158,6 +152,12 @@ export const translations = {
           description: "Sudanese Students Online Summit",
           details:
             "SSOS is a community for Sudanese students running online workshops, sessions, and learning programs. We partner with SSOS to support students with technical mentorship and hands-on training in software development and design.",
+        },
+        {
+          name: "Golden Faith SaaS Platform",
+          description: "Recruitment SaaS Platform",
+          details:
+            "Golden Faith SaaS Platform is a Philippines-based recruitment platform connecting job seekers with opportunities in the UAE and the Middle East. Admins and agencies can post openings, while applicants can browse roles and apply directly through the platform.",
         },
       ],
     },
@@ -338,22 +338,16 @@ export const translations = {
       intro: "نعمل مع علامات طموحة لبناء منتجات رقمية تصنع أثرا.",
       items: [
         {
-          name: "Hemola",
+          name: "Hemooltak",
           description: "منصة متكاملة للشحن والخدمات اللوجستية",
           details:
-            "تربط Hemola أصحاب الشحنات بالسائقين وشركات النقل في مكان واحد، وتتيح نشر الشحنات والتفاوض وتتبع عمليات التسليم وإدارة المدفوعات وبناء الثقة عبر التقييمات.",
+            "تربط Hemooltak أصحاب الشحنات بالسائقين وشركات النقل في مكان واحد، وتتيح نشر الشحنات والتفاوض وتتبع عمليات التسليم وإدارة المدفوعات وبناء الثقة عبر التقييمات.",
         },
         {
           name: "UMURANGA",
           description: "منصة للعثور على شريك للروانديين",
           details:
             "UMURANGA منصة مصممة لمساعدة الروانديين على العثور على شريك حياة أو شريك متوافق وبناء علاقات هادفة ودائمة.",
-        },
-        {
-          name: "RAMS",
-          description: "منصة توظيف سحابية",
-          details:
-            "RAMS منصة توظيف سحابية مقرها الفلبين تربط الباحثين عن عمل بفرص وظيفية في الإمارات والشرق الأوسط. تتيح للمشرفين ووكالات التوظيف نشر الوظائف، وللمتقدمين تصفح الفرص والتقديم عليها مباشرة عبر المنصة.",
         },
       ],
     },
@@ -391,6 +385,12 @@ export const translations = {
           description: "قمة الطلاب السودانيين أونلاين",
           details:
             "SSOS مجتمع للطلاب السودانيين يقدم ورش عمل وجلسات وبرامج تعليمية عبر الإنترنت. نتشارك مع SSOS لدعم الطلاب بالإرشاد التقني والتدريب العملي في تطوير البرمجيات والتصميم.",
+        },
+        {
+          name: "Golden Faith SaaS Platform",
+          description: "منصة توظيف سحابية",
+          details:
+            "Golden Faith SaaS Platform منصة توظيف سحابية مقرها الفلبين تربط الباحثين عن عمل بفرص وظيفية في الإمارات والشرق الأوسط. تتيح للمشرفين ووكالات التوظيف نشر الوظائف، وللمتقدمين تصفح الفرص والتقديم عليها مباشرة عبر المنصة.",
         },
       ],
     },

@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Truck, type LucideIcon } from "lucide-react";
+import { Truck, Briefcase, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 type Partner = {
@@ -41,6 +41,10 @@ const Partnerships: React.FC = memo(() => {
       ...partnershipsText.items[4],
       coverImage: "/partners/ssos.webp",
       logoCover: true,
+    },
+    {
+      ...partnershipsText.items[5],
+      icon: Briefcase,
     },
   ];
 
@@ -93,13 +97,6 @@ const Partnerships: React.FC = memo(() => {
               )}
 
               <CardContent className="p-8 text-center space-y-6">
-                {/* Show icon in content only when there's no cover image and it's not the second card */}
-                {(partner.icon && !(partner.coverImage || index === 1)) ? (
-                  <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
-                    <partner.icon className="h-8 w-8 text-primary" />
-                  </div>
-                ) : null}
-
                 <div className="space-y-3">
                   <h3 className="text-xl font-semibold text-foreground">
                     {partner.name}
