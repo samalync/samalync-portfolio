@@ -16,7 +16,7 @@ export type CompanyMember = {
 
 export const companyMembers: CompanyMember[] = [
   {
-    name: "Yassin AbuArki",
+    name: "Yassin Abuarki",
     nameAr: "ياسين أبوعركي",
     role: "Chief Executive Officer (CEO) & Founder",
     roleAr: "الرئيس التنفيذي والمؤسس",
