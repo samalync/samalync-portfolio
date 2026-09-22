@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Truck, Briefcase, type LucideIcon } from "lucide-react";
+import { Truck, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 type Partner = {
@@ -44,7 +44,8 @@ const Partnerships: React.FC = memo(() => {
     },
     {
       ...partnershipsText.items[5],
-      icon: Briefcase,
+      coverImage: "/rams.png",
+      logoCover: true,
     },
   ];
 

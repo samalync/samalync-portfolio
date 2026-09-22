@@ -154,10 +154,10 @@ export const translations = {
             "SSOS is a community for Sudanese students running online workshops, sessions, and learning programs. We partner with SSOS to support students with technical mentorship and hands-on training in software development and design.",
         },
         {
-          name: "Golden Faith SaaS Platform",
+          name: "RAMS SaaS Platform",
           description: "Recruitment SaaS Platform",
           details:
-            "Golden Faith SaaS Platform is a Philippines-based recruitment platform connecting job seekers with opportunities in the UAE and the Middle East. Admins and agencies can post openings, while applicants can browse roles and apply directly through the platform.",
+            "RAMS SaaS Platform is a Philippines-based recruitment platform connecting job seekers with opportunities in the UAE and the Middle East. Admins and agencies can post openings, while applicants can browse roles and apply directly through the platform.",
         },
       ],
     },
@@ -387,10 +387,10 @@ export const translations = {
             "SSOS مجتمع للطلاب السودانيين يقدم ورش عمل وجلسات وبرامج تعليمية عبر الإنترنت. نتشارك مع SSOS لدعم الطلاب بالإرشاد التقني والتدريب العملي في تطوير البرمجيات والتصميم.",
         },
         {
-          name: "Golden Faith SaaS Platform",
+          name: "RAMS SaaS Platform",
           description: "منصة توظيف سحابية",
           details:
-            "Golden Faith SaaS Platform منصة توظيف سحابية مقرها الفلبين تربط الباحثين عن عمل بفرص وظيفية في الإمارات والشرق الأوسط. تتيح للمشرفين ووكالات التوظيف نشر الوظائف، وللمتقدمين تصفح الفرص والتقديم عليها مباشرة عبر المنصة.",
+            "RAMS SaaS Platform منصة توظيف سحابية مقرها الفلبين تربط الباحثين عن عمل بفرص وظيفية في الإمارات والشرق الأوسط. تتيح للمشرفين ووكالات التوظيف نشر الوظائف، وللمتقدمين تصفح الفرص والتقديم عليها مباشرة عبر المنصة.",
         },
       ],
     },
