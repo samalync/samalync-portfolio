@@ -17,9 +17,9 @@ const PersonAvatar: React.FC<PersonAvatarProps> = ({ avatar, name, size, classNa
   if (!avatar.startsWith("/")) {
     return (
       <div
-        style={style}
+        style={{ ...style, fontSize: Math.round(size * 0.4) }}
         className={cn(
-          "flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-3xl font-bold text-white shadow-md",
+          "flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 font-bold text-white shadow-md",
           className
         )}
         aria-hidden="true"

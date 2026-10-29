@@ -62,6 +62,7 @@ export const traineeProjects: TraineeProject[] = [];
 const flutterTrack: Localized = { en: "Flutter Mobile Development", ar: "تطوير تطبيقات الموبايل باستخدام Flutter" };
 
 const flutterTrainee = { role: "Flutter Development Trainee", roleAr: "متدرب تطوير Flutter" };
+const cohort2Trainee = { role: "Flutter Trainee", roleAr: "متدرب Flutter" };
 
 export const cohorts: Cohort[] = [
   {
@@ -209,11 +210,34 @@ export const cohorts: Cohort[] = [
     startDate: "2026-11-11",
     status: "upcoming",
     enrollment: "full",
-    // PLACEHOLDER: seat count to confirm. seatsTaken stays undefined so only "Seats full" is shown.
+    // seatsTaken stays undefined so only "Seats full" is shown.
     seatsTotal: 20,
     hasPage: true,
-    // No members listed: no publication consent yet.
-    members: [],
+    // All 22 agreed to be listed; three chose not to publish a photo (initial shown instead).
+    members: [
+      { personId: "mustafa-rabie", ...cohort2Trainee, consented: true },
+      { personId: "omer-mohammed", ...cohort2Trainee, consented: true },
+      { personId: "elfadil-badr-elden", ...cohort2Trainee, consented: true },
+      { personId: "abdelgafor-mohamed", ...cohort2Trainee, consented: true },
+      { personId: "abubakr-basher", ...cohort2Trainee, consented: true },
+      { personId: "wadah-mzamil", ...cohort2Trainee, consented: true },
+      { personId: "mohammed-alrayeh", ...cohort2Trainee, consented: true },
+      { personId: "meirgani-abaker", ...cohort2Trainee, consented: true },
+      { personId: "mohammed-awad", ...cohort2Trainee, consented: true },
+      { personId: "moumen-hassan", ...cohort2Trainee, consented: true },
+      { personId: "nadir-jomma", ...cohort2Trainee, consented: true },
+      { personId: "mohammed-faiz", ...cohort2Trainee, consented: true },
+      { personId: "mazen-isam", ...cohort2Trainee, consented: true },
+      { personId: "yazid-moawia", ...cohort2Trainee, consented: true },
+      { personId: "moazar-mohamed", ...cohort2Trainee, consented: true },
+      { personId: "mohamed-mozamil", ...cohort2Trainee, consented: true },
+      { personId: "omer-abubakr", ...cohort2Trainee, consented: true },
+      { personId: "qusai-tarig", ...cohort2Trainee, consented: true },
+      { personId: "mohammed-alseddig", ...cohort2Trainee, consented: true },
+      { personId: "esraa-borae", ...cohort2Trainee, consented: true },
+      { personId: "tasabeeh-omer", ...cohort2Trainee, consented: true },
+      { personId: "khansa-shihab", ...cohort2Trainee, consented: true },
+    ],
   },
   {
     id: "cohort-3",

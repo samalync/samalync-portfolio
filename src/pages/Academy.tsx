@@ -6,9 +6,10 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { CtaBanner, CtaButton } from "@/components/shared/Cta";
+import PersonAvatar from "@/components/shared/PersonAvatar";
 import { CohortBadges, CohortFacts, getCohortFacts } from "@/components/academy/CohortMeta";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { cohorts, communityUrl, traineeProjects, type Cohort } from "@/data/academy";
+import { cohorts, communityUrl, getCohortCards, traineeProjects, type Cohort } from "@/data/academy";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { useLanguage } from "@/i18n";
 import { fill } from "@/lib/format";
@@ -19,11 +20,18 @@ const benefitIcons = [Smartphone, FolderGit2, Building2, Award];
 // Months 1-4 learning, 5-6 practical.
 const timeline = [1, 2, 3, 4, 5, 6].map((month) => ({ month, practical: month > 4 }));
 
+const PREVIEW_SIZE = 6;
+
 const CohortCard: React.FC<{ cohort: Cohort }> = ({ cohort }) => {
   const { language, t } = useLanguage();
   const academy = t("academy");
   const title = cohort.title[language];
   const isWaitlist = cohort.enrollment === "waitlist";
+
+  // Upcoming cohorts get an avatar preview; Cohort 1's card already shows its trainee count.
+  const members = cohort.status === "upcoming" && cohort.hasPage ? getCohortCards(cohort, language) : [];
+  const preview = members.slice(0, PREVIEW_SIZE);
+  const hiddenCount = members.length - preview.length;
 
   return (
     <li
@@ -52,6 +60,25 @@ const CohortCard: React.FC<{ cohort: Cohort }> = ({ cohort }) => {
         <p className="mb-6 text-base leading-relaxed text-slate-600">{cohort.description[language]}</p>
       ) : (
         <CohortFacts facts={getCohortFacts(cohort, language, academy)} className="mb-6" />
+      )}
+
+      {preview.length > 0 && (
+        <Link
+          to={`/academy/${cohort.slug}`}
+          className="mb-6 flex items-center gap-3 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        >
+          <span className="flex [&>*+*]:-ms-3" aria-hidden="true">
+            {preview.map((person) => (
+              <PersonAvatar key={person.id} avatar={person.avatar} name="" size={40} className="border-2 shadow-sm ring-0" />
+            ))}
+            {hiddenCount > 0 && (
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-slate-100 text-xs font-semibold text-slate-700">
+                {fill(academy.moreTrainees, { n: hiddenCount })}
+              </span>
+            )}
+          </span>
+          <span className="text-sm font-semibold text-slate-800 hover:text-primary">{academy.meetTrainees}</span>
+        </Link>
       )}
 
       <div className="mt-auto">

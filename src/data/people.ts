@@ -259,6 +259,30 @@ export const people: Person[] = [
     nameAr: "كمال بكري",
     avatar: "/avatars/kamal.webp?v=20260729",
   },
+
+  // ─── Cohort 2 trainees (names in Latin script only; no photo = initial) ────
+  { id: "mustafa-rabie", name: "Mustafa Rabie", avatar: "/avatars/cohort-2/mustafa-rabie.webp?v=20261028" },
+  { id: "omer-mohammed", name: "Omer Mohammed", avatar: "/avatars/cohort-2/omer-mohammed.webp?v=20261028" },
+  { id: "elfadil-badr-elden", name: "Elfadil Badr Elden", avatar: "/avatars/cohort-2/elfadil-badr-elden.webp?v=20261028" },
+  { id: "abdelgafor-mohamed", name: "Abdelgafor Mohamed", avatar: "/avatars/cohort-2/abdelgafor-mohamed.webp?v=20261028" },
+  { id: "abubakr-basher", name: "Abubakr Basher", avatar: "/avatars/cohort-2/abubakr-basher.webp?v=20261028" },
+  { id: "wadah-mzamil", name: "Wadah Mzamil", avatar: "/avatars/cohort-2/wadah-mzamil.webp?v=20261028" },
+  { id: "mohammed-alrayeh", name: "Mohammed Alrayeh", avatar: "/avatars/cohort-2/mohammed-alrayeh.webp?v=20261028" },
+  { id: "meirgani-abaker", name: "Meirgani Abaker", avatar: "/avatars/cohort-2/meirgani-abaker.webp?v=20261028" },
+  { id: "mohammed-awad", name: "Mohammed Awad", avatar: "/avatars/cohort-2/mohammed-awad.webp?v=20261028" },
+  { id: "moumen-hassan", name: "Moumen Hassan", avatar: "/avatars/cohort-2/moumen-hassan.webp?v=20261028" },
+  { id: "nadir-jomma", name: "Nadir Jomma", avatar: "/avatars/cohort-2/nadir-jomma.webp?v=20261028" },
+  { id: "mohammed-faiz", name: "Mohammed Faiz", avatar: "/avatars/cohort-2/mohammed-faiz.webp?v=20261028" },
+  { id: "mazen-isam", name: "Mazen Isam", avatar: "/avatars/cohort-2/mazen-isam.webp?v=20261028" },
+  { id: "yazid-moawia", name: "Yazid Moawia", avatar: "/avatars/cohort-2/yazid-moawia.webp?v=20261028" },
+  { id: "moazar-mohamed", name: "Moazar Mohamed", avatar: "/avatars/cohort-2/moazar-mohamed.webp?v=20261028" },
+  { id: "mohamed-mozamil", name: "Mohamed Mozamil", avatar: "M" },
+  { id: "omer-abubakr", name: "Omer Abubakr", avatar: "/avatars/cohort-2/omer-abubakr.webp?v=20261028" },
+  { id: "qusai-tarig", name: "Qusai Tarig", avatar: "/avatars/cohort-2/qusai-tarig.webp?v=20261028" },
+  { id: "mohammed-alseddig", name: "Mohammed Alseddig", avatar: "/avatars/cohort-2/mohammed-alseddig.webp?v=20261028" },
+  { id: "esraa-borae", name: "Esraa Borae", avatar: "/avatars/cohort-2/esraa-borae.webp?v=20261028" },
+  { id: "tasabeeh-omer", name: "Tasabeeh Omer", avatar: "T" },
+  { id: "khansa-shihab", name: "Khansa Shihab", avatar: "K" },
 ];
 
 const peopleById = new Map(people.map((person) => [person.id, person]));

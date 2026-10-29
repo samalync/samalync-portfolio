@@ -60,10 +60,11 @@ export const getCohortFacts = (cohort: Cohort, language: Language, academy: Acad
 
   const publicMembers = cohort.members.filter((member) => member.consented).length;
 
-  if (publicMembers > 0) {
-    facts.push({ label: academy.traineesLabel, value: String(publicMembers) });
-  } else if (cohort.enrollment === "full") {
+  // A full cohort shows "Seats full" (never a number), even once trainees are listed.
+  if (cohort.enrollment === "full") {
     facts.push({ label: academy.seatsLabel, value: academy.enrollment.full });
+  } else if (publicMembers > 0) {
+    facts.push({ label: academy.traineesLabel, value: String(publicMembers) });
   } else if (cohort.seatsTotal) {
     facts.push({ label: academy.seatsLabel, value: fill(academy.seatsCount, { n: cohort.seatsTotal }) });
   }
