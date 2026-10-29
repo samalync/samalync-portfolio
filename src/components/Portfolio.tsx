@@ -149,8 +149,8 @@ const Portfolio = memo(() => {
       demoUrl: "https://Hemooltak-demo.com",
       githubUrl: "",
       screenshots: [
-        "/Hemooltak-frontend/1.webp", "/Hemooltak-frontend/2.webp", "/Hemooltak-frontend/3.webp", "/Hemooltak-frontend/4.webp", "/Hemooltak-frontend/5.webp", "/Hemooltak-frontend/6.webp", "/Hemooltak-frontend/7.webp", "/Hemooltak-frontend/8.webp", "/Hemooltak-frontend/9.webp", "/Hemooltak-frontend/10.webp", "/Hemooltak-frontend/11.webp", "/Hemooltak-frontend/12.webp", "/Hemooltak-frontend/13.webp", "/Hemooltak-frontend/14.webp", "/Hemooltak-frontend/15.webp",
-        "/Hemooltak-mobile/1.webp", "/Hemooltak-mobile/2.webp", "/Hemooltak-mobile/3.webp", "/Hemooltak-mobile/4.webp", "/Hemooltak-mobile/5.webp", "/Hemooltak-mobile/6.webp", "/Hemooltak-mobile/7.webp", "/Hemooltak-mobile/8.webp", "/Hemooltak-mobile/9.webp", "/Hemooltak-mobile/10.webp", "/Hemooltak-mobile/11.webp", "/Hemooltak-mobile/12.webp", "/Hemooltak-mobile/13.webp", "/Hemooltak-mobile/14.webp", "/Hemooltak-mobile/15.webp"
+        "/hemola-frontend/1.webp", "/hemola-frontend/2.webp", "/hemola-frontend/3.webp", "/hemola-frontend/4.webp", "/hemola-frontend/5.webp", "/hemola-frontend/6.webp", "/hemola-frontend/7.webp", "/hemola-frontend/8.webp", "/hemola-frontend/9.webp", "/hemola-frontend/10.webp", "/hemola-frontend/11.webp", "/hemola-frontend/12.webp", "/hemola-frontend/13.webp", "/hemola-frontend/14.webp", "/hemola-frontend/15.webp",
+        "/hemola-mobile/1.webp", "/hemola-mobile/2.webp", "/hemola-mobile/3.webp", "/hemola-mobile/4.webp", "/hemola-mobile/5.webp", "/hemola-mobile/6.webp", "/hemola-mobile/7.webp", "/hemola-mobile/8.webp", "/hemola-mobile/9.webp", "/hemola-mobile/10.webp", "/hemola-mobile/11.webp", "/hemola-mobile/12.webp", "/hemola-mobile/13.webp", "/hemola-mobile/14.webp", "/hemola-mobile/15.webp"
       ],
       features: [
         "Load Posting & Matching",
@@ -348,18 +348,18 @@ const Portfolio = memo(() => {
       type: "Brand Identity System",
       description: "Bilingual brand identity system built for Hemooltak, the freight and logistics marketplace. The identity is anchored by the Exchange Mark — two opposing arrows representing the shipper and carrier moving toward agreement — and extends into a full lockup set, a navy and orange colour system, paired Poppins and Cairo typography for English and Arabic, and clear usage rules across app, web, and print.",
       tech: ["Adobe Illustrator", "Figma", "Poppins", "Cairo"],
-      image: "/Hemooltak-brand-identity/7.webp",
+      image: "/hemola-brand-identity/7.webp",
       demoUrl: "",
       githubUrl: "",
       screenshots: [
-        "/Hemooltak-brand-identity/1.webp",
-        "/Hemooltak-brand-identity/2.webp",
-        "/Hemooltak-brand-identity/3.webp",
-        "/Hemooltak-brand-identity/4.webp",
-        "/Hemooltak-brand-identity/5.webp",
-        "/Hemooltak-brand-identity/6.webp",
-        "/Hemooltak-brand-identity/7.webp",
-        "/Hemooltak-brand-identity/8.webp"
+        "/hemola-brand-identity/1.webp",
+        "/hemola-brand-identity/2.webp",
+        "/hemola-brand-identity/3.webp",
+        "/hemola-brand-identity/4.webp",
+        "/hemola-brand-identity/5.webp",
+        "/hemola-brand-identity/6.webp",
+        "/hemola-brand-identity/7.webp",
+        "/hemola-brand-identity/8.webp"
       ],
       features: [
         "Exchange Mark Concept & Rationale",
@@ -370,6 +370,47 @@ const Portfolio = memo(() => {
         "App Icon, Avatar & Favicon Set",
         "Monochrome & Reversed Versions",
         "Clear Space, Minimum Size & Usage Rules"
+      ],
+      category: "brand"
+    },
+    {
+      title: "RAMS Brand Identity",
+      type: "Brand Identity System",
+      description: "Brand identity guidelines for RAMS, a recruitment agency management system that brings applicants, employers, agents, documents, placements and payments into one multi-tenant platform. The identity is built on the Modular R, four modules assembled into one organized system, with a forest-green foundation and a single green accent, Geist and Geist Mono typography, a 24-grid icon set, and applications across the product UI in light and dark themes, the website, social profiles, email signatures and presentations.",
+      tech: ["Geist", "Geist Mono", "Icon System", "Product UI"],
+      image: "/rams-brand-identity/1.webp",
+      demoUrl: "",
+      githubUrl: "",
+      screenshots: [
+        "/rams-brand-identity/1.webp",
+        "/rams-brand-identity/2.webp",
+        "/rams-brand-identity/3.webp",
+        "/rams-brand-identity/4.webp",
+        "/rams-brand-identity/5.webp",
+        "/rams-brand-identity/6.webp",
+        "/rams-brand-identity/7.webp",
+        "/rams-brand-identity/8.webp",
+        "/rams-brand-identity/9.webp",
+        "/rams-brand-identity/10.webp",
+        "/rams-brand-identity/11.webp",
+        "/rams-brand-identity/12.webp",
+        "/rams-brand-identity/13.webp",
+        "/rams-brand-identity/14.webp",
+        "/rams-brand-identity/15.webp",
+        "/rams-brand-identity/16.webp",
+        "/rams-brand-identity/17.webp"
+      ],
+      features: [
+        "Modular R Mark & Construction Grid",
+        "Logo Exploration Routes",
+        "Primary, Stacked & Symbol Lockups",
+        "Clear Space & Minimum Size Rules",
+        "Forest & Green Colour System",
+        "Geist & Geist Mono Typography",
+        "24-Grid Icon Set",
+        "Light & Dark Product UI",
+        "App Icon, Website & Social Assets",
+        "Email Signature & Presentation Templates"
       ],
       category: "brand"
     },
