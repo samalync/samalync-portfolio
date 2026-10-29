@@ -7,12 +7,15 @@ import SelectedClients from "@/components/SelectedClients";
 import Partnerships from "@/components/Partnerships";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { useLanguage } from "@/i18n";
 
 const Index = () => {
   const [selectedServiceSubject, setSelectedServiceSubject] = React.useState<string>("");
   const { t } = useLanguage();
   const hero = t("hero");
+
+  usePageMeta(t("meta").home);
 
   const scrollToContact = React.useCallback(() => {
     const element = document.getElementById("contact");
@@ -28,7 +31,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
-      <Header onGetOfferClick={scrollToContact} />
+      <Header />
       
       {/* Hero Section */}
       <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-8 text-center overflow-hidden bg-blue-900">

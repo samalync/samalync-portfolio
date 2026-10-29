@@ -70,7 +70,8 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif'],
+				// Inter has no Arabic glyphs, so Arabic text falls through to IBM Plex Sans Arabic.
+				sans: ['Inter', '"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
 			},
 			keyframes: {
 				'accordion-down': {

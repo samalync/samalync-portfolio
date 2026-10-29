@@ -1,11 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { useLanguage } from "@/i18n";
 
 const NotFound = () => {
   const location = useLocation();
   const { t } = useLanguage();
   const notFound = t("notFound");
+
+  usePageMeta({ ...t("meta").notFound, noindex: true });
 
   useEffect(() => {
     console.error(
