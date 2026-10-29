@@ -1,7 +1,9 @@
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { Linkedin, ArrowUp, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { footerNav, navTarget } from "@/config/navigation";
 import { useLanguage } from "@/i18n";
 
 const Footer: React.FC = memo(() => {
@@ -11,21 +13,6 @@ const Footer: React.FC = memo(() => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const navigation = [
-    { label: header.nav.home, id: "hero" },
-    { label: header.nav.services, id: "services" },
-    { label: header.nav.projects, id: "portfolio" },
-    { label: header.nav.about, id: "about" },
-    { label: header.nav.contact, id: "contact" }
-  ];
 
   const Projects = footer.projects;
 
@@ -85,16 +72,16 @@ const Footer: React.FC = memo(() => {
               <div className="w-8 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2"></div>
             </h4>
             <nav className="space-y-4">
-              {navigation.map((item, index) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="group block text-gray-300 hover:text-white transition-all duration-300 text-left relative"
+              {footerNav.map((item) => (
+                <Link
+                  key={item.key}
+                  to={navTarget(item)}
+                  className="group block w-fit text-gray-300 hover:text-white transition-all duration-300 text-start relative rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
-                  <span className="relative z-10">{item.label}</span>
+                  <span className="relative z-10">{header.nav[item.key]}</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
                   <div className="w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-full transition-all duration-300"></div>
-                </button>
+                </Link>
               ))}
             </nav>
           </div>

@@ -1,4 +1,5 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,6 +8,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Send, Mail, Phone, MapPin, Clock, type LucideIcon } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '@/config/emailjs';
+
+const CONTACT_EMAIL = "support@samalync.com";
+// Keys come from VITE_EMAILJS_* at build time; without them EmailJS rejects every request.
+const isEmailJsConfigured = Boolean(EMAILJS_CONFIG.SERVICE_ID && EMAILJS_CONFIG.TEMPLATE_ID && EMAILJS_CONFIG.PUBLIC_KEY);
 import { useLanguage, type TranslationMap } from "@/i18n";
 
 type ContactProps = {
@@ -25,7 +30,7 @@ const ContactInfoPanel = memo(({ contactText }: { contactText: TranslationMap["c
     {
       icon: Mail,
       title: contactText.info.email,
-      value: "support@samalync.com",
+      value: CONTACT_EMAIL,
     },
     {
       icon: Phone,
@@ -91,11 +96,12 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
   const { toast } = useToast();
   const { t } = useLanguage();
   const contactText = t("contact");
-  const formRef = useRef<HTMLFormElement>(null);
+  const location = useLocation();
+  const routeSubject = (location.state as { subject?: string } | null)?.subject;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: initialSubject || "",
+    subject: routeSubject || initialSubject || "",
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -107,9 +113,12 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
     }
   }, [initialSubject]);
 
+  // Update subject when a button elsewhere (e.g. "Join the waitlist") links here with one
   useEffect(() => {
-    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-  }, []);
+    if (routeSubject) {
+      setFormData(prev => ({ ...prev, subject: routeSubject }));
+    }
+  }, [routeSubject, location.key]);
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -142,15 +151,31 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
       return;
     }
 
+    // Without EmailJS keys, hand the message to the visitor's email app instead of failing
+    if (!isEmailJsConfigured) {
+      const body = `${formData.message}\n\n${formData.name} <${formData.email}>`;
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(body)}`;
+      toast({
+        title: contactText.mailAppTitle,
+        description: contactText.mailApp,
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
-      // Use sendForm method which is more reliable
-      await emailjs.sendForm(
-        EMAILJS_CONFIG.SERVICE_ID, 
-        EMAILJS_CONFIG.TEMPLATE_ID, 
-        formRef.current!,
-        EMAILJS_CONFIG.PUBLIC_KEY
+      // Template variables: name, email, title, message
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        {
+          name: formData.name,
+          email: formData.email,
+          title: formData.subject,
+          message: formData.message,
+        },
+        { publicKey: EMAILJS_CONFIG.PUBLIC_KEY }
       );
       
       toast({
@@ -161,8 +186,9 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
       // Reset form
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      // Minimal error logging without exposing sensitive details
-      console.error('Failed to send message');
+      // EmailJS reports a status code and reason, never the keys
+      const { status, text } = (error ?? {}) as { status?: number; text?: string };
+      console.error('Failed to send message', status, text);
       
       toast({
         title: contactText.error,
@@ -172,7 +198,7 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [contactText, formData.email, formData.message, formData.name, toast]);
+  }, [contactText, formData, toast]);
 
   return (
     <section id="contact" className="performance-section py-20 bg-white relative overflow-hidden">
@@ -205,12 +231,7 @@ const Contact: React.FC<ContactProps> = memo(({ initialSubject = "" }) => {
                       </p>
                     </div>
 
-                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                      {/* Hidden inputs for EmailJS template variables */}
-                      <input type="hidden" name="name" value={formData.name} />
-                      <input type="hidden" name="email" value={formData.email} />
-                      <input type="hidden" name="title" value={formData.subject} />
-                      <input type="hidden" name="message" value={formData.message} />
+                    <form onSubmit={handleSubmit} className="space-y-6">
 
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-3">

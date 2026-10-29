@@ -4,3 +4,6 @@ dist/
 .env*
 .DS_Store
 
+
+# Raw photos (processed copies live in public/avatars)
+incoming/
