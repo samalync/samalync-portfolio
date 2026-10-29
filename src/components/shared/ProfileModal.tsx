@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import PersonAvatar from "@/components/shared/PersonAvatar";
@@ -16,6 +16,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ person, onClose }) => {
   const [enlarged, setEnlarged] = useState(false);
   const shared = useLanguage().t("shared");
   const hasPhoto = Boolean(person?.avatar.startsWith("/"));
+  // Opened without a Dialog.Trigger, so Radix can't restore focus by itself; remember the opener.
+  const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setEnlarged(false);
@@ -23,7 +25,15 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ person, onClose }) => {
 
   return (
     <Dialog open={Boolean(person)} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[90vh] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-3xl border border-slate-200 bg-white p-0 sm:rounded-3xl">
+      <DialogContent
+        onOpenAutoFocus={() => {
+          openerRef.current = document.activeElement as HTMLElement | null;
+        }}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          openerRef.current?.focus();
+        }}
+        className="max-h-[90vh] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-3xl border border-slate-200 bg-white p-0 sm:rounded-3xl">
         {person &&
           (enlarged && hasPhoto ? (
             <div className="space-y-4 p-6 sm:p-8">

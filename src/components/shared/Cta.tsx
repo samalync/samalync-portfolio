@@ -1,8 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CONTACT_TARGET } from "@/config/navigation";
+import { SmartLink, isExternalHref } from "@/components/shared/SmartLink";
 import { useLanguage } from "@/i18n";
 import { cn } from "@/lib/utils";
 
@@ -26,34 +25,28 @@ type CtaButtonProps = {
   className?: string;
 };
 
-const isExternal = (href: string) => /^(https?:|mailto:|tel:)/.test(href);
-
 export const CtaButton: React.FC<CtaButtonProps> = ({ href, subject, children, variant = "primary", icon = "arrow", className }) => {
   const shared = useLanguage().t("shared");
   const classes = cn(
-    "h-12 gap-2 rounded-xl px-6 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2",
+    "h-12 gap-2 rounded-xl px-6 text-base font-semibold transition-[color,background-color,transform] active:scale-[0.98] motion-reduce:active:scale-100 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2",
     variantClass[variant],
     className
   );
 
-  if (href && isExternal(href)) {
-    return (
-      <Button asChild className={classes}>
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          {children}
-          {icon === "arrow" && <ExternalLink className="h-4 w-4" aria-hidden="true" />}
-          <span className="sr-only"> ({shared.newTab})</span>
-        </a>
-      </Button>
-    );
-  }
+  const external = Boolean(href && isExternalHref(href));
 
   return (
     <Button asChild className={classes}>
-      <Link to={href || CONTACT_TARGET} state={!href && subject ? { subject } : undefined}>
+      <SmartLink href={href} subject={subject}>
         {children}
-        {icon === "arrow" && <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />}
-      </Link>
+        {icon === "arrow" &&
+          (external ? (
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          ) : (
+            <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+          ))}
+        {external && <span className="sr-only"> ({shared.newTab})</span>}
+      </SmartLink>
     </Button>
   );
 };

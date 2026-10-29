@@ -1,8 +1,13 @@
-// Samalync Academy cohorts. Each cohort is data; pages are generated from it.
+// Samalync Academy cohorts, tracks, roadmap and FAQ. Pages are generated from this data.
 // Keep this file free of React and "@/" imports: vite.config.ts imports it to build sitemap.xml.
+// Arabic strings are Modern Standard Arabic and NEED NATIVE REVIEW before launch.
+//
+// Honesty rules for all copy here: Cohort 1 is a pilot in its practical phase (not graduated);
+// other tracks are planned, not running; no job/internship promises, prices, schedules or trainer details.
 import { getPerson, getPersonName, type Lang, type PersonCardData } from "./people";
 
 export type Localized = { en: string; ar: string };
+export type LocalizedList = { en: string[]; ar: string[] };
 
 export type CohortStatus = "upcoming" | "active" | "graduated";
 export type CohortPhase = "learning" | "practical";
@@ -28,6 +33,8 @@ export type Cohort = {
   description: Localized;
   /** ISO date (YYYY-MM-DD). Missing = shown as "TBA". */
   startDate?: string;
+  /** false = only the month of startDate is shown publicly. */
+  startDateConfirmed?: boolean;
   endDate?: string;
   /** ISO month (YYYY-MM) shown as "expected around …" while endDate is unknown. */
   expectedEnd?: string;
@@ -53,7 +60,7 @@ export type TraineeProject = {
   url?: string;
 };
 
-// PLACEHOLDER: community / waitlist link (e.g. WhatsApp community or a form). While empty, CTAs fall back to the contact section.
+// PLACEHOLDER: community / waitlist link (e.g. WhatsApp community or a form). While empty, CTAs fall back to the contact form with a prefilled subject.
 export const communityUrl = "";
 
 // PLACEHOLDER: "What our trainees built". The section is hidden while this array is empty.
@@ -72,8 +79,8 @@ export const cohorts: Cohort[] = [
     title: { en: "Cohort 1", ar: "الدفعة الأولى" },
     track: flutterTrack,
     description: {
-      en: "The first Samalync Academy cohort. After completing the learning phase, Cohort 1 trainees are now in the practical phase, building a real project with a real API inside the company.",
-      ar: "الدفعة الأولى من أكاديمية سامالينك. بعد إتمام مرحلة التعلم، ينتقل متدربو الدفعة الأولى الآن إلى المرحلة العملية، حيث يبنون مشروعا حقيقيا يعتمد على واجهة API حقيقية داخل الشركة.",
+      en: "The pilot cohort of the Mobile Development Program. Trainees have completed the learning phase and are now in the practical phase: a team project built with Git/GitHub workflows, code reviews and task tracking.",
+      ar: "الدفعة التجريبية الأولى من برنامج تطوير تطبيقات الموبايل. أتمّ المتدربون مرحلة التعلّم، وهم الآن في المرحلة العملية: مشروع جماعي يُبنى باستخدام سير عمل Git/GitHub ومراجعات الكود وتتبّع المهام.",
     },
     // TODO(confirm): Cohort 1 start date. Shown as "TBA" until filled.
     startDate: undefined,
@@ -204,10 +211,12 @@ export const cohorts: Cohort[] = [
     title: { en: "Cohort 2", ar: "الدفعة الثانية" },
     track: flutterTrack,
     description: {
-      en: "Cohort 2 starts on 11 November 2026 and follows the full 6-month path: four months of learning, then two months of practical work on a real project inside the company. All seats are taken.",
-      ar: "تبدأ الدفعة الثانية في 11 نوفمبر 2026 وتسير في المسار الكامل لمدة ستة أشهر: أربعة أشهر من التعلم، ثم شهران من العمل التطبيقي على مشروع حقيقي داخل الشركة. جميع المقاعد محجوزة.",
+      en: "Cohort 2 starts in November 2026 and follows the full six-month path: four months of learning, then two months on a team project built with Git/GitHub workflows, code reviews and task tracking. All seats are taken.",
+      ar: "تبدأ الدفعة الثانية في نوفمبر 2026 وتسير في المسار الكامل لمدة ستة أشهر: أربعة أشهر من التعلّم، ثم شهران في مشروع جماعي يُبنى باستخدام سير عمل Git/GitHub ومراجعات الكود وتتبّع المهام. جميع المقاعد محجوزة.",
     },
+    // TODO(confirm): exact day. Only "November 2026" is shown until startDateConfirmed is true.
     startDate: "2026-11-11",
+    startDateConfirmed: false,
     status: "upcoming",
     enrollment: "full",
     // seatsTaken stays undefined so only "Seats full" is shown.
@@ -246,8 +255,8 @@ export const cohorts: Cohort[] = [
     title: { en: "Cohort 3", ar: "الدفعة الثالثة" },
     track: flutterTrack,
     description: {
-      en: "Dates will be announced soon. Join the waitlist to hear first when registration opens.",
-      ar: "سيتم الإعلان عن المواعيد قريبا. انضم إلى قائمة الانتظار لتكون أول من يعلم عند فتح التسجيل.",
+      en: "Dates are not set yet. Join the waitlist to hear first when registration opens.",
+      ar: "لم تُحدَّد المواعيد بعد. انضم إلى قائمة الانتظار لتكون أول من يعلم عند فتح التسجيل.",
     },
     status: "upcoming",
     enrollment: "waitlist",
@@ -256,10 +265,212 @@ export const cohorts: Cohort[] = [
   },
 ];
 
+export type TrackStatus = "active" | "planned";
+
+export type AcademyTrack = {
+  id: string;
+  title: Localized;
+  /** Short name used in the contact subject, e.g. "interested in the Web track". */
+  shortName: Localized;
+  description: Localized;
+  status: TrackStatus;
+};
+
+export const tracks: AcademyTrack[] = [
+  {
+    id: "mobile",
+    title: { en: "Mobile Development", ar: "تطوير تطبيقات الموبايل" },
+    shortName: { en: "Mobile", ar: "الموبايل" },
+    description: {
+      en: "Dart and Flutter, from programming basics to a team project.",
+      ar: "Dart وFlutter، من أساسيات البرمجة حتى مشروع جماعي.",
+    },
+    status: "active",
+  },
+  {
+    id: "web",
+    title: { en: "Web Development", ar: "تطوير الويب" },
+    shortName: { en: "Web", ar: "الويب" },
+    description: {
+      en: "Building web applications. Part of the longer-term plan; no dates yet.",
+      ar: "بناء تطبيقات الويب. ضمن الخطة بعيدة المدى، ولا توجد مواعيد بعد.",
+    },
+    status: "planned",
+  },
+  {
+    id: "backend",
+    title: { en: "Backend Engineering", ar: "هندسة الأنظمة الخلفية (Backend)" },
+    shortName: { en: "Backend", ar: "الأنظمة الخلفية" },
+    description: {
+      en: "Servers, APIs and databases. Part of the longer-term plan; no dates yet.",
+      ar: "الخوادم وواجهات API وقواعد البيانات. ضمن الخطة بعيدة المدى، ولا توجد مواعيد بعد.",
+    },
+    status: "planned",
+  },
+];
+
+export type RoadmapStep = {
+  id: string;
+  /** Months covered, e.g. [1] or [5]. */
+  month: number;
+  phase: CohortPhase;
+  title: Localized;
+  summary: Localized;
+  topics: LocalizedList;
+};
+
+// Topic-level plan for the Mobile Development Program. Shown with a "may be refined" badge.
+export const roadmap: RoadmapStep[] = [
+  {
+    id: "m1",
+    month: 1,
+    phase: "learning",
+    title: { en: "Dart and programming fundamentals", ar: "Dart وأساسيات البرمجة" },
+    summary: {
+      en: "How programs work, written in Dart.",
+      ar: "كيف تعمل البرامج، بلغة Dart.",
+    },
+    topics: {
+      en: ["Variables, types and control flow", "Functions and collections", "Classes and objects", "Null safety"],
+      ar: ["المتغيرات والأنواع والتحكم في التدفق", "الدوال والمجموعات", "الأصناف والكائنات", "الأمان من القيم الفارغة (Null safety)"],
+    },
+  },
+  {
+    id: "m2",
+    month: 2,
+    phase: "learning",
+    title: { en: "Flutter and UI", ar: "Flutter وواجهات المستخدم" },
+    summary: {
+      en: "Building screens people can use.",
+      ar: "بناء شاشات قابلة للاستخدام.",
+    },
+    topics: {
+      en: ["Widgets", "Layouts", "Forms and input", "Navigation between screens"],
+      ar: ["الودجات (Widgets)", "التخطيطات (Layouts)", "النماذج والإدخال", "التنقل بين الشاشات"],
+    },
+  },
+  {
+    id: "m3",
+    month: 3,
+    phase: "learning",
+    title: { en: "App logic and data", ar: "منطق التطبيق والبيانات" },
+    summary: {
+      en: "Connecting the app to real data.",
+      ar: "ربط التطبيق ببيانات حقيقية.",
+    },
+    topics: {
+      en: ["Managing state", "APIs and HTTP", "JSON", "Asynchronous code", "Loading and error states"],
+      ar: ["إدارة الحالة", "واجهات API وبروتوكول HTTP", "JSON", "البرمجة غير المتزامنة", "حالات التحميل والأخطاء"],
+    },
+  },
+  {
+    id: "m4",
+    month: 4,
+    phase: "learning",
+    title: { en: "Professional practices", ar: "الممارسات المهنية" },
+    summary: {
+      en: "Habits that make code easy to work on.",
+      ar: "عادات تجعل العمل على الكود أسهل.",
+    },
+    topics: {
+      en: ["Clean code", "Git and GitHub", "Debugging", "Basic testing"],
+      ar: ["الكود النظيف", "Git وGitHub", "تتبّع الأخطاء وإصلاحها", "أساسيات الاختبار"],
+    },
+  },
+  {
+    id: "m5",
+    month: 5,
+    phase: "practical",
+    title: { en: "Team project: plan and build", ar: "المشروع الجماعي: التخطيط والبناء" },
+    summary: {
+      en: "Working as a team on one app.",
+      ar: "العمل كفريق على تطبيق واحد.",
+    },
+    topics: {
+      en: ["Understanding requirements", "Breaking work into tasks", "Collaborating on GitHub", "Task tracking"],
+      ar: ["فهم المتطلبات", "تقسيم العمل إلى مهام", "التعاون عبر GitHub", "تتبّع المهام"],
+    },
+  },
+  {
+    id: "m6",
+    month: 6,
+    phase: "practical",
+    title: { en: "Team project: review and present", ar: "المشروع الجماعي: المراجعة والعرض" },
+    summary: {
+      en: "Finishing the work and showing it.",
+      ar: "إنهاء العمل وعرضه.",
+    },
+    topics: {
+      en: ["Code review", "Finishing and polishing", "Presenting the result"],
+      ar: ["مراجعة الكود", "الإنهاء والتحسين", "عرض النتيجة"],
+    },
+  },
+];
+
+export type FaqItem = { question: Localized; answer: Localized };
+
+export const academyFaq: FaqItem[] = [
+  {
+    question: { en: "Who is the program for?", ar: "لمن هذا البرنامج؟" },
+    answer: {
+      en: "Beginners, university students, young graduates and people with a little programming experience. No background is required, but steady effort for the full six months is.",
+      ar: "للمبتدئين وطلاب الجامعات والخريجين الجدد ومن لديهم خبرة بسيطة في البرمجة. لا تُشترط خلفية سابقة، لكن يُشترط الجهد المستمر طوال الأشهر الستة.",
+    },
+  },
+  {
+    question: { en: "Do I need a programming background?", ar: "هل أحتاج إلى خلفية في البرمجة؟" },
+    answer: {
+      en: "No. The program starts from the basics and builds up step by step. You will need a computer and a reliable internet connection.",
+      ar: "لا. يبدأ البرنامج من الأساسيات ويتدرّج خطوة بخطوة. ستحتاج إلى جهاز كمبيوتر واتصال إنترنت مستقر.",
+    },
+  },
+  {
+    question: { en: "What is the format?", ar: "ما شكل البرنامج؟" },
+    answer: {
+      en: "Six months, mostly online, with planned in-person sessions in Kigali. Months 1–4 are for learning; months 5–6 are a team project built with Git/GitHub workflows, code reviews and task tracking. The schedule is shared with accepted trainees.",
+      ar: "ستة أشهر، معظمها عن بُعد، مع جلسات حضورية مخطط لها في كيغالي. الأشهر 1–4 للتعلّم، والأشهر 5–6 لمشروع جماعي يُبنى باستخدام سير عمل Git/GitHub ومراجعات الكود وتتبّع المهام. يُشارَك الجدول مع المتدربين المقبولين.",
+    },
+  },
+  {
+    question: { en: "How do I get the certificate?", ar: "كيف أحصل على الشهادة؟" },
+    answer: {
+      en: "The completion certificate is awarded to trainees who meet the completion requirements, including the team project.",
+      ar: "تُمنح شهادة الإتمام للمتدربين الذين يستوفون متطلبات الإتمام، بما في ذلك المشروع الجماعي.",
+    },
+  },
+  {
+    question: { en: "How do I apply?", ar: "كيف أتقدّم؟" },
+    answer: {
+      en: "Seats for Cohort 2 are full. Join the waitlist and we will contact you when registration for Cohort 3 opens.",
+      ar: "مقاعد الدفعة الثانية مكتملة. انضم إلى قائمة الانتظار وسنتواصل معك عند فتح التسجيل للدفعة الثالثة.",
+    },
+  },
+  {
+    question: { en: "Does the program guarantee a job or internship?", ar: "هل يضمن البرنامج وظيفة أو تدريبا عمليا؟" },
+    answer: {
+      en: "No. We help you build skills and a portfolio. Opportunities depend on your skills and on what is available.",
+      ar: "لا. نساعدك على بناء المهارات ومعرض أعمال، أما الفرص فتعتمد على مهاراتك وعلى ما هو متاح.",
+    },
+  },
+  {
+    question: { en: "Is the Academy only mobile?", ar: "هل الأكاديمية مقتصرة على الموبايل؟" },
+    answer: {
+      en: "Mobile comes first. Other tracks are planned, but not scheduled.",
+      ar: "الموبايل أولا. هناك مسارات أخرى مخطط لها، لكن دون مواعيد محددة.",
+    },
+  },
+];
+
 export const getCohortBySlug = (slug: string | undefined) =>
   cohorts.find((cohort) => cohort.hasPage && cohort.slug === slug);
 
 export const activeCohorts = cohorts.filter((cohort) => cohort.status === "active");
+
+/** The next cohort with its own page (Cohort 2 today). */
+export const nextCohort = cohorts.find((cohort) => cohort.status === "upcoming" && cohort.hasPage);
+
+/** The cohort currently taking waitlist sign-ups (Cohort 3 today). */
+export const waitlistCohort = cohorts.find((cohort) => cohort.enrollment === "waitlist");
 
 /** Consented members joined with their person record, localized for PersonCard. */
 export const getCohortCards = (cohort: Cohort, language: Lang): PersonCardData[] =>

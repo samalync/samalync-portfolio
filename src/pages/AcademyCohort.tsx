@@ -46,7 +46,7 @@ const CohortView: React.FC<{ cohort: Cohort }> = ({ cohort }) => {
             <div className="mx-auto max-w-5xl">
               <Link
                 to="/academy"
-                className="mb-8 inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-blue-100 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                className="mb-8 inline-flex min-h-[44px] items-center gap-2 rounded-lg text-sm font-semibold text-blue-100 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               >
                 <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
                 {academy.backToAcademy}

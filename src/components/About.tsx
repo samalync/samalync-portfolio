@@ -1,11 +1,9 @@
 import { memo, useMemo, useState } from "react";
-import { Sparkles } from "lucide-react";
 import SectionHeader, { CountChip } from "@/components/shared/SectionHeader";
 import { PersonGrid } from "@/components/shared/PersonCard";
 import ProfileModal from "@/components/shared/ProfileModal";
-import { CtaButton } from "@/components/shared/Cta";
+import AcademyTeaser from "@/components/academy/AcademyTeaser";
 import { coreTeam, toTeamCard, type PersonCardData } from "@/data/people";
-import { activeCohorts, getCohortCards } from "@/data/academy";
 import { useLanguage } from "@/i18n";
 
 const teamStats = [
@@ -55,13 +53,8 @@ const About = memo(() => {
   const [selectedPerson, setSelectedPerson] = useState<PersonCardData | null>(null);
   const { language, t } = useLanguage();
   const about = t("about");
-  const currentCohort = activeCohorts[0];
 
   const coreCards = useMemo(() => coreTeam.map((person) => toTeamCard(person, language)), [language]);
-  const traineeCards = useMemo(
-    () => (currentCohort ? getCohortCards(currentCohort, language) : []),
-    [currentCohort, language]
-  );
 
   return (
     <section id="about" className="performance-section py-20 bg-white relative overflow-hidden">
@@ -83,36 +76,8 @@ const About = memo(() => {
           <PersonGrid people={coreCards} onSelect={setSelectedPerson} />
         </div>
 
-        {traineeCards.length > 0 && (
-          <div className="mx-auto mb-20 max-w-7xl rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 p-[1px] shadow-lg">
-            <div className="rounded-[calc(2rem-1px)] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
-              <SectionHeader
-                as="h3"
-                size="md"
-                align="start"
-                tone="dark"
-                eyebrow={about.training}
-                eyebrowIcon={<Sparkles className="h-4 w-4 text-cyan-300" aria-hidden="true" />}
-                title={about.trainingTitle}
-                intro={about.trainingIntro}
-                aside={
-                  <CountChip tone="dark">
-                    {traineeCards.length} {about.trainees}
-                  </CountChip>
-                }
-                className="mb-10"
-              />
-
-              <PersonGrid people={traineeCards} onSelect={setSelectedPerson} badge={about.trainee} />
-
-              <div className="mt-10 flex justify-center">
-                <CtaButton href="/academy" variant="light">
-                  {about.academyLink}
-                </CtaButton>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* The Academy has its own pages; trainees are listed per cohort there. */}
+        <AcademyTeaser className="mx-auto mb-20 max-w-5xl" />
 
         {/* Company Stats */}
         <AboutStats labels={about.stats} />

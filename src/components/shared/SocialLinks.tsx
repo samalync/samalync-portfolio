@@ -21,7 +21,7 @@ const SocialLinks: React.FC<SocialLinksProps> = ({ name, linkedin, behance, size
 
   const button = cn(
     "flex items-center justify-center rounded-full text-white shadow-sm transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2",
-    size === "sm" ? "h-10 w-10" : "h-12 w-12"
+    size === "sm" ? "h-11 w-11" : "h-12 w-12"
   );
 
   return (

@@ -44,9 +44,20 @@ export const CohortBadges: React.FC<{ cohort: Cohort; className?: string }> = ({
 
 export type CohortFact = { label: string; value: string };
 
-/** Start, end and seats/trainees, with "TBA" for unknown dates. */
+/** Exact start date only once confirmed; otherwise just its month, or "TBA". */
+export const formatCohortStart = (cohort: Cohort, language: Language, academy: AcademyText) => {
+  if (!cohort.startDate) {
+    return academy.tba;
+  }
+
+  return cohort.startDateConfirmed === false
+    ? formatMonth(cohort.startDate.slice(0, 7), language)
+    : formatDate(cohort.startDate, language);
+};
+
+/** Start, end and seats, with "TBA" for unknown dates. Never shows a trainee count. */
 export const getCohortFacts = (cohort: Cohort, language: Language, academy: AcademyText): CohortFact[] => {
-  const start = cohort.startDate ? formatDate(cohort.startDate, language) : academy.tba;
+  const start = formatCohortStart(cohort, language, academy);
   const end = cohort.endDate
     ? formatDate(cohort.endDate, language)
     : cohort.expectedEnd
@@ -58,14 +69,10 @@ export const getCohortFacts = (cohort: Cohort, language: Language, academy: Acad
     { label: academy.endLabel, value: end },
   ];
 
-  const publicMembers = cohort.members.filter((member) => member.consented).length;
-
-  // A full cohort shows "Seats full" (never a number), even once trainees are listed.
+  // A full cohort shows "Seats full" (never a number); seat totals only while applications are open.
   if (cohort.enrollment === "full") {
     facts.push({ label: academy.seatsLabel, value: academy.enrollment.full });
-  } else if (publicMembers > 0) {
-    facts.push({ label: academy.traineesLabel, value: String(publicMembers) });
-  } else if (cohort.seatsTotal) {
+  } else if (cohort.enrollment === "open" && cohort.seatsTotal) {
     facts.push({ label: academy.seatsLabel, value: fill(academy.seatsCount, { n: cohort.seatsTotal }) });
   }
 

@@ -2,6 +2,7 @@ import React from "react";
 import Header from "@/components/Header";
 import Services from "@/components/Services";
 import Portfolio from "@/components/Portfolio";
+import HomeAcademy from "@/components/academy/HomeAcademy";
 import About from "@/components/About";
 import SelectedClients from "@/components/SelectedClients";
 import Partnerships from "@/components/Partnerships";
@@ -120,6 +121,7 @@ const Index = () => {
 
       <Services onServiceClick={handleServiceClick} />
       <Portfolio />
+      <HomeAcademy />
       <About />
       <SelectedClients />
       <Partnerships />

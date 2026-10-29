@@ -7,12 +7,14 @@ type PageHeroProps = {
   subtitle?: string;
   /** light = Team-style pastel hero, navy = deep blue hero (Academy). */
   variant?: "light" | "navy";
+  /** Short status line shown between the subtitle and the actions (navy only). */
+  chip?: React.ReactNode;
   /** Calls to action, rendered under the subtitle. */
   actions?: React.ReactNode;
   children?: React.ReactNode;
 };
 
-const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, subtitle, variant = "light", actions, children }) => {
+const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, subtitle, variant = "light", chip, actions, children }) => {
   if (variant === "light") {
     return (
       <section className="bg-gradient-to-br from-blue-50 via-white to-cyan-50 pb-16 pt-24">
@@ -42,6 +44,11 @@ const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, subtitle, variant =
         )}
         <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">{title}</h1>
         {subtitle && <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-blue-100 md:text-2xl">{subtitle}</p>}
+        {chip && (
+          <p className="mx-auto mt-8 inline-flex max-w-full items-center gap-2 rounded-full bg-amber-300/15 px-4 py-2 text-sm font-semibold text-amber-100 ring-1 ring-amber-200/30">
+            {chip}
+          </p>
+        )}
         {actions && <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">{actions}</div>}
         {children}
       </div>

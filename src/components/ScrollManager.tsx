@@ -13,7 +13,11 @@ const ScrollManager = () => {
 
     // Wait a frame so the target page has rendered.
     const frame = window.requestAnimationFrame(() => {
-      document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ behavior: "smooth" });
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // scrollIntoView honours the html scroll-padding-top, so targets clear the fixed header.
+      document
+        .getElementById(decodeURIComponent(hash.slice(1)))
+        ?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
     });
 
     return () => window.cancelAnimationFrame(frame);
