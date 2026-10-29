@@ -123,7 +123,7 @@ export const people: Person[] = [
     id: "mohammed-salah",
     name: "Mohammed Salah",
     nameAr: "محمد صلاح",
-    avatar: "/avatars/mohammed-salah.webp?v=20260729",
+    avatar: "/avatars/mohammed-salah.webp?v=20261029",
     linkedin: "https://www.linkedin.com/in/mohammed-salahelden-hassan-647b6128a/",
     team: {
       role: "Flutter Mobile Developer",
@@ -156,7 +156,7 @@ export const people: Person[] = [
     id: "nancy-kwizera-teta",
     name: "Nancy Kwizera Teta",
     nameAr: "نانسي كويزيرا تيتا",
-    avatar: "/avatars/nancy-kwizera-teta.webp?v=20260729",
+    avatar: "/avatars/nancy-kwizera-teta.webp?v=20261029",
     linkedin: "https://www.linkedin.com/in/nancy-teta-kwizera-43a49432b/",
     team: {
       role: "Backend & AI/ML Engineering",
