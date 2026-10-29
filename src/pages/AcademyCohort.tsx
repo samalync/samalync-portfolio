@@ -106,7 +106,7 @@ const CohortView: React.FC<{ cohort: Cohort }> = ({ cohort }) => {
               primary={
                 canApply
                   ? { label: academy.applyNow, href: cohort.applyUrl }
-                  : { label: academy.joinWaitlist, href: communityUrl }
+                  : { label: academy.joinWaitlist, href: communityUrl, subject: fill(academy.waitlistSubjectFrom, { cohort: title }) }
               }
               secondary={{ label: academy.aboutAcademy, href: "/academy" }}
             />

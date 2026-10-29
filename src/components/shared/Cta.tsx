@@ -18,6 +18,8 @@ const variantClass: Record<CtaVariant, string> = {
 type CtaButtonProps = {
   /** External URL (opens in a new tab), internal path, or "#id". Empty = contact section. */
   href?: string;
+  /** Prefills the contact form's subject when the button falls back to the contact section. */
+  subject?: string;
   children: React.ReactNode;
   variant?: CtaVariant;
   icon?: "arrow" | "none";
@@ -26,7 +28,7 @@ type CtaButtonProps = {
 
 const isExternal = (href: string) => /^(https?:|mailto:|tel:)/.test(href);
 
-export const CtaButton: React.FC<CtaButtonProps> = ({ href, children, variant = "primary", icon = "arrow", className }) => {
+export const CtaButton: React.FC<CtaButtonProps> = ({ href, subject, children, variant = "primary", icon = "arrow", className }) => {
   const shared = useLanguage().t("shared");
   const classes = cn(
     "h-12 gap-2 rounded-xl px-6 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2",
@@ -48,7 +50,7 @@ export const CtaButton: React.FC<CtaButtonProps> = ({ href, children, variant = 
 
   return (
     <Button asChild className={classes}>
-      <Link to={href || CONTACT_TARGET}>
+      <Link to={href || CONTACT_TARGET} state={!href && subject ? { subject } : undefined}>
         {children}
         {icon === "arrow" && <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />}
       </Link>
@@ -56,7 +58,7 @@ export const CtaButton: React.FC<CtaButtonProps> = ({ href, children, variant = 
   );
 };
 
-type CtaLink = { label: string; href?: string };
+type CtaLink = { label: string; href?: string; subject?: string };
 
 type CtaBannerProps = {
   title: string;
@@ -82,11 +84,11 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ title, text, primary, seco
       <h2 className="text-3xl font-bold md:text-4xl">{title}</h2>
       {text && <p className="text-lg leading-relaxed text-blue-100">{text}</p>}
       <div className="flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
-        <CtaButton href={primary.href} variant="light">
+        <CtaButton href={primary.href} subject={primary.subject} variant="light">
           {primary.label}
         </CtaButton>
         {secondary && (
-          <CtaButton href={secondary.href} variant="outline-light" icon="none">
+          <CtaButton href={secondary.href} subject={secondary.subject} variant="outline-light" icon="none">
             {secondary.label}
           </CtaButton>
         )}

@@ -83,7 +83,7 @@ const CohortCard: React.FC<{ cohort: Cohort }> = ({ cohort }) => {
 
       <div className="mt-auto">
         {isWaitlist ? (
-          <CtaButton href={communityUrl} className="w-full">
+          <CtaButton href={communityUrl} subject={fill(academy.waitlistSubjectCohort, { cohort: title })} className="w-full">
             {academy.joinWaitlist}
           </CtaButton>
         ) : (
@@ -121,7 +121,7 @@ const Academy: React.FC = () => {
           subtitle={academy.heroSubtitle}
           actions={
             <>
-              <CtaButton href={communityUrl} variant="light">
+              <CtaButton href={communityUrl} subject={academy.waitlistSubject} variant="light">
                 {academy.joinWaitlist}
               </CtaButton>
               <CtaButton href="#cohorts" variant="outline-light" icon="none">
@@ -310,7 +310,7 @@ const Academy: React.FC = () => {
               className="mx-auto max-w-5xl"
               title={academy.finalTitle}
               text={academy.finalText}
-              primary={{ label: academy.joinWaitlist, href: communityUrl }}
+              primary={{ label: academy.joinWaitlist, href: communityUrl, subject: academy.waitlistSubject }}
               secondary={{ label: academy.seeCohorts, href: "#cohorts" }}
             />
           </div>
